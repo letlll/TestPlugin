@@ -1,0 +1,18 @@
+{
+  "customFileOrder": {
+    "/": [
+      "好测的",
+      "好吃的",
+      "要求.md",
+      "avatar.jpg"
+    ],
+    "好测的": [],
+    "好吃的": [
+      "好吃的/001",
+      "好吃的/002.md"
+    ],
+    "好吃的/001": []
+  },
+  "draggingEnabled": true,
+  "selectedSortOrder": "manual-sorting"
+}
