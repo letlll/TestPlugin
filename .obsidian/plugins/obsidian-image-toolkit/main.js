@@ -2,7 +2,7 @@
 
 var obsidian = require('obsidian');
 
-
+const { shell } = require('electron');
 
 var crypto = require('crypto');
 
@@ -324,10 +324,10 @@ var zhCN = {
     MOVE_THE_IMAGE_NAME: "为移动图片设置快捷键",
     MOVE_THE_IMAGE_DESC: "你可以利用快捷键来移动弹出层上的图片。",
     SWITCH_THE_IMAGE_NAME: "为切换图片设置快捷键",
-    SWITCH_THE_IMAGE_DESC: "你可以利用快捷键来切换在图片导航栏上的图片至上一张/下一张。(注意: 仅当开启“展示图片导航”后，才能使用该快捷键来控制切换图片。)",
+    SWITCH_THE_IMAGE_DESC: "你可以利用快捷键来切换在图片导航栏上的图片至上一张/下一张。(注意: 仅当开启'展示图片导航'后，才能使用该快捷键来控制切换图片。)",
     DOUBLE_CLICK_TOOLBAR_NAME: "双击",
     VIEW_TRIGGER_HOTKEY_NAME: "为触发弹出查看图片设置快捷键",
-    VIEW_TRIGGER_HOTKEY_DESC: "当你设置为“无”，你可以直接点击预览图片；否则，须按住已配置的修改键（Ctrl、Alt、Shift）才能点击查看某个图片。",
+    VIEW_TRIGGER_HOTKEY_DESC: "当你设置为'无'，你可以直接点击预览图片；否则，须按住已配置的修改键（Ctrl、Alt、Shift）才能点击查看某个图片。",
     // MODIFIER_HOTKEYS
     NONE: "无",
     // toolbar icon title
@@ -1344,6 +1344,48 @@ class ContainerView {
             }
             return this.parentContainerEl;
         };
+        // 在ContainerView构造函数里加
+this.handleImgClick = (event) => {
+    // 这里的 this 一定是ContainerView实例
+    const activeImg = this.imgGlobalStatus.activeImg;
+    console.log('点击图片，activeImg:', activeImg);
+    this.openImageWithSystemViewer(activeImg);
+};
+        this.openImageWithSystemViewer = (activeImg) => {
+            console.log('双击事件触发，activeImg:', activeImg);
+            let src = activeImg?.imgViewEl?.src;
+            if (!src) {
+                console.error('图片 src 为空');
+                new obsidian.Notice('图片 src 为空');
+                return;
+            }
+        
+            let file = null;
+            if (src.startsWith('app://local/')) {
+                let vaultPath = src.replace('app://local/', '');
+                file = this.plugin.app.vault.getAbstractFileByPath(vaultPath);
+            } else if (!src.match(/^https?:\/\//)) {
+                file = this.plugin.app.metadataCache.getFirstLinkpathDest(src, this.plugin.app.workspace.getActiveFile()?.path || '');
+            }
+        
+            if (file && file.path) {
+                const vaultBase = this.plugin.app.vault.adapter.basePath || this.plugin.app.vault.adapter.getBasePath();
+                const absPath = require('path').join(vaultBase, file.path);
+                console.log('准备打开图片:', absPath);
+                shell.openPath(absPath).then(result => {
+                    if (result) {
+                        console.error('打开失败:', result);
+                        new obsidian.Notice('打开图片失败: ' + result);
+                    } else {
+                        console.log('已调用系统图片查看器');
+                        new obsidian.Notice('已调用系统图片查看器');
+                    }
+                });
+            } else {
+                console.error('无法定位本地图片文件，无法用系统图片查看器打开');
+                new obsidian.Notice('无法定位本地图片文件，无法用系统图片查看器打开');
+            }
+        };
         //region ================== Container View & Init ========================
         /**
          * Render when clicking an image (core step)
@@ -1729,6 +1771,10 @@ class ContainerView {
                 matchedImg.imgViewEl.addEventListener('mouseup', this.mouseupImgView);
                 // zoom the image via mouse wheel
                 matchedImg.imgViewEl.addEventListener('mousewheel', this.mousewheelViewContainer, { passive: true });
+                // 新增：单击图片时用系统图片查看器打开
+                matchedImg.imgViewEl.removeEventListener('click', this.handleImgClick); // 先移除
+                matchedImg.imgViewEl.addEventListener('click', this.handleImgClick);    // 再绑定
+
             }
             else {
                 if (!this.imgGlobalStatus.popup) {
@@ -1748,6 +1794,7 @@ class ContainerView {
                 matchedImg.imgViewEl.removeEventListener('mousedown', this.mousedownImgView);
                 matchedImg.imgViewEl.removeEventListener('mouseup', this.mouseupImgView);
                 matchedImg.imgViewEl.removeEventListener('mousewheel', this.mousewheelViewContainer);
+                matchedImg.imgViewEl.removeEventListener('click', this.handleImgClick);
                 if (matchedImg.refreshImgInterval) {
                     clearInterval(matchedImg.refreshImgInterval);
                     matchedImg.refreshImgInterval = null;
@@ -1985,7 +2032,8 @@ class ContainerView {
                     if (!activeImg)
                         activeImg = this.imgGlobalStatus.activeImg;
                     // console.log('mousedownImgView: double click...', activeImg.index);
-                    this.clickImgToolbar(null, this.plugin.settings.doubleClickToolbar, activeImg);
+                   // this.clickImgToolbar(null, this.plugin.settings.doubleClickToolbar, activeImg);
+                   this.openImageWithSystemViewer(activeImg);
                 }
             }, 200);
         };

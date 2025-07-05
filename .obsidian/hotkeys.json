@@ -1,0 +1,10 @@
+{
+  "hot-reload:scan-for-changes": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "End"
+    }
+  ]
+}

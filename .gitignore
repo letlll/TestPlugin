@@ -1,0 +1,13 @@
+# Obsidian files
+.obsidian/workspace.json
+.obsidian/workspace
+.obsidian/workspace.json
+.obsidian/cache
+.trash/
+
+# Exclude Max directory
+Max/
+
+# OS files
+.DS_Store
+Thumbs.db 

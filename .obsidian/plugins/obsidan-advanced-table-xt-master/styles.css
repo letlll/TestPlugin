@@ -1,0 +1,110 @@
+/* Advanced Table XT Plugin Styles */
+
+/* Table Toolbar */
+.advanced-table-toolbar-container {
+  margin: 10px 0;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: var(--background-secondary);
+  z-index: 100;
+}
+
+/* Ribbon icon active state */
+.is-active .lucide-table-toolbar-toggle {
+  color: var(--interactive-accent);
+}
+
+.is-active {
+  color: var(--interactive-accent);
+  background-color: var(--background-modifier-hover);
+}
+
+.advanced-table-toolbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  padding: 5px;
+  margin: 0;
+  border-radius: 5px;
+  background-color: var(--background-secondary);
+}
+
+.advanced-table-toolbar-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 2px;
+}
+
+.advanced-table-toolbar-group-label {
+  font-size: 12px;
+  margin-right: 5px;
+  opacity: 0.7;
+}
+
+.advanced-table-toolbar-separator {
+  width: 1px;
+  height: 24px;
+  margin: 0 5px;
+  background-color: var(--background-modifier-border);
+}
+
+.advanced-table-toolbar-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 3px;
+  border: none;
+  border-radius: 3px;
+  background-color: transparent;
+  cursor: pointer;
+  color: var(--text-normal);
+}
+
+.advanced-table-toolbar-button:hover {
+  background-color: var(--background-modifier-hover);
+}
+
+.advanced-table-toolbar-button:active {
+  background-color: var(--background-modifier-active);
+}
+
+/* Selected table */
+table.advanced-table-selected {
+  outline: 2px solid var(--interactive-accent);
+}
+
+/* Selected cell */
+.selected-cell {
+  background-color: var(--text-selection);
+}
+
+/* Merged cells styling */
+[colspan], [rowspan] {
+    text-align: center;
+  vertical-align: middle;
+}
+
+/* Customize table appearance */
+.advanced-table-styled {
+  border-collapse: collapse;
+}
+
+.advanced-table-styled td,
+.advanced-table-styled th {
+  border: 1px solid var(--background-modifier-border);
+  padding: 4px 8px;
+}
+
+/* Striped rows */
+.advanced-table-striped tr:nth-child(odd) td {
+  background-color: var(--background-secondary);
+}
+
+/* Hover row */
+.advanced-table-hover tr:hover td {
+  background-color: var(--background-modifier-hover);
+}

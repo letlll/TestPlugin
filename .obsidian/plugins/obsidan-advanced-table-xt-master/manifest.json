@@ -1,0 +1,13 @@
+{
+	"id": "obsidan-advanced-table-xt-master",
+	"name": "Advanced Table XT",
+	"version": "1.3.0",
+	"minAppVersion": "1.5.0",
+	"description": "Enhanced tables with cell merging, table IDs, and a visual toolbar for Obsidian tables",
+	"author": "NicoNekoru",
+	"authorUrl": "https://github.com/NicoNekoru",
+	"fundingUrl": "https://www.buymeacoffee.com/niconekoru",
+	"isDesktopOnly": false,
+	"main": "main.js",
+	"css": "styles.css"
+}

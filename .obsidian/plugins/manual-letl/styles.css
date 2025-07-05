@@ -1,0 +1,52 @@
+div.nav-files-container.manual-sorting-enabled {
+	& > div, div.tree-item-children {
+		min-height: 0 !important;
+
+		& > div:not(.tree-item) {
+			margin-bottom: 0 !important;
+		}
+	}
+}
+
+.menu-item[data-section="manual-sorting"] {
+	& .menu-item-icon:first-child {
+		display: flex;
+	}
+
+	& .dragging-enabled-checkbox {
+		margin-bottom: -2px;
+
+		& input {
+			margin: 0;
+		}
+	}
+
+	.svg-icon.lucide-pin {
+		transform: rotate(45deg);
+		margin-bottom: -2px;
+	}
+}
+
+.manual-sorting-modal .modal-buttons {
+	display: flex;
+	gap: 8px;
+}
+
+
+/* ========== Fix the hover state after dragging ========== */
+
+/* Simulate the hover state for the dragged item */
+.tree-item-self.hovered {
+	color: var(--nav-item-color-hover);
+	background-color: var(--nav-item-background-hover);
+	font-weight: var(--nav-item-weight-hover);
+}
+
+/* Reset default styles for :hover elements when the hover state is simulated manually */
+body:not(.is-grabbing):has(.tree-item-self.hovered) .tree-item-self.is-clickable:not(.hovered):not(.is-active):hover {
+	color: var(--nav-item-color);
+	background-color: var(--nav-item-background);
+	font-weight: var(--nav-item-weight);
+}
+
+/* ======================================================== */
