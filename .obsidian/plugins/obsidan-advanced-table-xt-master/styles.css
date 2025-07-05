@@ -1,110 +1,120 @@
 /* Advanced Table XT Plugin Styles */
 
-/* Table Toolbar */
-.advanced-table-toolbar-container {
-  margin: 10px 0;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  background-color: var(--background-secondary);
-  z-index: 100;
-}
-
-/* Ribbon icon active state */
-.is-active .lucide-table-toolbar-toggle {
-  color: var(--interactive-accent);
-}
-
-.is-active {
-  color: var(--interactive-accent);
-  background-color: var(--background-modifier-hover);
-}
-
+/* 表格样式 */
 .advanced-table-toolbar {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 5px;
-  padding: 5px;
-  margin: 0;
-  border-radius: 5px;
-  background-color: var(--background-secondary);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    background-color: var(--background-secondary);
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.advanced-table-toolbar-group {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin: 0 2px;
-}
-
-.advanced-table-toolbar-group-label {
-  font-size: 12px;
-  margin-right: 5px;
-  opacity: 0.7;
-}
-
-.advanced-table-toolbar-separator {
-  width: 1px;
-  height: 24px;
-  margin: 0 5px;
-  background-color: var(--background-modifier-border);
+.advanced-table-toolbar-container {
+    position: absolute;
+    z-index: 1000;
 }
 
 .advanced-table-toolbar-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 28px;
-  height: 28px;
-  padding: 3px;
-  border: none;
-  border-radius: 3px;
-  background-color: transparent;
-  cursor: pointer;
-  color: var(--text-normal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 3px;
+    background-color: var(--interactive-normal);
+    cursor: pointer;
+    transition: background-color 0.2s;
 }
 
 .advanced-table-toolbar-button:hover {
-  background-color: var(--background-modifier-hover);
+    background-color: var(--interactive-hover);
 }
 
-.advanced-table-toolbar-button:active {
-  background-color: var(--background-modifier-active);
+.advanced-table-toolbar-button.active {
+    background-color: var(--interactive-accent);
+    color: var(--text-on-accent);
 }
 
-/* Selected table */
+.advanced-table-toolbar-group {
+    display: flex;
+    gap: 3px;
+    border-right: 1px solid var(--background-modifier-border);
+    padding-right: 5px;
+}
+
+.advanced-table-toolbar-group:last-child {
+    border-right: none;
+}
+
+/* 表格选择样式 */
 table.advanced-table-selected {
-  outline: 2px solid var(--interactive-accent);
+    outline: 2px solid var(--interactive-accent);
+    outline-offset: 2px;
 }
 
-/* Selected cell */
-.selected-cell {
-  background-color: var(--text-selection);
+/* 单元格选择样式 */
+td.advanced-table-cell-selected, th.advanced-table-cell-selected {
+    background-color: var(--text-selection) !important;
 }
 
-/* Merged cells styling */
-[colspan], [rowspan] {
+/* 合并单元格样式 */
+.obs-merged-cell {
+    background-color: var(--background-secondary-alt);
+}
+
+/* 表格样式应用标记 */
+table[data-table-styles-applied="true"] {
+    /* 添加一个微小的视觉指示，表明样式已应用 */
+    box-shadow: 0 0 0 1px var(--background-modifier-border);
+}
+
+/* 确保表格内的内容不会溢出 */
+table td, table th {
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-break: break-word;
+}
+
+/* 表格悬停效果 */
+table:hover {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 确保表格在预览模式下正确显示 */
+.markdown-preview-view table {
+    border-collapse: collapse;
+    margin: 1em 0;
+    overflow: auto;
+    width: 100%;
+}
+
+/* 表格单元格样式 */
+.markdown-preview-view td, .markdown-preview-view th {
+    border: 1px solid var(--background-modifier-border);
+    padding: 6px 13px;
+}
+
+/* 表头样式 */
+.markdown-preview-view th {
+    background-color: var(--background-secondary);
+    font-weight: bold;
+}
+
+/* 奇偶行样式 */
+.markdown-preview-view tr:nth-child(2n) {
+    background-color: var(--background-secondary-alt);
+}
+
+/* 合并单元格边框修复 */
+.markdown-preview-view td[colspan], .markdown-preview-view th[colspan] {
     text-align: center;
-  vertical-align: middle;
 }
 
-/* Customize table appearance */
-.advanced-table-styled {
-  border-collapse: collapse;
-}
-
-.advanced-table-styled td,
-.advanced-table-styled th {
-  border: 1px solid var(--background-modifier-border);
-  padding: 4px 8px;
-}
-
-/* Striped rows */
-.advanced-table-striped tr:nth-child(odd) td {
-  background-color: var(--background-secondary);
-}
-
-/* Hover row */
-.advanced-table-hover tr:hover td {
-  background-color: var(--background-modifier-hover);
+.markdown-preview-view td[rowspan], .markdown-preview-view th[rowspan] {
+    vertical-align: middle;
 }
