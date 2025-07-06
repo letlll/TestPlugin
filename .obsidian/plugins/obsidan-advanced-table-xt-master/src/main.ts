@@ -11,6 +11,7 @@ import { loadIcons } from './icons';
 import { Editor } from 'obsidian';
 import { App, PluginManifest } from 'obsidian';
 import { setupPreviewModeTableSelection } from './setupPreviewModeTableSelection';
+import { renderTablesWithStoredStyles } from './tableStyleRenderer';
 
 interface PluginSettings {
 	nativeProcessing: boolean;
@@ -45,6 +46,10 @@ export class ObsidianSpreadsheet extends Plugin {
 	markdownSourceEditor: MarkdownSourceEditor;
 	currentEditingTable: { startLine: number, endLine: number, content: string } | null = null;
 	
+	// 添加视图模式状态跟踪
+	lastPreviewModeState: boolean = false;
+	viewModeChangeHandler: () => void;
+
 	constructor(app: App, manifest: PluginManifest) {
 		super(app, manifest);
 		this.handleTableClick = this.handleTableClick.bind(this);
@@ -342,6 +347,14 @@ export class ObsidianSpreadsheet extends Plugin {
 		} catch (error) {
 			console.error('Error loading Advanced Table XT plugin:', error);
 		}
+		
+		// 设置视图模式变化监听
+		this.setupViewModeChangeListener();
+		
+		// 初始检查当前模式
+		this.checkAndRenderTables();
+		
+		console.log('Advanced Table XT 插件已加载');
 	}
 	
 	/**
@@ -871,6 +884,40 @@ export class ObsidianSpreadsheet extends Plugin {
 	 */
 	async readTableIdFromMarkdown(table: HTMLElement): Promise<string | null> {
 		try {
+			// 尝试从表格元素的data-table-id属性获取ID
+			const existingId = table.getAttribute('data-table-id');
+			if (existingId) {
+				console.log(`从表格元素属性中获取ID: ${existingId}`);
+				return existingId;
+			}
+			
+			// 获取当前活动视图
+			const activeView = this.app.workspace.getActiveViewOfType(MarkdownView);
+			if (!activeView) {
+				console.log('未找到活动视图');
+				return null;
+			}
+			
+			// 尝试从预览模式的渲染上下文获取ID
+			if (activeView.getMode() === 'preview') {
+				// @ts-ignore - Obsidian API可能没有完全类型化
+				const sectionInfo = activeView.previewMode.renderer?.getSectionInfo?.(table);
+				if (sectionInfo && sectionInfo.text) {
+					const text = sectionInfo.text;
+					const idMatch = text.match(/<!--\s*table[-_]?id:\s*([a-zA-Z0-9_\-:.]+)\s*-->/i) || 
+								  text.match(/<!--\s*tableid:\s*([a-zA-Z0-9_\-:.]+)\s*-->/i) ||
+								  text.match(/<!--\s*id:\s*([a-zA-Z0-9_\-:.]+)\s*-->/i) ||
+								  text.match(/<!--\s*(tbl|table):\s*([a-zA-Z0-9_\-:.]+)\s*-->/i) ||
+								  text.match(/<!--table-id:([a-zA-Z0-9_\-:.]+)-->/i);
+					
+					if (idMatch) {
+						const id = idMatch[1] || idMatch[2];
+						console.log(`从预览模式渲染上下文中找到表格ID: ${id}`);
+						return id;
+					}
+				}
+			}
+			
 			// 获取当前活动文件
 			const activeFile = this.app.workspace.getActiveFile();
 			if (!activeFile) {
@@ -921,6 +968,10 @@ export class ObsidianSpreadsheet extends Plugin {
 									// 提取ID
 									const id = idMatch[1] || idMatch[2];
 									console.log(`从Markdown内容中找到表格ID: ${id}`);
+									
+									// 将ID保存到表格元素上，以便后续使用
+									table.setAttribute('data-table-id', id);
+									
 									return id;
 								}
 								
@@ -930,8 +981,19 @@ export class ObsidianSpreadsheet extends Plugin {
 								}
 							}
 							
-							// 如果没有找到ID
-							console.log('未在Markdown内容中找到表格ID');
+							// 如果没有找到ID，生成一个新的ID
+							if (this.settings.enableTableIds) {
+								const newId = this.tableIdManager.generateTableId();
+								console.log(`未找到表格ID，生成新ID: ${newId}`);
+								
+								// 将ID保存到表格元素上，以便后续使用
+								table.setAttribute('data-table-id', newId);
+								
+								return newId;
+							}
+							
+							// 如果禁用了表格ID功能，则返回null
+							console.log('未在Markdown内容中找到表格ID，且表格ID功能已禁用');
 							return null;
 						}
 						
@@ -947,6 +1009,57 @@ export class ObsidianSpreadsheet extends Plugin {
 			console.error('从Markdown内容读取表格ID时出错:', error);
 			return null;
 		}
+	}
+	
+	
+	/**
+	 * 设置视图模式变化监听
+	 */
+	setupViewModeChangeListener(): void {
+		// 移除可能存在的旧监听器
+		if (this.viewModeChangeHandler) {
+			this.app.workspace.off('active-leaf-change', this.viewModeChangeHandler);
+			this.app.workspace.off('layout-change', this.viewModeChangeHandler);
+		}
+		
+		// 创建新的处理函数
+		this.viewModeChangeHandler = () => {
+			this.checkAndRenderTables();
+		};
+		
+		// 注册监听器
+		this.registerEvent(
+			this.app.workspace.on('active-leaf-change', this.viewModeChangeHandler)
+		);
+		
+		this.registerEvent(
+			this.app.workspace.on('layout-change', this.viewModeChangeHandler)
+		);
+		
+		console.log("已设置视图模式变化监听器");
+	}
+
+	/**
+	 * 检查当前模式并在需要时渲染表格
+	 */
+	checkAndRenderTables(): void {
+		// 获取当前活动视图
+		const activeView = this.app.workspace.getActiveViewOfType(MarkdownView);
+		if (!activeView) return;
+		
+		// 检查是否是预览模式
+		const isPreviewMode = activeView.getMode() === 'preview';
+		
+		// 如果是预览模式，且与上次状态不同，触发渲染
+		if (isPreviewMode && !this.lastPreviewModeState) {
+			// 延迟执行，确保DOM已完全加载
+			setTimeout(() => {
+				renderTablesWithStoredStyles(this);
+			}, 300);
+		}
+		
+		// 记录当前状态
+		this.lastPreviewModeState = isPreviewMode;
 	}
 }
 
