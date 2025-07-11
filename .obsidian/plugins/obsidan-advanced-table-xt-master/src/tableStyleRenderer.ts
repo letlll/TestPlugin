@@ -191,8 +191,8 @@ export async function renderTablesWithStoredStyles(plugin: ObsidianSpreadsheet):
         console.log(`找到 ${tables.length} 个表格需要应用样式`);
         
         // 加载所有表格数据
-        const allData = await plugin.loadData();
-        if (!allData.tables) {
+        const allData = await plugin.loadData() || {};
+        if (!allData || !allData.tables) {
             console.log("没有保存的表格样式数据");
             return;
         }
