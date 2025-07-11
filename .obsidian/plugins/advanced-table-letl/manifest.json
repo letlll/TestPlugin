@@ -1,0 +1,13 @@
+{
+	"id": "advanced-table",
+	"name": "Advanced Table",
+	"version": "1.8.0",
+	"minAppVersion": "1.5.0",
+	"description": "Enhanced tables with cell merging, table IDs, and a visual toolbar for Obsidian tables",
+	"author": "letl",
+	"authorUrl": "https://github.com/letlll",
+	"fundingUrl": "https://github.com/letlll",
+	"isDesktopOnly": false,
+	"main": "main.js",
+	"css": "styles.css"
+}

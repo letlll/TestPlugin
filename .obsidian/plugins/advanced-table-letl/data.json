@@ -1,0 +1,847 @@
+{
+  "nativeProcessing": true,
+  "paragraphs": true,
+  "enableCellMerging": true,
+  "confirmMergeNonEmpty": true,
+  "enableTableIds": true,
+  "idPrefix": "tbl",
+  "autoCenterMergedCells": true,
+  "toolbarEnabled": true,
+  "enableEditModeOperations": true,
+  "tableMetadata": {
+    "tbl-17515241-2cff464": {
+      "rowHeights": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "91px"
+      ],
+      "colWidths": [
+        "139px",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "structureHash": "rows:7,cols:6,header:I|-|have|horizontal|headers||,data:also||foo|bar|<||have|<|1|2|3||,merged:1,3:2xnull|1,4:<|2,0:2xnull|2,1:<|",
+      "lastModified": 1751524181984
+    },
+    "tbl-17515242-2cff464": {
+      "rowHeights": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "117px"
+      ],
+      "colWidths": [
+        "176px",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "structureHash": "rows:7,cols:6,header:I|-|have|horizontal|headers||,data:also||foo|bar|<||have|<|1|2|3||,merged:1,3:2xnull|1,4:<|2,0:2xnull|2,1:<|",
+      "lastModified": 1751524264553
+    },
+    "tbl-17515243-34dea466": {
+      "rowHeights": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "colWidths": [
+        "239px",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "structureHash": "rows:6,cols:5,header:年度|Q1|Q2|合计||,data:2024|10|12|<||2025|14|15|<||,merged:1,2:2xnull|1,3:<|2,2:2xnull|2,3:<|",
+      "lastModified": 1751524399151
+    },
+    "72575861-ab02-4852-bfee-f2d9e3d66aeb": {
+      "id": "72575861-ab02-4852-bfee-f2d9e3d66aeb",
+      "paths": [
+        "未命名.canvas"
+      ],
+      "rev": 0,
+      "lastModified": 1751618750872,
+      "structureHash": "rows:0,cols:0,",
+      "contentHash": "0",
+      "headerFP": ""
+    }
+  },
+  "tables": {
+    "72575861-ab02-4852-bfee-f2d9e3d66aeb": {
+      "locations": [],
+      "structure": {
+        "rowCount": 5,
+        "colCount": 3,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "colWidths": [
+          "",
+          "",
+          ""
+        ],
+        "alignment": [
+          "",
+          "",
+          ""
+        ]
+      }
+    },
+    "tbl-20250704-ijommidm": {
+      "locations": [
+        {
+          "path": "好吃的/未命名.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 7,
+        "colCount": 6,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "29.7969px",
+          "29.7969px",
+          "29.7969px",
+          "29.7969px",
+          "29.7969px",
+          "9px",
+          "9px"
+        ],
+        "colWidths": [
+          "77.25px",
+          "53.2969px",
+          "53.2969px",
+          "90.6016px",
+          "74.2266px",
+          "53.2969px"
+        ],
+        "alignment": [
+          "start",
+          "start",
+          "start",
+          "start",
+          "start",
+          "start"
+        ]
+      }
+    },
+    "tbl-20250704-7kxtqu": {
+      "id": "tbl-20250704-7kxtqu",
+      "locations": [
+        {
+          "path": "好吃的/未命名.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 7,
+        "colCount": 5,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "84px",
+          "auto"
+        ],
+        "colWidths": [
+          "234px",
+          "185px",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "center",
+          "center",
+          "center",
+          "center",
+          "center",
+          "center"
+        ],
+        "cellStyles": [
+          {
+            "row": 2,
+            "col": 1,
+            "textAlign": "center"
+          },
+          {
+            "row": 0,
+            "col": 1,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          },
+          {
+            "row": 1,
+            "col": 1,
+            "textAlign": "left"
+          },
+          {
+            "row": 4,
+            "col": 3,
+            "verticalAlign": "top"
+          }
+        ]
+      }
+    },
+    "tbl-20250704-uosstc": {
+      "id": "tbl-20250704-uosstc",
+      "locations": [
+        {
+          "path": "好吃的/未命名.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 7,
+        "colCount": 6,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "left",
+          "left"
+        ]
+      }
+    },
+    "tbl-20250704-y2ho2q": {
+      "id": "tbl-20250704-y2ho2q",
+      "locations": [
+        {
+          "path": "好吃的/未命名.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 7,
+        "colCount": 5,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "left"
+        ]
+      }
+    },
+    "tbl-20250704-opgql2": {
+      "id": "tbl-20250704-opgql2",
+      "locations": [
+        {
+          "path": "test-table.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 6,
+        "colCount": 6,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "94px",
+          "34px",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "36px",
+          "39px",
+          "137px",
+          "20px",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 1,
+            "col": 3,
+            "textAlign": "center"
+          },
+          {
+            "row": 2,
+            "col": 4,
+            "textAlign": "center"
+          },
+          {
+            "row": 1,
+            "col": 4,
+            "textAlign": "center"
+          },
+          {
+            "row": 2,
+            "col": 3,
+            "textAlign": "center"
+          },
+          {
+            "row": 3,
+            "col": 3,
+            "textAlign": "center"
+          },
+          {
+            "row": 4,
+            "col": 3,
+            "textAlign": "center"
+          },
+          {
+            "row": 5,
+            "col": 3,
+            "textAlign": "center"
+          },
+          {
+            "row": 1,
+            "col": 2,
+            "textAlign": "center"
+          }
+        ]
+      }
+    },
+    "tbl-20250705-g8hofm": {
+      "id": "tbl-20250705-g8hofm",
+      "locations": [
+        {
+          "path": "好吃的/未命名.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 7,
+        "colCount": 6,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "center",
+          "center",
+          "center",
+          "center",
+          "center",
+          "center"
+        ]
+      }
+    },
+    "tbl-20250705-gjlm5r": {
+      "id": "tbl-20250705-gjlm5r",
+      "locations": [
+        {
+          "path": "好吃的/未命名.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 7,
+        "colCount": 6,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "center",
+          "center",
+          "center",
+          "center",
+          "center",
+          "center"
+        ]
+      }
+    },
+    "tbl-20250705-bd6d4g": {
+      "id": "tbl-20250705-bd6d4g",
+      "locations": [
+        {
+          "path": "test-table-edit.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 4,
+        "colCount": 3,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "79px",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": []
+      }
+    },
+    "tbl-20250705-bj1acf": {
+      "id": "tbl-20250705-bj1acf",
+      "locations": [
+        {
+          "path": "test-table-edit.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 4,
+        "colCount": 3,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "96px",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": []
+      }
+    },
+    "tbl-20250705-xldcks7a": {
+      "id": "tbl-20250705-xldcks7a",
+      "locations": [
+        {
+          "path": "test-table.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 6,
+        "colCount": 4,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "34px",
+          "auto",
+          "34px",
+          "auto",
+          "34px",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": []
+      }
+    },
+    "tbl-20250705-h42oizbg": {
+      "id": "tbl-20250705-h42oizbg",
+      "locations": [
+        {
+          "path": "test-table-edit.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 4,
+        "colCount": 3,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "119px",
+          "186px",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 1,
+            "col": 2,
+            "textAlign": "center"
+          },
+          {
+            "row": 2,
+            "col": 2,
+            "textAlign": "center"
+          },
+          {
+            "row": 3,
+            "col": 2,
+            "textAlign": "center"
+          }
+        ]
+      }
+    },
+    "tbl-20250705-w32d8zwh": {
+      "id": "tbl-20250705-w32d8zwh",
+      "locations": [
+        {
+          "path": "test-table-edit.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 4,
+        "colCount": 3,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 1,
+            "col": 2,
+            "textAlign": "center"
+          },
+          {
+            "row": 2,
+            "col": 2,
+            "textAlign": "center"
+          },
+          {
+            "row": 3,
+            "col": 2,
+            "textAlign": "center"
+          }
+        ]
+      }
+    },
+    "tbl-20250706-f236klly": {
+      "id": "tbl-20250706-f236klly",
+      "locations": [
+        {
+          "path": "好吃的/未命名.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 7,
+        "colCount": 6,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "135px",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 0,
+            "col": 1,
+            "textAlign": "center"
+          }
+        ]
+      }
+    },
+    "tbl-20250706-未命bcrega": {
+      "id": "tbl-20250706-未命bcrega",
+      "locations": [
+        {
+          "path": "好吃的/未命名.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 7,
+        "colCount": 5,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "150px",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 1,
+            "col": 3,
+            "textAlign": "center"
+          }
+        ]
+      }
+    },
+    "tbl-20250706-未命sepyxw": {
+      "id": "tbl-20250706-未命sepyxw",
+      "locations": [
+        {
+          "path": "好吃的/未命名.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 7,
+        "colCount": 5,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 4,
+            "col": 3,
+            "verticalAlign": "top"
+          }
+        ]
+      }
+    },
+    "tbl-20250706-3aj6v2g8": {
+      "id": "tbl-20250706-3aj6v2g8",
+      "locations": [
+        {
+          "path": "未命名/table_id 3.0.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 2,
+        "colCount": 3,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "96px",
+          "auto"
+        ],
+        "colWidths": [
+          "314px",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 0,
+            "col": 0,
+            "textAlign": "center"
+          },
+          {
+            "row": 0,
+            "col": 1,
+            "textAlign": "left",
+            "verticalAlign": "bottom"
+          }
+        ]
+      }
+    }
+  }
+}
