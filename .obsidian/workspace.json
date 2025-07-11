@@ -30,7 +30,7 @@
               "state": {
                 "file": "test-table-edit.md",
                 "mode": "preview",
-                "source": false
+                "source": true
               },
               "icon": "lucide-file",
               "title": "test-table-edit"
@@ -192,13 +192,13 @@
   },
   "active": "b6c9e844032e9729",
   "lastOpenFiles": [
+    "test-table.md",
+    "test-table-edit.md",
     "未命名/id 5.0.md",
     "好吃的/未命名.md",
     "未命名/错误id.md",
     "未命名.md",
     "未命名/id错误.md",
-    "test-table.md",
-    "test-table-edit.md",
     "未命名/合并5.0.md",
     "未命名.canvas",
     "好吃的/问题.md",

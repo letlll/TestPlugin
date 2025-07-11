@@ -1,6 +1,7 @@
 {
   "customFileOrder": {
     "/": [
+      "advanced-table",
       "test-table-edit.md",
       "test-table.md",
       "Excalidraw",
@@ -43,6 +44,7 @@
       "未命名/错误分析.md",
       "未命名/好.md"
     ],
+    "advanced-table": [],
     "Excalidraw": [
       "Excalidraw/Drawing 2025-07-04 16.50.41.excalidraw.md"
     ],
