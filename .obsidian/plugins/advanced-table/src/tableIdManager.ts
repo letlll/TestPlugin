@@ -171,7 +171,7 @@ export class TableIdManager {
      * @param table 表格HTML元素
      * @returns 表格ID或null
      */
-    private getTableIdFromComment(table: HTMLElement): string | null {
+    public getTableIdFromComment(table: HTMLElement): string | null {
         try {
             console.log('开始从HTML注释中查找表格ID');
             console.log('表格DOM:', table.outerHTML.substring(0, 100) + '...');

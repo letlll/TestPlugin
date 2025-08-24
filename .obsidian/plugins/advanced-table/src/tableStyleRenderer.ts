@@ -319,6 +319,20 @@ export class TableStyleRenderer extends MarkdownRenderChild {
             
             if (!tables.length) return;
             
+            // 获取当前活动文件
+            const activeFile = this.getApp().workspace.getActiveFile();
+            if (!activeFile) {
+                console.log('未找到活动文件');
+                return;
+            }
+            
+            // 读取文件内容
+            const content = await this.getApp().vault.read(activeFile);
+            
+            // 从Markdown内容中提取所有表格信息
+            const tableInfos = this.plugin.tableIdManager.extractTableIdsFromMarkdown(content);
+            console.log(`从文件中提取的表格信息: ${tableInfos.length} 个表格ID`);
+            
             // 为每个表格应用样式
             for (let index = 0; index < tables.length; index++) {
                 const tableElement = tables[index] as HTMLElement;
@@ -327,11 +341,45 @@ export class TableStyleRenderer extends MarkdownRenderChild {
                 let tableId = tableElement.getAttribute('data-table-id');
                 
                 if (!tableId) {
-                    // 如果表格没有ID，尝试从其他方式获取
-                    const activeFile = this.getApp().workspace.getActiveFile();
-                    if (activeFile) {
-                        // 尝试从文件内容和表格索引获取ID
-                        tableId = await this.plugin.readTableIdFromMarkdown(tableElement);
+                    // 如果表格没有ID，尝试从HTML注释中获取
+                    tableId = this.plugin.tableIdManager.getTableIdFromComment(tableElement);
+                    
+                    // 如果仍然没有ID，尝试通过位置匹配
+                    if (!tableId && index < tableInfos.length && tables.length === tableInfos.length) {
+                        tableId = tableInfos[index].id;
+                        if (tableId) {
+                            console.log(`通过位置匹配找到表格ID: ${tableId}`);
+                            // 设置ID属性
+                            tableElement.setAttribute('data-table-id', tableId);
+                        }
+                    }
+                    
+                    // 如果还是没有ID，尝试通过特征匹配
+                    if (!tableId) {
+                        const tableFeature = this.plugin.tableIdManager.extractTableFeature(tableElement);
+                        
+                        let bestMatchId = '';
+                        let bestMatchScore = 0;
+                        
+                        for (const info of tableInfos) {
+                            const { id, feature } = info;
+                            if (!id) continue;
+                            
+                            const score = this.plugin.tableIdManager.calculateFeatureSimilarity(tableFeature, feature);
+                            console.log(`表格ID ${id} 的特征相似度: ${score.toFixed(2)}`);
+                            
+                            if (score > bestMatchScore) {
+                                bestMatchScore = score;
+                                bestMatchId = id;
+                            }
+                        }
+                        
+                        if (bestMatchId && bestMatchScore > 0.7) { // 70%相似度阈值
+                            console.log(`通过特征相似度匹配找到表格ID: ${bestMatchId}（相似度: ${bestMatchScore.toFixed(2)}）`);
+                            tableId = bestMatchId;
+                            // 设置ID属性
+                            tableElement.setAttribute('data-table-id', tableId);
+                        }
                     }
                 }
                 
@@ -425,7 +473,8 @@ export async function renderTablesWithStoredStyles(plugin: ObsidianSpreadsheet):
             let tableId = table.getAttribute('data-table-id');
             
             // 2. 如果没有ID属性，尝试通过位置匹配
-            if (!tableId && i < tableInfos.length) {
+            // 确保位置匹配是准确的，只有当表格数量和提取的ID数量一致时才使用
+            if (!tableId && i < tableInfos.length && allTables.length === tableInfos.length) {
                 tableId = tableInfos[i].id;
                 if (tableId) {
                     console.log(`通过位置匹配找到表格ID: ${tableId}`);
@@ -440,15 +489,19 @@ export async function renderTablesWithStoredStyles(plugin: ObsidianSpreadsheet):
                 
                 let bestMatchId = '';
                 let bestMatchScore = 0;
+                let matchedIndex = -1;
                 
-                for (const { id, feature } of tableInfos) {
+                for (let j = 0; j < tableInfos.length; j++) {
+                    const { id, feature } = tableInfos[j];
                     if (!id) continue;
                     
                     const score = plugin.tableIdManager.calculateFeatureSimilarity(tableFeature, feature);
+                    console.log(`表格ID ${id} 的特征相似度: ${score.toFixed(2)}`);
                     
                     if (score > bestMatchScore) {
                         bestMatchScore = score;
                         bestMatchId = id;
+                        matchedIndex = j;
                     }
                 }
                 
@@ -457,6 +510,11 @@ export async function renderTablesWithStoredStyles(plugin: ObsidianSpreadsheet):
                     tableId = bestMatchId;
                     // 设置ID属性
                     table.setAttribute('data-table-id', tableId);
+                    
+                    // 从tableInfos中移除已匹配的表格信息，避免重复匹配
+                    if (matchedIndex >= 0) {
+                        tableInfos.splice(matchedIndex, 1);
+                    }
                 }
             }
             

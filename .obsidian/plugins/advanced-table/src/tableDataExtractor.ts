@@ -236,6 +236,8 @@ export class TableDataExtractor {
             // 创建表格数据对象
             const tableData: TableData = this.createEmptyTableData(tableId);
             
+            console.log(`解析自定义表格数据格式: ${line} 表格ID: ${tableId}`);
+            
             // 解析其余部分作为键值对
             for (let i = 1; i < parts.length; i++) {
                 const keyValue = parts[i].split(':');
@@ -244,32 +246,39 @@ export class TableDataExtractor {
                 const key = keyValue[0].trim();
                 const value = keyValue[1].trim();
                 
+                console.log(`处理键值对: ${key}:${value}`);
+                
                 // 根据键名处理不同类型的值
                 switch (key) {
                     case 'wrapper':
                         // 表格包装器设置
                         tableData.structure.useTableWrapper = value === 'true';
+                        console.log(`设置表格 ${tableId} 包装器: ${value}`);
                         break;
                     
                     case 'width':
                         // 列宽设置，格式: width:col1,col2,col3,...
                         tableData.styling.colWidths = value.split(',').map(w => w.trim());
+                        console.log(`设置表格 ${tableId} 列宽: ${tableData.styling.colWidths.join(', ')}`);
                         break;
                     
                     case 'align':
                         // 对齐方式设置，格式: align:left,center,right,...
                         tableData.styling.alignment = value.split(',').map(a => a.trim());
+                        console.log(`设置表格 ${tableId} 对齐方式: ${tableData.styling.alignment.join(', ')}`);
                         break;
                     
                     case 'height':
                         // 行高设置，格式: height:row1,row2,row3,...
                         tableData.styling.rowHeights = value.split(',').map(h => h.trim());
+                        console.log(`设置表格 ${tableId} 行高: ${tableData.styling.rowHeights.join(', ')}`);
                         break;
                     
                     // 可以添加更多自定义属性的处理
                 }
             }
             
+            console.log(`解析完成的表格数据 ${tableId}:`, tableData);
             return tableData;
         } catch (error) {
             console.error('解析自定义表格数据格式时出错:', error);

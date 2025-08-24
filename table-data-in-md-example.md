@@ -133,3 +133,10 @@ tbl-example-123|wrapper:true|width:100px,50px,50px,70px
 - 列宽设置: 第一列100px，第二列50px，第三列50px，第四列70px
 
 插件会自动将这种简化格式转换为完整的表格数据结构，并应用到对应ID的表格上。
+
+## 本文件的表格数据
+
+```table-data
+tbl-20250824-9xel3vux|wrapper:true|width:100px,50px,50px,70px|align:left,right,right,right
+tbl-20250824-3hq1orzk|wrapper:true|width:100px,70px,50px,70px|align:left,right,center,right
+```

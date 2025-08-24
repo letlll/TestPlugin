@@ -8,7 +8,7 @@
   "autoCenterMergedCells": true,
   "toolbarEnabled": true,
   "enableEditModeOperations": true,
-  "useTableWrapperComments": false,
+  "useTableWrapperComments": true,
   "featureSimilarityThreshold": 0.7,
   "preferFeatureMatching": true,
   "preferFileStorage": true,
@@ -934,6 +934,44 @@
         {
           "path": "未命名 2.md",
           "isActive": true
+        },
+        {
+          "path": "table-data-custom-format-example.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 3,
+        "colCount": 4,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "86px",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "65px",
+          "57px",
+          "277px",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": []
+      }
+    },
+    "tbl-20250824-3hq1orzk": {
+      "id": "tbl-20250824-3hq1orzk",
+      "locations": [
+        {
+          "path": "table-data-custom-format-example.md",
+          "isActive": true
         }
       ],
       "structure": {
@@ -949,8 +987,8 @@
           "auto"
         ],
         "colWidths": [
-          "305px",
-          "auto",
+          "192px",
+          "55px",
           "auto",
           "auto"
         ],

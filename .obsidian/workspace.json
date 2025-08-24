@@ -70,12 +70,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "未命名 2.md",
-                "mode": "source",
+                "file": "table-data-custom-format-example.md",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "未命名 2"
+              "title": "table-data-custom-format-example"
             }
           }
         ],
@@ -235,15 +235,16 @@
   "active": "a24c20dea79055d9",
   "lastOpenFiles": [
     "test-table-data.md",
+    "table-data-custom-format-example.md",
+    "test-table-edit.md",
+    "追踪.md",
     "未命名 2.md",
     "table-data-in-md-example.md",
     "未命名 1",
-    "追踪.md",
     "阶段性修复.md",
     "table-data-in-md-README.md",
     "table-data-in-md-plugin-example.ts",
     "test-table.md",
-    "test-table-edit.md",
     "advanced-table/manifest.json",
     "advanced-table/data.json",
     "advanced-table/main.js",
@@ -266,7 +267,6 @@
     "未命名/comment.md",
     "未命名/错误.md",
     "未命名/table_id 3.0.md",
-    "进行分析.md",
     "Excalidraw",
     "Pasted image 20250629170309.png",
     "{11C1CAE6-D022-4096-A65C-68381D46DAC5}.png",
