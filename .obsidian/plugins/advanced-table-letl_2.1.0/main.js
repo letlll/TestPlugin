@@ -3575,161 +3575,165 @@ var TableToolbar = class {
    * 异步保存对齐数据
    * @param horizontalAlign 水平对齐方式
    * @param verticalAlign 垂直对齐方式
+   * @returns Promise<void> 返回一个Promise，表示数据保存操作的完成状态
    */
-  saveAlignmentData(horizontalAlign, verticalAlign) {
+  async saveAlignmentData(horizontalAlign, verticalAlign) {
+    var _a;
     if (!this.activeTable)
       return;
-    this.plugin.readTableIdFromMarkdown(this.activeTable).then((tableId) => {
+    try {
+      this.applyAlignmentStylesOnly(horizontalAlign, verticalAlign);
+      const tableId = await this.plugin.readTableIdFromMarkdown(this.activeTable);
       console.log(`\u4ECEMarkdown\u6587\u4EF6\u4E2D\u83B7\u53D6\u8868\u683CID: ${tableId}`);
       if (!tableId) {
         console.warn("\u672A\u627E\u5230HTML\u6CE8\u91CA\u4E2D\u5B9A\u4E49\u7684\u8868\u683CID\uFF0C\u5C06\u53EA\u5E94\u7528\u6837\u5F0F\u4F46\u4E0D\u4FDD\u5B58\u6570\u636E");
         new import_obsidian5.Notice("\u672A\u627E\u5230\u8868\u683CID\uFF0C\u6837\u5F0F\u5DF2\u5E94\u7528\u4F46\u672A\u4FDD\u5B58\u5230\u6570\u636E\u6587\u4EF6");
         return;
       }
-      if (this.activeTable) {
-        const activeTable = this.activeTable;
-        const activeFile = this.getApp().workspace.getActiveFile();
-        if (!activeFile) {
-          console.warn("\u65E0\u6CD5\u83B7\u53D6\u5F53\u524D\u6587\u4EF6\u8DEF\u5F84");
-          return;
-        }
-        const selectedCellPositions = this.getSelectedCellPositions();
-        console.log("\u9009\u4E2D\u5355\u5143\u683C\u4F4D\u7F6E:", selectedCellPositions);
-        this.plugin.loadData().then((existingData) => {
-          var _a;
-          if (!existingData.tables) {
-            existingData.tables = {};
-          }
-          let tableData = existingData.tables[tableId];
-          if (!tableData) {
-            console.log(`\u521B\u5EFA\u65B0\u7684\u8868\u683C\u6570\u636E: ${tableId}`);
-            const rows = activeTable.querySelectorAll("tr");
-            const rowCount = rows.length;
-            let colCount = 0;
-            if (rowCount > 0) {
-              const firstRow = rows[0];
-              colCount = firstRow.querySelectorAll("td, th").length;
-            }
-            tableData = {
-              id: tableId,
-              locations: [
-                {
-                  path: activeFile.path,
-                  isActive: true
-                }
-              ],
-              structure: {
-                rowCount,
-                colCount,
-                hasHeaders: rows.length > 0 && rows[0].querySelectorAll("th").length > 0
-              },
-              styling: {
-                rowHeights: Array(rowCount).fill("auto"),
-                colWidths: Array(colCount).fill("auto"),
-                alignment: Array(colCount).fill("left"),
-                cellStyles: []
-                // 新增：用于存储单元格样式
-              }
-            };
-            existingData.tables[tableId] = tableData;
-            console.log(`\u5DF2\u521B\u5EFA\u65B0\u7684\u8868\u683C\u6570\u636E\u8BB0\u5F55: ${tableId}`, tableData);
-          } else {
-            console.log(`\u627E\u5230\u73B0\u6709\u8868\u683C\u6570\u636E: ${tableId}`, tableData);
-            if (!tableData.structure) {
-              const rows = activeTable.querySelectorAll("tr");
-              const rowCount = rows.length;
-              let colCount = 0;
-              if (rowCount > 0) {
-                const firstRow = rows[0];
-                colCount = firstRow.querySelectorAll("td, th").length;
-              }
-              tableData.structure = {
-                rowCount,
-                colCount,
-                hasHeaders: rows.length > 0 && rows[0].querySelectorAll("th").length > 0
-              };
-            }
-            if (!tableData.styling) {
-              tableData.styling = {
-                rowHeights: Array(tableData.structure.rowCount).fill("auto"),
-                colWidths: Array(tableData.structure.colCount).fill("auto"),
-                alignment: Array(tableData.structure.colCount).fill("left"),
-                cellStyles: []
-                // 新增：用于存储单元格样式
-              };
-            }
-            if (!tableData.styling.cellStyles) {
-              tableData.styling.cellStyles = [];
-            }
-            if (!tableData.locations) {
-              tableData.locations = [{
-                path: activeFile.path,
-                isActive: true
-              }];
-            } else {
-              const filePathExists = tableData.locations.some((loc) => loc.path === activeFile.path);
-              if (!filePathExists) {
-                tableData.locations.push({
-                  path: activeFile.path,
-                  isActive: true
-                });
-              }
-            }
-          }
-          if (this.selectedCells.length === 0 || this.applyToEntireTable) {
-            if (horizontalAlign) {
-              tableData.styling = tableData.styling || {};
-              tableData.styling.alignment = tableData.styling.alignment || [];
-              const colCount = ((_a = tableData.structure) == null ? void 0 : _a.colCount) || 0;
-              for (let i = 0; i < colCount; i++) {
-                tableData.styling.alignment[i] = horizontalAlign;
-              }
-              console.log(`\u66F4\u65B0\u8868\u683C\u5BF9\u9F50\u6570\u636E: ${tableId}`, tableData.styling.alignment);
-            }
-          } else {
-            selectedCellPositions.forEach((pos) => {
-              const existingStyleIndex = tableData.styling.cellStyles.findIndex(
-                (style) => style.row === pos.row && style.col === pos.col
-              );
-              if (existingStyleIndex !== -1) {
-                if (horizontalAlign) {
-                  tableData.styling.cellStyles[existingStyleIndex].textAlign = horizontalAlign;
-                }
-                if (verticalAlign) {
-                  tableData.styling.cellStyles[existingStyleIndex].verticalAlign = verticalAlign;
-                }
-              } else {
-                const newStyle = { row: pos.row, col: pos.col };
-                if (horizontalAlign) {
-                  newStyle.textAlign = horizontalAlign;
-                }
-                if (verticalAlign) {
-                  newStyle.verticalAlign = verticalAlign;
-                }
-                tableData.styling.cellStyles.push(newStyle);
-              }
-            });
-            console.log(`\u66F4\u65B0\u5355\u5143\u683C\u6837\u5F0F\u6570\u636E: ${tableId}`, tableData.styling.cellStyles);
-          }
-          this.plugin.saveData(existingData).then(() => {
-            console.log(`\u5DF2\u4FDD\u5B58\u8868\u683C\u6570\u636E: ${tableId}`);
-            this.applyAlignmentStylesOnly(horizontalAlign, verticalAlign);
-            new import_obsidian5.Notice(`\u5DF2\u5C06${horizontalAlign || ""}${horizontalAlign && verticalAlign ? "\u548C" : ""}${verticalAlign || ""}\u5BF9\u9F50\u5E94\u7528\u5230${this.selectedCells.length > 0 ? "\u9009\u4E2D\u5355\u5143\u683C" : "\u6574\u4E2A\u8868\u683C"}\u5E76\u4FDD\u5B58\u5230\u6570\u636E\u6587\u4EF6`);
-          }).catch((err) => {
-            console.error("\u4FDD\u5B58\u8868\u683C\u6570\u636E\u65F6\u51FA\u9519:", err);
-            new import_obsidian5.Notice(`\u4FDD\u5B58\u8868\u683C\u6570\u636E\u5931\u8D25: ${err.message || "\u672A\u77E5\u9519\u8BEF"}`);
-          });
-        }).catch((err) => {
-          console.error("\u52A0\u8F7D\u8868\u683C\u6570\u636E\u65F6\u51FA\u9519:", err);
-          new import_obsidian5.Notice(`\u52A0\u8F7D\u8868\u683C\u6570\u636E\u5931\u8D25: ${err.message || "\u672A\u77E5\u9519\u8BEF"}`);
-        });
-      } else {
+      if (!this.activeTable) {
         console.warn("\u4FDD\u5B58\u6570\u636E\u65F6\u8868\u683C\u4E0D\u518D\u5B58\u5728");
+        return;
       }
-    }).catch((error) => {
-      console.error("\u83B7\u53D6\u8868\u683CID\u65F6\u51FA\u9519:", error);
-      new import_obsidian5.Notice(`\u83B7\u53D6\u8868\u683CID\u5931\u8D25: ${error.message || "\u672A\u77E5\u9519\u8BEF"}`);
-    });
+      const activeTable = this.activeTable;
+      const activeFile = this.getApp().workspace.getActiveFile();
+      if (!activeFile) {
+        console.warn("\u65E0\u6CD5\u83B7\u53D6\u5F53\u524D\u6587\u4EF6\u8DEF\u5F84");
+        return;
+      }
+      const selectedCellPositions = this.getSelectedCellPositions();
+      console.log("\u9009\u4E2D\u5355\u5143\u683C\u4F4D\u7F6E:", selectedCellPositions);
+      const existingData = await this.plugin.loadData();
+      if (!existingData.tables) {
+        existingData.tables = {};
+      }
+      let tableData = existingData.tables[tableId];
+      if (!tableData) {
+        console.log(`\u521B\u5EFA\u65B0\u7684\u8868\u683C\u6570\u636E: ${tableId}`);
+        const rows = activeTable.querySelectorAll("tr");
+        const rowCount = rows.length;
+        let colCount = 0;
+        if (rowCount > 0) {
+          const firstRow = rows[0];
+          colCount = firstRow.querySelectorAll("td, th").length;
+        }
+        tableData = {
+          id: tableId,
+          locations: [
+            {
+              path: activeFile.path,
+              isActive: true
+            }
+          ],
+          structure: {
+            rowCount,
+            colCount,
+            hasHeaders: rows.length > 0 && rows[0].querySelectorAll("th").length > 0
+          },
+          styling: {
+            rowHeights: Array(rowCount).fill("auto"),
+            colWidths: Array(colCount).fill("auto"),
+            alignment: Array(colCount).fill("left"),
+            cellStyles: []
+            // 新增：用于存储单元格样式
+          }
+        };
+        existingData.tables[tableId] = tableData;
+        console.log(`\u5DF2\u521B\u5EFA\u65B0\u7684\u8868\u683C\u6570\u636E\u8BB0\u5F55: ${tableId}`, tableData);
+      } else {
+        console.log(`\u627E\u5230\u73B0\u6709\u8868\u683C\u6570\u636E: ${tableId}`, tableData);
+        if (!tableData.structure) {
+          const rows = activeTable.querySelectorAll("tr");
+          const rowCount = rows.length;
+          let colCount = 0;
+          if (rowCount > 0) {
+            const firstRow = rows[0];
+            colCount = firstRow.querySelectorAll("td, th").length;
+          }
+          tableData.structure = {
+            rowCount,
+            colCount,
+            hasHeaders: rows.length > 0 && rows[0].querySelectorAll("th").length > 0
+          };
+        }
+        if (!tableData.styling) {
+          tableData.styling = {
+            rowHeights: Array(tableData.structure.rowCount).fill("auto"),
+            colWidths: Array(tableData.structure.colCount).fill("auto"),
+            alignment: Array(tableData.structure.colCount).fill("left"),
+            cellStyles: []
+            // 新增：用于存储单元格样式
+          };
+        }
+        if (!tableData.styling.cellStyles) {
+          tableData.styling.cellStyles = [];
+        }
+        if (!tableData.locations) {
+          tableData.locations = [{
+            path: activeFile.path,
+            isActive: true
+          }];
+        } else {
+          const filePathExists = tableData.locations.some((loc) => loc.path === activeFile.path);
+          if (!filePathExists) {
+            tableData.locations.push({
+              path: activeFile.path,
+              isActive: true
+            });
+          }
+        }
+      }
+      if (this.selectedCells.length === 0 || this.applyToEntireTable) {
+        if (horizontalAlign) {
+          tableData.styling = tableData.styling || {};
+          tableData.styling.alignment = tableData.styling.alignment || [];
+          const colCount = ((_a = tableData.structure) == null ? void 0 : _a.colCount) || 0;
+          for (let i = 0; i < colCount; i++) {
+            tableData.styling.alignment[i] = horizontalAlign;
+          }
+          console.log(`\u66F4\u65B0\u8868\u683C\u5BF9\u9F50\u6570\u636E: ${tableId}`, tableData.styling.alignment);
+        }
+      } else {
+        selectedCellPositions.forEach((pos) => {
+          const existingStyleIndex = tableData.styling.cellStyles.findIndex(
+            (style) => style.row === pos.row && style.col === pos.col
+          );
+          if (existingStyleIndex !== -1) {
+            if (horizontalAlign) {
+              tableData.styling.cellStyles[existingStyleIndex].textAlign = horizontalAlign;
+            }
+            if (verticalAlign) {
+              tableData.styling.cellStyles[existingStyleIndex].verticalAlign = verticalAlign;
+            }
+          } else {
+            const newStyle = { row: pos.row, col: pos.col };
+            if (horizontalAlign) {
+              newStyle.textAlign = horizontalAlign;
+            }
+            if (verticalAlign) {
+              newStyle.verticalAlign = verticalAlign;
+            }
+            tableData.styling.cellStyles.push(newStyle);
+          }
+        });
+        console.log(`\u66F4\u65B0\u5355\u5143\u683C\u6837\u5F0F\u6570\u636E: ${tableId}`, tableData.styling.cellStyles);
+      }
+      try {
+        await this.plugin.saveData(existingData);
+        console.log(`\u5DF2\u4FDD\u5B58\u8868\u683C\u6570\u636E: ${tableId}`);
+        if (activeFile && this.plugin.tableDataExtractor) {
+          await this.plugin.tableDataExtractor.exportTableDataToFile(activeFile, tableId, tableData);
+          console.log(`\u5DF2\u5C06\u8868\u683C\u6570\u636E\u4FDD\u5B58\u5230\u6587\u4EF6: ${activeFile.path}`);
+          this.plugin.app.workspace.trigger("file-content-modified", activeFile);
+        }
+        new import_obsidian5.Notice(`\u5DF2\u5C06${horizontalAlign || ""}${horizontalAlign && verticalAlign ? "\u548C" : ""}${verticalAlign || ""}\u5BF9\u9F50\u5E94\u7528\u5230${this.selectedCells.length > 0 ? "\u9009\u4E2D\u5355\u5143\u683C" : "\u6574\u4E2A\u8868\u683C"}\u5E76\u4FDD\u5B58\u5230\u6570\u636E\u6587\u4EF6\u548C\u4EE3\u7801\u5757`);
+      } catch (err) {
+        console.error("\u4FDD\u5B58\u8868\u683C\u6570\u636E\u65F6\u51FA\u9519:", err);
+        new import_obsidian5.Notice(`\u4FDD\u5B58\u8868\u683C\u6570\u636E\u5931\u8D25: ${err.message || "\u672A\u77E5\u9519\u8BEF"}`);
+      }
+    } catch (error) {
+      console.error("\u5904\u7406\u8868\u683C\u6570\u636E\u65F6\u51FA\u9519:", error);
+      new import_obsidian5.Notice(`\u5904\u7406\u8868\u683C\u6570\u636E\u5931\u8D25: ${error.message || "\u672A\u77E5\u9519\u8BEF"}`);
+    }
   }
   /**
    * 获取选中单元格的位置信息（行列索引）
@@ -3761,6 +3765,8 @@ var TableToolbar = class {
    */
   applyAlignmentStylesOnly(horizontalAlign, verticalAlign) {
     if (this.selectedCells.length === 0 && this.activeTable) {
+      this.activeTable.setAttribute("data-table-styles-applied", "false");
+      this.forceTableStyleRefresh(this.activeTable);
       const cells = this.activeTable.querySelectorAll("td, th");
       cells.forEach((cell) => {
         const cellEl = cell;
@@ -3773,6 +3779,10 @@ var TableToolbar = class {
       });
       new import_obsidian5.Notice(`\u5DF2\u5C06${horizontalAlign || ""}${horizontalAlign && verticalAlign ? "\u548C" : ""}${verticalAlign || ""}\u5BF9\u9F50\u5E94\u7528\u5230\u6574\u4E2A\u8868\u683C`);
     } else {
+      if (this.activeTable) {
+        this.activeTable.setAttribute("data-table-styles-applied", "false");
+        this.forceTableStyleRefresh(this.activeTable);
+      }
       this.selectedCells.forEach((cell) => {
         if (horizontalAlign) {
           cell.style.textAlign = horizontalAlign;
@@ -4372,6 +4382,21 @@ var TableToolbar = class {
    * @param tableElement 表格元素
    * @returns 合并信息对象
    */
+  /**
+   * 强制表格样式刷新
+   * @param tableElement 表格元素
+   */
+  forceTableStyleRefresh(tableElement) {
+    try {
+      const oldDisplay = tableElement.style.display;
+      tableElement.style.display = "none";
+      void tableElement.offsetHeight;
+      tableElement.style.display = oldDisplay || "";
+      console.log("\u5F3A\u5236\u5237\u65B0\u8868\u683C\u6837\u5F0F");
+    } catch (error) {
+      console.error("\u5F3A\u5236\u5237\u65B0\u8868\u683C\u6837\u5F0F\u5931\u8D25:", error);
+    }
+  }
   extractMergeInfo(tableElement) {
     var _a;
     const mergeInfo = {
@@ -4638,7 +4663,7 @@ var TableToolbar = class {
    * @param cell 单元格元素
    * @param event 事件对象
    */
-  handleCellClick(cell, event2) {
+  async handleCellClick(cell, event2) {
     event2.stopPropagation();
     if (!event2.ctrlKey && !event2.metaKey) {
       this.clearCellSelection();
@@ -4659,6 +4684,12 @@ var TableToolbar = class {
       }
     }
     console.log("\u5DF2\u9009\u62E9\u5355\u5143\u683C:", this.selectedCells.length);
+    if (this.activeTable && this.selectedCells.length > 0) {
+      const cellStyles = this.getCurrentCellStyles();
+      if (cellStyles) {
+        await this.saveAlignmentData(cellStyles.textAlign, cellStyles.verticalAlign);
+      }
+    }
   }
   /**
    * 清除单元格选择
@@ -4669,6 +4700,29 @@ var TableToolbar = class {
       cell.style.backgroundColor = "";
     });
     this.selectedCells = [];
+  }
+  /**
+   * 获取当前选中单元格的样式信息
+   * @returns 返回包含textAlign和verticalAlign的对象，如果没有选中单元格则返回null
+   */
+  getCurrentCellStyles() {
+    if (!this.selectedCells || this.selectedCells.length === 0) {
+      return null;
+    }
+    const cell = this.selectedCells[0];
+    const computedStyle = window.getComputedStyle(cell);
+    let textAlign = computedStyle.textAlign;
+    if (textAlign === "start")
+      textAlign = "left";
+    if (textAlign === "end")
+      textAlign = "right";
+    let verticalAlign = computedStyle.verticalAlign;
+    if (verticalAlign === "baseline")
+      verticalAlign = "middle";
+    return {
+      textAlign,
+      verticalAlign
+    };
   }
   /**
    * 显示确认对话框
