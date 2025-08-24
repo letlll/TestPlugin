@@ -500,45 +500,101 @@ export class TableToolbar {
                 return;
             }
             
-            // 使用新方法从Markdown文件中读取表格ID
-            this.plugin.readTableIdFromMarkdown(this.activeTable).then(tableId => {
-                console.log(`从Markdown文件中获取表格ID: ${tableId}`);
+            // 异步保存数据，不阻塞UI响应
+            this.saveAlignmentData(horizontalAlign, verticalAlign);
+            
+            console.log('对齐应用完成');
+        } catch (error) {
+            console.error('应用对齐失败:', error);
+            new Notice(`应用对齐失败: ${error.message || '未知错误'}`);
+        }
+    }
+    
+    /**
+     * 异步保存对齐数据
+     * @param horizontalAlign 水平对齐方式
+     * @param verticalAlign 垂直对齐方式
+     */
+    private saveAlignmentData(horizontalAlign?: string, verticalAlign?: string): void {
+        if (!this.activeTable) return;
+        
+        // 使用新方法从Markdown文件中读取表格ID
+        this.plugin.readTableIdFromMarkdown(this.activeTable).then(tableId => {
+            console.log(`从Markdown文件中获取表格ID: ${tableId}`);
+            
+            // 如果没有从Markdown文件中获取到有效的表格ID，则只应用样式但不保存数据
+            if (!tableId) {
+                console.warn('未找到HTML注释中定义的表格ID，将只应用样式但不保存数据');
+                new Notice('未找到表格ID，样式已应用但未保存到数据文件');
+                return;
+            }
+            
+            // 保存表格样式到数据文件
+            if (this.activeTable) { // 确保activeTable仍然存在
+                const activeTable = this.activeTable; // 创建一个引用，确保在异步操作中不会为null
+                const activeFile = this.getApp().workspace.getActiveFile();
                 
-                // 如果没有从Markdown文件中获取到有效的表格ID，则只应用样式但不保存数据
-                if (!tableId) {
-                    console.warn('未找到HTML注释中定义的表格ID，将只应用样式但不保存数据');
-                    new Notice('未找到表格ID，样式已应用但未保存到数据文件');
+                if (!activeFile) {
+                    console.warn('无法获取当前文件路径');
                     return;
                 }
                 
-                // 保存表格样式到数据文件
-                if (this.activeTable) { // 确保activeTable仍然存在
-                    const activeTable = this.activeTable; // 创建一个引用，确保在异步操作中不会为null
-                    const activeFile = this.getApp().workspace.getActiveFile();
-                    
-                    if (!activeFile) {
-                        console.warn('无法获取当前文件路径');
-                        return;
+                // 获取选中单元格的位置信息
+                const selectedCellPositions = this.getSelectedCellPositions();
+                console.log('选中单元格位置:', selectedCellPositions);
+                
+                // 加载现有数据
+                this.plugin.loadData().then((existingData: any) => {
+                    // 确保存在表格数据对象
+                    if (!existingData.tables) {
+                        existingData.tables = {};
                     }
                     
-                    // 获取选中单元格的位置信息
-                    const selectedCellPositions = this.getSelectedCellPositions();
-                    console.log('选中单元格位置:', selectedCellPositions);
+                    let tableData = existingData.tables[tableId];
                     
-                    // 加载现有数据
-                    this.plugin.loadData().then((existingData: any) => {
-                        // 确保存在表格数据对象
-                        if (!existingData.tables) {
-                            existingData.tables = {};
+                    // 如果表格数据不存在，创建一个新的
+                    if (!tableData) {
+                        console.log(`创建新的表格数据: ${tableId}`);
+                        
+                        // 获取表格的行数和列数
+                        const rows = activeTable.querySelectorAll('tr');
+                        const rowCount = rows.length;
+                        let colCount = 0;
+                        if (rowCount > 0) {
+                            const firstRow = rows[0];
+                            colCount = firstRow.querySelectorAll('td, th').length;
                         }
                         
-                        let tableData = existingData.tables[tableId];
+                        // 创建新的表格数据
+                        tableData = {
+                            id: tableId,
+                            locations: [
+                                {
+                                    path: activeFile.path,
+                                    isActive: true
+                                }
+                            ],
+                            structure: {
+                                rowCount: rowCount,
+                                colCount: colCount,
+                                hasHeaders: rows.length > 0 && rows[0].querySelectorAll('th').length > 0
+                            },
+                            styling: {
+                                rowHeights: Array(rowCount).fill('auto'),
+                                colWidths: Array(colCount).fill('auto'),
+                                alignment: Array(colCount).fill('left'),
+                                cellStyles: [] // 新增：用于存储单元格样式
+                            }
+                        };
                         
-                        // 如果表格数据不存在，创建一个新的
-                        if (!tableData) {
-                            console.log(`创建新的表格数据: ${tableId}`);
-                            
-                            // 获取表格的行数和列数
+                        // 将新创建的表格数据添加到existingData
+                        existingData.tables[tableId] = tableData;
+                        console.log(`已创建新的表格数据记录: ${tableId}`, tableData);
+                    } else {
+                        console.log(`找到现有表格数据: ${tableId}`, tableData);
+                        
+                        // 确保结构数据存在
+                        if (!tableData.structure) {
                             const rows = activeTable.querySelectorAll('tr');
                             const rowCount = rows.length;
                             let colCount = 0;
@@ -547,137 +603,102 @@ export class TableToolbar {
                                 colCount = firstRow.querySelectorAll('td, th').length;
                             }
                             
-                            // 创建新的表格数据
-                            tableData = {
-                                id: tableId,
-                                locations: [
-                                    {
-                                        path: activeFile.path,
-                                        isActive: true
-                                    }
-                                ],
-                                structure: {
-                                    rowCount: rowCount,
-                                    colCount: colCount,
-                                    hasHeaders: rows.length > 0 && rows[0].querySelectorAll('th').length > 0
-                                },
-                                styling: {
-                                    rowHeights: Array(rowCount).fill('auto'),
-                                    colWidths: Array(colCount).fill('auto'),
-                                    alignment: Array(colCount).fill('left'),
-                                    cellStyles: [] // 新增：用于存储单元格样式
-                                }
+                            tableData.structure = {
+                                rowCount: rowCount,
+                                colCount: colCount,
+                                hasHeaders: rows.length > 0 && rows[0].querySelectorAll('th').length > 0
                             };
-                            
-                            // 将新创建的表格数据添加到existingData
-                            existingData.tables[tableId] = tableData;
-                            console.log(`已创建新的表格数据记录: ${tableId}`, tableData);
+                        }
+                        
+                        // 确保styling数据存在
+                        if (!tableData.styling) {
+                            tableData.styling = {
+                                rowHeights: Array(tableData.structure.rowCount).fill('auto'),
+                                colWidths: Array(tableData.structure.colCount).fill('auto'),
+                                alignment: Array(tableData.structure.colCount).fill('left'),
+                                cellStyles: [] // 新增：用于存储单元格样式
+                            };
+                        }
+                        
+                        // 确保cellStyles数组存在
+                        if (!tableData.styling.cellStyles) {
+                            tableData.styling.cellStyles = [];
+                        }
+                        
+                        // 确保locations数据包含当前文件
+                        if (!tableData.locations) {
+                            tableData.locations = [{
+                                path: activeFile.path,
+                                isActive: true
+                            }];
                         } else {
-                            console.log(`找到现有表格数据: ${tableId}`, tableData);
-                            
-                            // 确保结构数据存在
-                            if (!tableData.structure) {
-                                const rows = activeTable.querySelectorAll('tr');
-                                const rowCount = rows.length;
-                                let colCount = 0;
-                                if (rowCount > 0) {
-                                    const firstRow = rows[0];
-                                    colCount = firstRow.querySelectorAll('td, th').length;
-                                }
-                                
-                                tableData.structure = {
-                                    rowCount: rowCount,
-                                    colCount: colCount,
-                                    hasHeaders: rows.length > 0 && rows[0].querySelectorAll('th').length > 0
-                                };
-                            }
-                            
-                            // 确保styling数据存在
-                            if (!tableData.styling) {
-                                tableData.styling = {
-                                    rowHeights: Array(tableData.structure.rowCount).fill('auto'),
-                                    colWidths: Array(tableData.structure.colCount).fill('auto'),
-                                    alignment: Array(tableData.structure.colCount).fill('left'),
-                                    cellStyles: [] // 新增：用于存储单元格样式
-                                };
-                            }
-                            
-                            // 确保cellStyles数组存在
-                            if (!tableData.styling.cellStyles) {
-                                tableData.styling.cellStyles = [];
-                            }
-                            
-                            // 确保locations数据包含当前文件
-                            if (!tableData.locations) {
-                                tableData.locations = [{
+                            // 检查当前文件是否已在locations中
+                            const filePathExists = tableData.locations.some((loc: {path: string}) => loc.path === activeFile.path);
+                            if (!filePathExists) {
+                                tableData.locations.push({
                                     path: activeFile.path,
                                     isActive: true
-                                }];
-                            } else {
-                                // 检查当前文件是否已在locations中
-                                const filePathExists = tableData.locations.some((loc: {path: string}) => loc.path === activeFile.path);
-                                if (!filePathExists) {
-                                    tableData.locations.push({
-                                        path: activeFile.path,
-                                        isActive: true
-                                    });
-                                }
+                                });
                             }
                         }
-                        
-                        // 如果选择了应用到整个表格，则更新列对齐方式
-                        if (this.selectedCells.length === 0 || this.applyToEntireTable) {
-                            if (horizontalAlign) {
-                                // 确保styling和alignment存在
-                                tableData.styling = tableData.styling || {};
-                                tableData.styling.alignment = tableData.styling.alignment || [];
-                                
-                                // 更新所有列的对齐方式
-                                const colCount = tableData.structure?.colCount || 0;
-                                for (let i = 0; i < colCount; i++) {
-                                    tableData.styling.alignment[i] = horizontalAlign;
-                                }
-                                
-                                console.log(`更新表格对齐数据: ${tableId}`, tableData.styling.alignment);
-                            }
-                        } 
-                        // 否则，只更新选中单元格的样式
-                        else {
-                            // 更新选中单元格的样式
-                            selectedCellPositions.forEach(pos => {
-                                // 查找是否已有此单元格的样式
-                                const existingStyleIndex = tableData.styling.cellStyles.findIndex(
-                                    (style: any) => style.row === pos.row && style.col === pos.col
-                                );
-                                
-                                // 如果已有样式，更新它
-                                if (existingStyleIndex !== -1) {
-                                    if (horizontalAlign) {
-                                        tableData.styling.cellStyles[existingStyleIndex].textAlign = horizontalAlign;
-                                    }
-                                    if (verticalAlign) {
-                                        tableData.styling.cellStyles[existingStyleIndex].verticalAlign = verticalAlign;
-                                    }
-                                } 
-                                // 否则，添加新样式
-                                else {
-                                    const newStyle: any = { row: pos.row, col: pos.col };
-                                    if (horizontalAlign) {
-                                        newStyle.textAlign = horizontalAlign;
-                                    }
-                                    if (verticalAlign) {
-                                        newStyle.verticalAlign = verticalAlign;
-                                    }
-                                    tableData.styling.cellStyles.push(newStyle);
-                                }
-                            });
+                    }
+                    
+                    // 如果选择了应用到整个表格，则更新列对齐方式
+                    if (this.selectedCells.length === 0 || this.applyToEntireTable) {
+                        if (horizontalAlign) {
+                            // 确保styling和alignment存在
+                            tableData.styling = tableData.styling || {};
+                            tableData.styling.alignment = tableData.styling.alignment || [];
                             
-                            console.log(`更新单元格样式数据: ${tableId}`, tableData.styling.cellStyles);
+                            // 更新所有列的对齐方式
+                            const colCount = tableData.structure?.colCount || 0;
+                            for (let i = 0; i < colCount; i++) {
+                                tableData.styling.alignment[i] = horizontalAlign;
+                            }
+                            
+                            console.log(`更新表格对齐数据: ${tableId}`, tableData.styling.alignment);
                         }
+                    } 
+                    // 否则，只更新选中单元格的样式
+                    else {
+                        // 更新选中单元格的样式
+                        selectedCellPositions.forEach(pos => {
+                            // 查找是否已有此单元格的样式
+                            const existingStyleIndex = tableData.styling.cellStyles.findIndex(
+                                (style: any) => style.row === pos.row && style.col === pos.col
+                            );
+                            
+                            // 如果已有样式，更新它
+                            if (existingStyleIndex !== -1) {
+                                if (horizontalAlign) {
+                                    tableData.styling.cellStyles[existingStyleIndex].textAlign = horizontalAlign;
+                                }
+                                if (verticalAlign) {
+                                    tableData.styling.cellStyles[existingStyleIndex].verticalAlign = verticalAlign;
+                                }
+                            } 
+                            // 否则，添加新样式
+                            else {
+                                const newStyle: any = { row: pos.row, col: pos.col };
+                                if (horizontalAlign) {
+                                    newStyle.textAlign = horizontalAlign;
+                                }
+                                if (verticalAlign) {
+                                    newStyle.verticalAlign = verticalAlign;
+                                }
+                                tableData.styling.cellStyles.push(newStyle);
+                            }
+                        });
                         
-                        // 保存更新后的表格数据
-                        this.plugin.saveData(existingData);
+                        console.log(`更新单元格样式数据: ${tableId}`, tableData.styling.cellStyles);
+                    }
+                    
+                    // 保存更新后的表格数据
+                    this.plugin.saveData(existingData).then(() => {
                         console.log(`已保存表格数据: ${tableId}`);
+                        
+                        // 立即应用样式到DOM，确保视觉效果一致
+                        this.applyAlignmentStylesOnly(horizontalAlign, verticalAlign);
                         
                         // 显示成功通知
                         new Notice(`已将${horizontalAlign || ''}${horizontalAlign && verticalAlign ? '和' : ''}${verticalAlign || ''}对齐应用到${this.selectedCells.length > 0 ? '选中单元格' : '整个表格'}并保存到数据文件`);
@@ -685,19 +706,17 @@ export class TableToolbar {
                         console.error('保存表格数据时出错:', err);
                         new Notice(`保存表格数据失败: ${err.message || '未知错误'}`);
                     });
-                } else {
-                    console.warn('保存数据时表格不再存在');
-                }
-            }).catch(error => {
-                console.error('获取表格ID时出错:', error);
-                new Notice(`获取表格ID失败: ${error.message || '未知错误'}`);
-            });
-            
-            console.log('对齐应用完成');
-        } catch (error) {
-            console.error('应用对齐失败:', error);
-            new Notice(`应用对齐失败: ${error.message || '未知错误'}`);
-        }
+                }).catch((err: any) => {
+                    console.error('加载表格数据时出错:', err);
+                    new Notice(`加载表格数据失败: ${err.message || '未知错误'}`);
+                });
+            } else {
+                console.warn('保存数据时表格不再存在');
+            }
+        }).catch(error => {
+            console.error('获取表格ID时出错:', error);
+            new Notice(`获取表格ID失败: ${error.message || '未知错误'}`);
+        });
     }
     
     /**
@@ -740,6 +759,9 @@ export class TableToolbar {
     private applyAlignmentStylesOnly(horizontalAlign?: string, verticalAlign?: string): void {
         // 如果没有选中单元格，则应用到整个表格
         if (this.selectedCells.length === 0 && this.activeTable) {
+            // 重置表格样式应用标记，确保下次渲染时会重新应用样式
+            this.activeTable.setAttribute('data-table-styles-applied', 'false');
+            
             const cells = this.activeTable.querySelectorAll('td, th');
             cells.forEach(cell => {
                 const cellEl = cell as HTMLElement;
@@ -753,6 +775,11 @@ export class TableToolbar {
             new Notice(`已将${horizontalAlign || ''}${horizontalAlign && verticalAlign ? '和' : ''}${verticalAlign || ''}对齐应用到整个表格`);
         } else {
             // 应用到选中的单元格
+            if (this.activeTable) {
+                // 重置表格样式应用标记，确保下次渲染时会重新应用样式
+                this.activeTable.setAttribute('data-table-styles-applied', 'false');
+            }
+            
             this.selectedCells.forEach(cell => {
                 if (horizontalAlign) {
                     cell.style.textAlign = horizontalAlign;
@@ -1533,8 +1560,7 @@ export class TableToolbar {
                 styling: {
                     rowHeights: Array(rowCount).fill('auto'),
                     colWidths: Array(colCount).fill('auto'),
-                    alignment: Array(colCount).fill('left'),
-                    cellStyles: [] // 确保cellStyles数组存在
+                    alignment: Array(colCount).fill('left')
                 }
             };
             

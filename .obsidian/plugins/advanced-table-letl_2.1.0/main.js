@@ -3564,30 +3564,78 @@ var TableToolbar = class {
         console.warn("\u6CA1\u6709\u9009\u4E2D\u5355\u5143\u683C\u6216\u6D3B\u52A8\u8868\u683C");
         return;
       }
-      this.plugin.readTableIdFromMarkdown(this.activeTable).then((tableId) => {
-        console.log(`\u4ECEMarkdown\u6587\u4EF6\u4E2D\u83B7\u53D6\u8868\u683CID: ${tableId}`);
-        if (!tableId) {
-          console.warn("\u672A\u627E\u5230HTML\u6CE8\u91CA\u4E2D\u5B9A\u4E49\u7684\u8868\u683CID\uFF0C\u5C06\u53EA\u5E94\u7528\u6837\u5F0F\u4F46\u4E0D\u4FDD\u5B58\u6570\u636E");
-          new import_obsidian5.Notice("\u672A\u627E\u5230\u8868\u683CID\uFF0C\u6837\u5F0F\u5DF2\u5E94\u7528\u4F46\u672A\u4FDD\u5B58\u5230\u6570\u636E\u6587\u4EF6");
+      this.saveAlignmentData(horizontalAlign, verticalAlign);
+      console.log("\u5BF9\u9F50\u5E94\u7528\u5B8C\u6210");
+    } catch (error) {
+      console.error("\u5E94\u7528\u5BF9\u9F50\u5931\u8D25:", error);
+      new import_obsidian5.Notice(`\u5E94\u7528\u5BF9\u9F50\u5931\u8D25: ${error.message || "\u672A\u77E5\u9519\u8BEF"}`);
+    }
+  }
+  /**
+   * 异步保存对齐数据
+   * @param horizontalAlign 水平对齐方式
+   * @param verticalAlign 垂直对齐方式
+   */
+  saveAlignmentData(horizontalAlign, verticalAlign) {
+    if (!this.activeTable)
+      return;
+    this.plugin.readTableIdFromMarkdown(this.activeTable).then((tableId) => {
+      console.log(`\u4ECEMarkdown\u6587\u4EF6\u4E2D\u83B7\u53D6\u8868\u683CID: ${tableId}`);
+      if (!tableId) {
+        console.warn("\u672A\u627E\u5230HTML\u6CE8\u91CA\u4E2D\u5B9A\u4E49\u7684\u8868\u683CID\uFF0C\u5C06\u53EA\u5E94\u7528\u6837\u5F0F\u4F46\u4E0D\u4FDD\u5B58\u6570\u636E");
+        new import_obsidian5.Notice("\u672A\u627E\u5230\u8868\u683CID\uFF0C\u6837\u5F0F\u5DF2\u5E94\u7528\u4F46\u672A\u4FDD\u5B58\u5230\u6570\u636E\u6587\u4EF6");
+        return;
+      }
+      if (this.activeTable) {
+        const activeTable = this.activeTable;
+        const activeFile = this.getApp().workspace.getActiveFile();
+        if (!activeFile) {
+          console.warn("\u65E0\u6CD5\u83B7\u53D6\u5F53\u524D\u6587\u4EF6\u8DEF\u5F84");
           return;
         }
-        if (this.activeTable) {
-          const activeTable = this.activeTable;
-          const activeFile = this.getApp().workspace.getActiveFile();
-          if (!activeFile) {
-            console.warn("\u65E0\u6CD5\u83B7\u53D6\u5F53\u524D\u6587\u4EF6\u8DEF\u5F84");
-            return;
+        const selectedCellPositions = this.getSelectedCellPositions();
+        console.log("\u9009\u4E2D\u5355\u5143\u683C\u4F4D\u7F6E:", selectedCellPositions);
+        this.plugin.loadData().then((existingData) => {
+          var _a;
+          if (!existingData.tables) {
+            existingData.tables = {};
           }
-          const selectedCellPositions = this.getSelectedCellPositions();
-          console.log("\u9009\u4E2D\u5355\u5143\u683C\u4F4D\u7F6E:", selectedCellPositions);
-          this.plugin.loadData().then((existingData) => {
-            var _a;
-            if (!existingData.tables) {
-              existingData.tables = {};
+          let tableData = existingData.tables[tableId];
+          if (!tableData) {
+            console.log(`\u521B\u5EFA\u65B0\u7684\u8868\u683C\u6570\u636E: ${tableId}`);
+            const rows = activeTable.querySelectorAll("tr");
+            const rowCount = rows.length;
+            let colCount = 0;
+            if (rowCount > 0) {
+              const firstRow = rows[0];
+              colCount = firstRow.querySelectorAll("td, th").length;
             }
-            let tableData = existingData.tables[tableId];
-            if (!tableData) {
-              console.log(`\u521B\u5EFA\u65B0\u7684\u8868\u683C\u6570\u636E: ${tableId}`);
+            tableData = {
+              id: tableId,
+              locations: [
+                {
+                  path: activeFile.path,
+                  isActive: true
+                }
+              ],
+              structure: {
+                rowCount,
+                colCount,
+                hasHeaders: rows.length > 0 && rows[0].querySelectorAll("th").length > 0
+              },
+              styling: {
+                rowHeights: Array(rowCount).fill("auto"),
+                colWidths: Array(colCount).fill("auto"),
+                alignment: Array(colCount).fill("left"),
+                cellStyles: []
+                // 新增：用于存储单元格样式
+              }
+            };
+            existingData.tables[tableId] = tableData;
+            console.log(`\u5DF2\u521B\u5EFA\u65B0\u7684\u8868\u683C\u6570\u636E\u8BB0\u5F55: ${tableId}`, tableData);
+          } else {
+            console.log(`\u627E\u5230\u73B0\u6709\u8868\u683C\u6570\u636E: ${tableId}`, tableData);
+            if (!tableData.structure) {
               const rows = activeTable.querySelectorAll("tr");
               const rowCount = rows.length;
               let colCount = 0;
@@ -3595,126 +3643,93 @@ var TableToolbar = class {
                 const firstRow = rows[0];
                 colCount = firstRow.querySelectorAll("td, th").length;
               }
-              tableData = {
-                id: tableId,
-                locations: [
-                  {
-                    path: activeFile.path,
-                    isActive: true
-                  }
-                ],
-                structure: {
-                  rowCount,
-                  colCount,
-                  hasHeaders: rows.length > 0 && rows[0].querySelectorAll("th").length > 0
-                },
-                styling: {
-                  rowHeights: Array(rowCount).fill("auto"),
-                  colWidths: Array(colCount).fill("auto"),
-                  alignment: Array(colCount).fill("left"),
-                  cellStyles: []
-                  // 新增：用于存储单元格样式
-                }
+              tableData.structure = {
+                rowCount,
+                colCount,
+                hasHeaders: rows.length > 0 && rows[0].querySelectorAll("th").length > 0
               };
-              existingData.tables[tableId] = tableData;
-              console.log(`\u5DF2\u521B\u5EFA\u65B0\u7684\u8868\u683C\u6570\u636E\u8BB0\u5F55: ${tableId}`, tableData);
+            }
+            if (!tableData.styling) {
+              tableData.styling = {
+                rowHeights: Array(tableData.structure.rowCount).fill("auto"),
+                colWidths: Array(tableData.structure.colCount).fill("auto"),
+                alignment: Array(tableData.structure.colCount).fill("left"),
+                cellStyles: []
+                // 新增：用于存储单元格样式
+              };
+            }
+            if (!tableData.styling.cellStyles) {
+              tableData.styling.cellStyles = [];
+            }
+            if (!tableData.locations) {
+              tableData.locations = [{
+                path: activeFile.path,
+                isActive: true
+              }];
             } else {
-              console.log(`\u627E\u5230\u73B0\u6709\u8868\u683C\u6570\u636E: ${tableId}`, tableData);
-              if (!tableData.structure) {
-                const rows = activeTable.querySelectorAll("tr");
-                const rowCount = rows.length;
-                let colCount = 0;
-                if (rowCount > 0) {
-                  const firstRow = rows[0];
-                  colCount = firstRow.querySelectorAll("td, th").length;
-                }
-                tableData.structure = {
-                  rowCount,
-                  colCount,
-                  hasHeaders: rows.length > 0 && rows[0].querySelectorAll("th").length > 0
-                };
-              }
-              if (!tableData.styling) {
-                tableData.styling = {
-                  rowHeights: Array(tableData.structure.rowCount).fill("auto"),
-                  colWidths: Array(tableData.structure.colCount).fill("auto"),
-                  alignment: Array(tableData.structure.colCount).fill("left"),
-                  cellStyles: []
-                  // 新增：用于存储单元格样式
-                };
-              }
-              if (!tableData.styling.cellStyles) {
-                tableData.styling.cellStyles = [];
-              }
-              if (!tableData.locations) {
-                tableData.locations = [{
+              const filePathExists = tableData.locations.some((loc) => loc.path === activeFile.path);
+              if (!filePathExists) {
+                tableData.locations.push({
                   path: activeFile.path,
                   isActive: true
-                }];
+                });
+              }
+            }
+          }
+          if (this.selectedCells.length === 0 || this.applyToEntireTable) {
+            if (horizontalAlign) {
+              tableData.styling = tableData.styling || {};
+              tableData.styling.alignment = tableData.styling.alignment || [];
+              const colCount = ((_a = tableData.structure) == null ? void 0 : _a.colCount) || 0;
+              for (let i = 0; i < colCount; i++) {
+                tableData.styling.alignment[i] = horizontalAlign;
+              }
+              console.log(`\u66F4\u65B0\u8868\u683C\u5BF9\u9F50\u6570\u636E: ${tableId}`, tableData.styling.alignment);
+            }
+          } else {
+            selectedCellPositions.forEach((pos) => {
+              const existingStyleIndex = tableData.styling.cellStyles.findIndex(
+                (style) => style.row === pos.row && style.col === pos.col
+              );
+              if (existingStyleIndex !== -1) {
+                if (horizontalAlign) {
+                  tableData.styling.cellStyles[existingStyleIndex].textAlign = horizontalAlign;
+                }
+                if (verticalAlign) {
+                  tableData.styling.cellStyles[existingStyleIndex].verticalAlign = verticalAlign;
+                }
               } else {
-                const filePathExists = tableData.locations.some((loc) => loc.path === activeFile.path);
-                if (!filePathExists) {
-                  tableData.locations.push({
-                    path: activeFile.path,
-                    isActive: true
-                  });
+                const newStyle = { row: pos.row, col: pos.col };
+                if (horizontalAlign) {
+                  newStyle.textAlign = horizontalAlign;
                 }
+                if (verticalAlign) {
+                  newStyle.verticalAlign = verticalAlign;
+                }
+                tableData.styling.cellStyles.push(newStyle);
               }
-            }
-            if (this.selectedCells.length === 0 || this.applyToEntireTable) {
-              if (horizontalAlign) {
-                tableData.styling = tableData.styling || {};
-                tableData.styling.alignment = tableData.styling.alignment || [];
-                const colCount = ((_a = tableData.structure) == null ? void 0 : _a.colCount) || 0;
-                for (let i = 0; i < colCount; i++) {
-                  tableData.styling.alignment[i] = horizontalAlign;
-                }
-                console.log(`\u66F4\u65B0\u8868\u683C\u5BF9\u9F50\u6570\u636E: ${tableId}`, tableData.styling.alignment);
-              }
-            } else {
-              selectedCellPositions.forEach((pos) => {
-                const existingStyleIndex = tableData.styling.cellStyles.findIndex(
-                  (style) => style.row === pos.row && style.col === pos.col
-                );
-                if (existingStyleIndex !== -1) {
-                  if (horizontalAlign) {
-                    tableData.styling.cellStyles[existingStyleIndex].textAlign = horizontalAlign;
-                  }
-                  if (verticalAlign) {
-                    tableData.styling.cellStyles[existingStyleIndex].verticalAlign = verticalAlign;
-                  }
-                } else {
-                  const newStyle = { row: pos.row, col: pos.col };
-                  if (horizontalAlign) {
-                    newStyle.textAlign = horizontalAlign;
-                  }
-                  if (verticalAlign) {
-                    newStyle.verticalAlign = verticalAlign;
-                  }
-                  tableData.styling.cellStyles.push(newStyle);
-                }
-              });
-              console.log(`\u66F4\u65B0\u5355\u5143\u683C\u6837\u5F0F\u6570\u636E: ${tableId}`, tableData.styling.cellStyles);
-            }
-            this.plugin.saveData(existingData);
+            });
+            console.log(`\u66F4\u65B0\u5355\u5143\u683C\u6837\u5F0F\u6570\u636E: ${tableId}`, tableData.styling.cellStyles);
+          }
+          this.plugin.saveData(existingData).then(() => {
             console.log(`\u5DF2\u4FDD\u5B58\u8868\u683C\u6570\u636E: ${tableId}`);
+            this.applyAlignmentStylesOnly(horizontalAlign, verticalAlign);
             new import_obsidian5.Notice(`\u5DF2\u5C06${horizontalAlign || ""}${horizontalAlign && verticalAlign ? "\u548C" : ""}${verticalAlign || ""}\u5BF9\u9F50\u5E94\u7528\u5230${this.selectedCells.length > 0 ? "\u9009\u4E2D\u5355\u5143\u683C" : "\u6574\u4E2A\u8868\u683C"}\u5E76\u4FDD\u5B58\u5230\u6570\u636E\u6587\u4EF6`);
           }).catch((err) => {
             console.error("\u4FDD\u5B58\u8868\u683C\u6570\u636E\u65F6\u51FA\u9519:", err);
             new import_obsidian5.Notice(`\u4FDD\u5B58\u8868\u683C\u6570\u636E\u5931\u8D25: ${err.message || "\u672A\u77E5\u9519\u8BEF"}`);
           });
-        } else {
-          console.warn("\u4FDD\u5B58\u6570\u636E\u65F6\u8868\u683C\u4E0D\u518D\u5B58\u5728");
-        }
-      }).catch((error) => {
-        console.error("\u83B7\u53D6\u8868\u683CID\u65F6\u51FA\u9519:", error);
-        new import_obsidian5.Notice(`\u83B7\u53D6\u8868\u683CID\u5931\u8D25: ${error.message || "\u672A\u77E5\u9519\u8BEF"}`);
-      });
-      console.log("\u5BF9\u9F50\u5E94\u7528\u5B8C\u6210");
-    } catch (error) {
-      console.error("\u5E94\u7528\u5BF9\u9F50\u5931\u8D25:", error);
-      new import_obsidian5.Notice(`\u5E94\u7528\u5BF9\u9F50\u5931\u8D25: ${error.message || "\u672A\u77E5\u9519\u8BEF"}`);
-    }
+        }).catch((err) => {
+          console.error("\u52A0\u8F7D\u8868\u683C\u6570\u636E\u65F6\u51FA\u9519:", err);
+          new import_obsidian5.Notice(`\u52A0\u8F7D\u8868\u683C\u6570\u636E\u5931\u8D25: ${err.message || "\u672A\u77E5\u9519\u8BEF"}`);
+        });
+      } else {
+        console.warn("\u4FDD\u5B58\u6570\u636E\u65F6\u8868\u683C\u4E0D\u518D\u5B58\u5728");
+      }
+    }).catch((error) => {
+      console.error("\u83B7\u53D6\u8868\u683CID\u65F6\u51FA\u9519:", error);
+      new import_obsidian5.Notice(`\u83B7\u53D6\u8868\u683CID\u5931\u8D25: ${error.message || "\u672A\u77E5\u9519\u8BEF"}`);
+    });
   }
   /**
    * 获取选中单元格的位置信息（行列索引）
@@ -4343,9 +4358,7 @@ var TableToolbar = class {
         styling: {
           rowHeights: Array(rowCount).fill("auto"),
           colWidths: Array(colCount).fill("auto"),
-          alignment: Array(colCount).fill("left"),
-          cellStyles: []
-          // 确保cellStyles数组存在
+          alignment: Array(colCount).fill("left")
         }
       };
       console.log(`\u4FDD\u5B58\u8868\u683C\u4FE1\u606F: ID=${tableId}, \u884C\u6570=${rowCount}, \u5217\u6570=${colCount}, \u8868\u5934=${hasHeaders}`);
