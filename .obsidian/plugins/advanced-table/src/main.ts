@@ -30,6 +30,7 @@ interface PluginSettings {
 	preferFeatureMatching: boolean; // 优先使用特征匹配而非位置匹配
 	preferFileStorage: boolean; // 优先使用文件存储而非data.json
 	autoExportToFile: boolean; // 自动将data.json中的数据导出到文件
+	useCompactFormat: boolean; // 使用紧凑格式存储表格数据
 }
 
 const DEFAULT_SETTINGS: PluginSettings = {
@@ -47,6 +48,7 @@ const DEFAULT_SETTINGS: PluginSettings = {
 	preferFeatureMatching: false, // 默认不优先使用特征匹配
 	preferFileStorage: true, // 默认优先使用文件存储
 	autoExportToFile: false, // 默认不自动导出到文件
+	useCompactFormat: true, // 默认使用紧凑格式
 };
 
 export class ObsidianSpreadsheet extends Plugin {

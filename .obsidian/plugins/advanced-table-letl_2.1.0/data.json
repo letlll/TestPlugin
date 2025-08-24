@@ -942,19 +942,20 @@
       ],
       "structure": {
         "rowCount": 3,
-        "colCount": 4,
+        "colCount": 5,
         "hasHeaders": true
       },
       "styling": {
         "rowHeights": [
-          "86px",
-          "auto",
+          "55px",
+          "55px",
           "auto"
         ],
         "colWidths": [
-          "65px",
-          "57px",
-          "277px",
+          "61px",
+          "194px",
+          "auto",
+          "27px",
           "auto"
         ],
         "alignment": [
@@ -963,7 +964,20 @@
           "left",
           "left"
         ],
-        "cellStyles": []
+        "cellStyles": [
+          {
+            "row": 0,
+            "col": 1,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          },
+          {
+            "row": 1,
+            "col": 1,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          }
+        ]
       }
     },
     "tbl-20250824-3hq1orzk": {
@@ -982,13 +996,13 @@
       "styling": {
         "rowHeights": [
           "auto",
-          "auto",
-          "auto",
+          "109px",
+          "34px",
           "auto"
         ],
         "colWidths": [
-          "192px",
-          "55px",
+          "158px",
+          "auto",
           "auto",
           "auto"
         ],
@@ -998,7 +1012,37 @@
           "left",
           "left"
         ],
-        "cellStyles": []
+        "cellStyles": [
+          {
+            "row": 1,
+            "col": 0,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          },
+          {
+            "row": 2,
+            "col": 3,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          },
+          {
+            "row": 2,
+            "col": 2,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          },
+          {
+            "row": 2,
+            "col": 0,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          },
+          {
+            "row": 1,
+            "col": 1,
+            "verticalAlign": "bottom"
+          }
+        ]
       }
     }
   }

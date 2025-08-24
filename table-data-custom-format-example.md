@@ -1,9 +1,9 @@
 <!-- table-id: tbl-20250824-9xel3vux --> 
 
-| 年度   | Q1  | Q2  | 合计  | 
-| ---- | --- | --- | --- | 
-| 2024 | 10  | 12  | 22  | 
-| 2025 | 14  | 15  | 29  | 
+| 年度   | Q1  | Q2  | 合计  |     |
+| ---- | --- | --- | --- | --- |
+| 2024 | 10  | 12  | 22  |     |
+| 2025 | 14  | 15  | 29  |     |
 
 <!-- table-id: tbl-20250824-3hq1orzk --> 
 
@@ -13,84 +13,10 @@
 | B型  | 200 | 3   | 600  | 
 | 总计  |     |     | 1100 | 
 
-```json:table-data
-[
-  {
-    "id": "tbl-20250824-9xel3vux",
-    "locations": [
-      {
-        "path": "table-data-in-md-example.md",
-        "isActive": true
-      },
-      {
-        "path": "未命名 2.md",
-        "isActive": true
-      },
-      {
-        "path": "table-data-custom-format-example.md",
-        "isActive": true
-      }
-    ],
-    "structure": {
-      "rowCount": 3,
-      "colCount": 4,
-      "hasHeaders": true
-    },
-    "styling": {
-      "rowHeights": [
-        "86px",
-        "auto",
-        "auto"
-      ],
-      "colWidths": [
-        "65px",
-        "57px",
-        "277px",
-        "auto"
-      ],
-      "alignment": [
-        "left",
-        "left",
-        "left",
-        "left"
-      ],
-      "cellStyles": []
-    }
-  },
-  {
-    "id": "tbl-20250824-3hq1orzk",
-    "locations": [
-      {
-        "path": "table-data-custom-format-example.md",
-        "isActive": true
-      }
-    ],
-    "structure": {
-      "rowCount": 4,
-      "colCount": 4,
-      "hasHeaders": true
-    },
-    "styling": {
-      "rowHeights": [
-        "auto",
-        "auto",
-        "auto",
-        "auto"
-      ],
-      "colWidths": [
-        "192px",
-        "55px",
-        "auto",
-        "auto"
-      ],
-      "alignment": [
-        "left",
-        "left",
-        "left",
-        "left"
-      ],
-      "cellStyles": []
-    }
-  }
-]
+## 紧凑格式的表格数据
+
+
+```table-data
+tbl-20250824-9xel3vux|rows:3|cols:5|headers:true|wrapper:false|width:61px,194px,auto,27px,auto|height:55px,55px,auto|align:left,left,left,left|cellStyles:[{"row":0,"col":1,"textAlign":"center","verticalAlign":"middle"},{"row":1,"col":1,"textAlign":"center","verticalAlign":"middle"}]|merges:[]|loc:table-data-in-md-example.md:true,未命名 2.md:true,table-data-custom-format-example.md:true
+tbl-20250824-3hq1orzk|rows:4|cols:4|headers:true|width:158px,auto,auto,auto|height:auto,109px,34px,auto|align:left,left,left,left|cellStyles:[{"row":1,"col":0,"textAlign":"center","verticalAlign":"middle"},{"row":2,"col":3,"textAlign":"center","verticalAlign":"middle"},{"row":2,"col":2,"textAlign":"center","verticalAlign":"middle"},{"row":2,"col":0,"textAlign":"center","verticalAlign":"middle"},{"row":1,"col":1,"verticalAlign":"bottom"}]|loc:table-data-custom-format-example.md:true
 ```

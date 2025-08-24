@@ -1533,7 +1533,8 @@ export class TableToolbar {
                 styling: {
                     rowHeights: Array(rowCount).fill('auto'),
                     colWidths: Array(colCount).fill('auto'),
-                    alignment: Array(colCount).fill('left')
+                    alignment: Array(colCount).fill('left'),
+                    cellStyles: [] // 确保cellStyles数组存在
                 }
             };
             

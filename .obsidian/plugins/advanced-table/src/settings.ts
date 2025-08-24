@@ -232,5 +232,18 @@ export class SheetSettingsTab extends PluginSettingTab
 						await this.plugin.saveSettings();
 					})
 			);
+			
+		new Setting(containerEl)
+			.setName('使用紧凑格式存储数据')
+			.setDesc('启用后，表格数据将以更紧凑的自定义格式存储，而不是完整的JSON格式')
+			.addToggle((toggle) =>
+				toggle
+					.setValue(this.plugin.settings.useCompactFormat || true)
+					.onChange(async value => 
+					{
+						this.plugin.settings.useCompactFormat = value;
+						await this.plugin.saveSettings();
+					})
+			);
 	}
 }

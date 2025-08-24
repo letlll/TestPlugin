@@ -173,12 +173,15 @@ export class TableDataExtractor {
             structure: {
                 rowCount: 0,
                 colCount: 0,
-                hasHeaders: false
+                hasHeaders: false,
+                useTableWrapper: false,
+                merges: []
             },
             styling: {
                 rowHeights: [],
                 colWidths: [],
-                alignment: []
+                alignment: [],
+                cellStyles: []
             }
         };
     }
@@ -195,16 +198,37 @@ export class TableDataExtractor {
                 tableData.structure = {
                     rowCount: 0,
                     colCount: 0,
-                    hasHeaders: false
+                    hasHeaders: false,
+                    useTableWrapper: false,
+                    merges: []
                 };
+            } else {
+                // 确保结构对象包含所有必要的属性
+                if (tableData.structure.rowCount === undefined) tableData.structure.rowCount = 0;
+                if (tableData.structure.colCount === undefined) tableData.structure.colCount = 0;
+                if (tableData.structure.hasHeaders === undefined) tableData.structure.hasHeaders = false;
+                if (tableData.structure.useTableWrapper === undefined) tableData.structure.useTableWrapper = false;
+                if (!tableData.structure.merges) tableData.structure.merges = [];
             }
             
             if (!tableData.styling) {
                 tableData.styling = {
                     rowHeights: [],
                     colWidths: [],
-                    alignment: []
+                    alignment: [],
+                    cellStyles: []
                 };
+            } else {
+                // 确保样式对象包含所有必要的属性
+                if (!tableData.styling.rowHeights) tableData.styling.rowHeights = [];
+                if (!tableData.styling.colWidths) tableData.styling.colWidths = [];
+                if (!tableData.styling.alignment) tableData.styling.alignment = [];
+                if (!tableData.styling.cellStyles) tableData.styling.cellStyles = [];
+                // 如果cellStyles是对象而不是数组，转换为数组
+                if (tableData.styling.cellStyles && !Array.isArray(tableData.styling.cellStyles)) {
+                    console.log('将cellStyles从对象转换为数组');
+                    tableData.styling.cellStyles = [];
+                }
             }
             
             if (!tableData.locations) {
@@ -236,42 +260,97 @@ export class TableDataExtractor {
             // 创建表格数据对象
             const tableData: TableData = this.createEmptyTableData(tableId);
             
-            console.log(`解析自定义表格数据格式: ${line} 表格ID: ${tableId}`);
-            
             // 解析其余部分作为键值对
             for (let i = 1; i < parts.length; i++) {
-                const keyValue = parts[i].split(':');
-                if (keyValue.length !== 2) continue;
+                // 使用indexOf查找第一个冒号，以支持JSON字符串中可能包含的冒号
+                const part = parts[i];
+                const colonIndex = part.indexOf(':');
+                if (colonIndex === -1) continue;
                 
-                const key = keyValue[0].trim();
-                const value = keyValue[1].trim();
-                
-                console.log(`处理键值对: ${key}:${value}`);
+                const key = part.substring(0, colonIndex).trim();
+                let value = part.substring(colonIndex + 1).trim();
                 
                 // 根据键名处理不同类型的值
                 switch (key) {
+                    case 'rows':
+                        // 行数设置
+                        tableData.structure.rowCount = parseInt(value, 10) || 0;
+                        break;
+                        
+                    case 'cols':
+                        // 列数设置
+                        tableData.structure.colCount = parseInt(value, 10) || 0;
+                        break;
+                        
+                    case 'headers':
+                        // 表头设置
+                        tableData.structure.hasHeaders = value === 'true';
+                        break;
+                    
                     case 'wrapper':
                         // 表格包装器设置
                         tableData.structure.useTableWrapper = value === 'true';
-                        console.log(`设置表格 ${tableId} 包装器: ${value}`);
                         break;
                     
                     case 'width':
                         // 列宽设置，格式: width:col1,col2,col3,...
                         tableData.styling.colWidths = value.split(',').map(w => w.trim());
-                        console.log(`设置表格 ${tableId} 列宽: ${tableData.styling.colWidths.join(', ')}`);
                         break;
                     
                     case 'align':
                         // 对齐方式设置，格式: align:left,center,right,...
                         tableData.styling.alignment = value.split(',').map(a => a.trim());
-                        console.log(`设置表格 ${tableId} 对齐方式: ${tableData.styling.alignment.join(', ')}`);
                         break;
                     
                     case 'height':
                         // 行高设置，格式: height:row1,row2,row3,...
                         tableData.styling.rowHeights = value.split(',').map(h => h.trim());
-                        console.log(`设置表格 ${tableId} 行高: ${tableData.styling.rowHeights.join(', ')}`);
+                        break;
+                        
+                    case 'loc':
+                        // 位置信息设置，格式: loc:path1:true,path2:false,...
+                        const locations = value.split(',').map(l => {
+                            const locParts = l.split(':');
+                            if (locParts.length === 2) {
+                                return {
+                                    path: locParts[0].trim(),
+                                    isActive: locParts[1].trim() === 'true'
+                                };
+                            }
+                            return null;
+                        }).filter(l => l !== null) as TableLocation[];
+                        
+                        tableData.locations = locations;
+                        break;
+                        
+                    case 'cellStyles':
+                        // 单元格样式设置，格式: cellStyles:JSON字符串
+                        try {
+                            const parsedStyles = JSON.parse(value);
+                            // 确保cellStyles是数组
+                            if (Array.isArray(parsedStyles)) {
+                                tableData.styling.cellStyles = parsedStyles;
+                            } else if (typeof parsedStyles === 'object') {
+                                // 如果是对象格式，尝试转换为数组格式
+                                console.log('将cellStyles从对象格式转换为数组格式');
+                                tableData.styling.cellStyles = [];
+                            } else {
+                                tableData.styling.cellStyles = [];
+                            }
+                        } catch (e) {
+                            console.error('解析单元格样式时出错:', e);
+                            tableData.styling.cellStyles = []; // 解析失败时提供默认空数组
+                        }
+                        break;
+                        
+                    case 'merges':
+                        // 单元格合并信息，格式: merges:JSON字符串
+                        try {
+                            tableData.structure.merges = JSON.parse(value);
+                        } catch (e) {
+                            console.error('解析单元格合并信息时出错:', e);
+                            tableData.structure.merges = []; // 解析失败时提供默认空数组
+                        }
                         break;
                     
                     // 可以添加更多自定义属性的处理
@@ -377,11 +456,8 @@ export class TableDataExtractor {
                 .filter(id => existingTableData[id]) // 只包含有数据的表格
                 .map(id => existingTableData[id]);
             
-            // 准备要导出的数据
-            const dataToExport = JSON.stringify(tableDataArray, null, 2);
-            
-            // 查找文件中所有的表格数据代码块
-            const jsonBlockRegex = /```json:table-data\s*\n([\s\S]*?)\n```/g;
+            // 查找文件中所有的表格数据代码块（包括JSON和自定义格式）
+            const jsonBlockRegex = /```(json:table-data|table-data)\s*\n([\s\S]*?)\n```/g;
             const codeBlocks: {start: number, end: number}[] = [];
             
             while ((match = jsonBlockRegex.exec(fileContent)) !== null) {
@@ -410,15 +486,108 @@ export class TableDataExtractor {
                 }
             }
             
-            // 添加表格数据代码块
-            fileContent += '```json:table-data\n' + dataToExport + '\n```';
+            // 根据设置选择导出格式
+            if (this.plugin.settings.useCompactFormat) {
+                // 使用紧凑的自定义格式
+                const compactData = this.convertToCompactFormat(tableDataArray);
+                fileContent += '```table-data\n' + compactData + '\n```';
+                console.log(`已将表格数据以紧凑格式导出到文件末尾: ${file.path}, 表格数量: ${tableDataArray.length}`);
+            } else {
+                // 使用标准JSON格式
+                const dataToExport = JSON.stringify(tableDataArray, null, 2);
+                fileContent += '```json:table-data\n' + dataToExport + '\n```';
+                console.log(`已将表格数据以JSON格式导出到文件末尾: ${file.path}, 表格数量: ${tableDataArray.length}`);
+            }
             
             // 保存修改后的文件内容
             await this.getApp().vault.modify(file, fileContent);
-            
-            console.log(`已将所有表格数据导出到文件末尾: ${file.path}, 表格数量: ${tableDataArray.length}`);
         } catch (error) {
             console.error('导出表格数据到文件时出错:', error);
+        }
+    }
+    
+    /**
+     * 将表格数据数组转换为紧凑的自定义格式
+     * 格式: tableId|key1:value1|key2:value2,...
+     * @param tableDataArray 表格数据数组
+     * @returns 紧凑格式的字符串
+     */
+    convertToCompactFormat(tableDataArray: TableData[]): string {
+        try {
+            const lines: string[] = [];
+            
+            for (const tableData of tableDataArray) {
+                if (!tableData || !tableData.id) continue;
+                
+                // 开始构建行，以表格ID开头
+                let line = tableData.id;
+                
+                // 添加结构信息
+                if (tableData.structure) {
+                    if (tableData.structure.rowCount) {
+                        line += `|rows:${tableData.structure.rowCount}`;
+                    }
+                    if (tableData.structure.colCount) {
+                        line += `|cols:${tableData.structure.colCount}`;
+                    }
+                    if (tableData.structure.hasHeaders !== undefined) {
+                        line += `|headers:${tableData.structure.hasHeaders}`;
+                    }
+                    if (tableData.structure.useTableWrapper !== undefined) {
+                        line += `|wrapper:${tableData.structure.useTableWrapper}`;
+                    }
+                }
+                
+                // 添加样式信息
+                if (tableData.styling) {
+                    if (tableData.styling.colWidths && tableData.styling.colWidths.length > 0) {
+                        line += `|width:${tableData.styling.colWidths.join(',')}`;
+                    }
+                    if (tableData.styling.rowHeights && tableData.styling.rowHeights.length > 0) {
+                        line += `|height:${tableData.styling.rowHeights.join(',')}`;
+                    }
+                    if (tableData.styling.alignment && tableData.styling.alignment.length > 0) {
+                        line += `|align:${tableData.styling.alignment.join(',')}`;
+                    }
+                    // 处理单元格样式 - 确保即使是空数组也会被序列化并保存
+                    if (tableData.styling.cellStyles && Array.isArray(tableData.styling.cellStyles)) {
+                        try {
+                            const cellStylesStr = JSON.stringify(tableData.styling.cellStyles);
+                            line += `|cellStyles:${cellStylesStr}`;
+                        } catch (e) {
+                            console.error('序列化单元格样式时出错:', e);
+                        }
+                    } else {
+                        // 如果cellStyles不存在或不是数组，添加一个空数组
+                        line += `|cellStyles:[]`;
+                    }
+                }
+                
+                // 添加合并单元格信息
+                if (tableData.structure && tableData.structure.merges) {
+                    try {
+                        const mergesStr = JSON.stringify(tableData.structure.merges);
+                        line += `|merges:${mergesStr}`;
+                    } catch (e) {
+                        console.error('序列化合并单元格信息时出错:', e);
+                    }
+                }
+                
+                // 添加位置信息
+                if (tableData.locations && tableData.locations.length > 0) {
+                    const locationsStr = tableData.locations
+                        .map(loc => `${loc.path}:${loc.isActive}`)
+                        .join(',');
+                    line += `|loc:${locationsStr}`;
+                }
+                
+                lines.push(line);
+            }
+            
+            return lines.join('\n');
+        } catch (error) {
+            console.error('转换为紧凑格式时出错:', error);
+            return '';
         }
     }
 }

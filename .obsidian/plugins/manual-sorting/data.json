@@ -1,6 +1,8 @@
 {
   "customFileOrder": {
     "/": [
+      "table-data-cellstyles-test.md",
+      "table-data-test.md",
       "table-data-custom-format-example.md",
       "未命名 2.md",
       "test-table-data.md",

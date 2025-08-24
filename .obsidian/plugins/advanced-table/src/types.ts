@@ -35,6 +35,7 @@ export interface TableStructure {
     colCount: number;     // 列数
     hasHeaders: boolean;  // 是否有表头
     useTableWrapper?: boolean; // 是否使用表格包装器
+    merges?: any[];      // 合并单元格信息
 }
 
 /**
@@ -44,6 +45,7 @@ export interface TableStyling {
     rowHeights: string[];  // 行高
     colWidths: string[];   // 列宽
     alignment: string[];   // 对齐方式
+    cellStyles?: any[]; // 单元格样式
 }
 
 /**

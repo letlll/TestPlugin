@@ -313,8 +313,12 @@ export class TableStyleRenderer extends MarkdownRenderChild {
         try {
             console.log('预览模式激活，开始应用保存的表格样式');
             
-            // 获取所有表格元素
-            const tables = containerEl.querySelectorAll('table');
+            // 获取所有表格元素，排除代码块中的表格
+            const tables = Array.from(containerEl.querySelectorAll('table')).filter(table => {
+                // 检查表格是否在代码块内
+                const isInCodeBlock = table.closest('pre') !== null || table.closest('code') !== null;
+                return !isInCodeBlock;
+            });
             console.log(`找到 ${tables.length} 个表格需要应用样式`);
             
             if (!tables.length) return;
@@ -448,8 +452,13 @@ export async function renderTablesWithStoredStyles(plugin: ObsidianSpreadsheet):
             }
         }
         
-        // 获取当前文件中的所有表格
-        const allTables = document.querySelectorAll('table');
+        // 获取当前文件中的所有表格，排除代码块中的表格
+        const allTables = Array.from(document.querySelectorAll('table')).filter(table => {
+            // 检查表格是否在代码块内
+            const isInCodeBlock = table.closest('pre') !== null || table.closest('code') !== null;
+            return !isInCodeBlock;
+        });
+        
         if (!allTables.length) {
             console.log('当前文件中没有表格');
             return;

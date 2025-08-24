@@ -27,8 +27,13 @@ export function setupPreviewModeTableSelection(plugin: ObsidianSpreadsheet): voi
         // 清除当前编辑表格状态
         plugin.currentEditingTable = null;
         
-        // 获取所有表格
-        const tables = document.querySelectorAll('table');
+        // 获取所有表格，排除代码块中的表格
+        const tables = Array.from(document.querySelectorAll('table')).filter(table => {
+            // 检查表格是否在代码块内
+            const isInCodeBlock = table.closest('pre') !== null || table.closest('code') !== null;
+            return !isInCodeBlock;
+        });
+        
         if (!tables.length) return;
         
         console.log(`预览模式下找到 ${tables.length} 个表格`);
@@ -102,4 +107,4 @@ export function setupPreviewModeTableSelection(plugin: ObsidianSpreadsheet): voi
     } catch (error) {
         console.error('设置预览模式表格选择时出错:', error);
     }
-} 
+}
