@@ -499,10 +499,10 @@ export class TableResizer {
             // 保存数据
             await this.plugin.saveData(allData);
             
-            // 将表格数据导出到Markdown文件
-            if (this.plugin.settings.preferFileStorage) {
+            // 如果优先使用文件存储，则将表格数据导出到Markdown文件
+            if (this.plugin.settings.preferFileStorage && activeFile) {
                 await this.plugin.tableDataExtractor.exportTableDataToFile(activeFile, tableId, allData.tables[tableId]);
-                console.log(`TableResizer: 已将表格数据导出到Markdown文件 - ID=${tableId}`);
+                console.log(`TableResizer: 已将表格大小数据导出到文件 ${activeFile.path}`);
             }
             console.log('TableResizer: 表格尺寸数据保存成功');
             
