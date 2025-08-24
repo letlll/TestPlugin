@@ -13,6 +13,7 @@ import { App, PluginManifest } from 'obsidian';
 import { setupPreviewModeTableSelection } from './setupPreviewModeTableSelection';
 import { renderTablesWithStoredStyles } from './tableStyleRenderer';
 import { TableResizer } from './tableResizer';
+import { TableDataExtractor } from './tableDataExtractor';
 
 interface PluginSettings {
 	nativeProcessing: boolean;
@@ -27,6 +28,8 @@ interface PluginSettings {
 	useTableWrapperComments: boolean; // 使用表格注释夹模式
 	featureSimilarityThreshold: number; // 表格特征匹配相似度阈值
 	preferFeatureMatching: boolean; // 优先使用特征匹配而非位置匹配
+	preferFileStorage: boolean; // 优先使用文件存储而非data.json
+	autoExportToFile: boolean; // 自动将data.json中的数据导出到文件
 }
 
 const DEFAULT_SETTINGS: PluginSettings = {
@@ -42,6 +45,8 @@ const DEFAULT_SETTINGS: PluginSettings = {
 	useTableWrapperComments: false, // 默认不使用注释夹模式
 	featureSimilarityThreshold: 0.7, // 默认相似度阈值70%
 	preferFeatureMatching: false, // 默认不优先使用特征匹配
+	preferFileStorage: true, // 默认优先使用文件存储
+	autoExportToFile: false, // 默认不自动导出到文件
 };
 
 export class ObsidianSpreadsheet extends Plugin {
@@ -55,6 +60,9 @@ export class ObsidianSpreadsheet extends Plugin {
 	
 	// 添加表格大小调整器
 	tableResizer: TableResizer;
+	
+	// 添加表格数据提取器
+	tableDataExtractor: TableDataExtractor;
 	
 	// 添加视图模式状态跟踪
 	lastPreviewModeState: boolean = false;
@@ -86,6 +94,18 @@ export class ObsidianSpreadsheet extends Plugin {
 				await this.saveSettings();
 			}
 			
+			// 确保 preferFileStorage 属性存在
+			if (this.settings.preferFileStorage === undefined) {
+				this.settings.preferFileStorage = true;
+				await this.saveSettings();
+			}
+			
+			// 确保 autoExportToFile 属性存在
+			if (this.settings.autoExportToFile === undefined) {
+				this.settings.autoExportToFile = false;
+				await this.saveSettings();
+			}
+			
 			// Load custom icons
 			loadIcons();
 			
@@ -98,6 +118,9 @@ export class ObsidianSpreadsheet extends Plugin {
 			
 			// 初始化表格大小调整器
 			this.tableResizer = new TableResizer(this);
+			
+			// 初始化表格数据提取器
+			this.tableDataExtractor = new TableDataExtractor(this);
 			
 			// Add ribbon icon for toolbar toggle
 			this.ribbonIcon = this.addRibbonIcon('table-toolbar-toggle', '表格工具栏', (evt: MouseEvent) => {
@@ -634,6 +657,17 @@ export class ObsidianSpreadsheet extends Plugin {
 			// 这里我们无法直接验证ID来源，但可以通过日志提醒
 			console.log(`准备保存表格数据: ${tableData.id}`);
 			
+			// 如果优先使用文件存储，则尝试将数据保存到当前文件
+			if (this.settings.preferFileStorage) {
+				const activeFile = this.app.workspace.getActiveFile();
+				if (activeFile && this.tableDataExtractor) {
+					await this.tableDataExtractor.exportTableDataToFile(activeFile, tableData.id, tableData);
+					console.log(`已将表格数据保存到文件: ${activeFile.path}`);
+					return; // 已保存到文件，不再保存到data.json
+				}
+			}
+			
+			// 如果不优先使用文件存储或无法保存到文件，则保存到data.json
 			// 获取当前存储的表格数据
 			const existingData = await this.loadData() || {};
 			
@@ -648,7 +682,16 @@ export class ObsidianSpreadsheet extends Plugin {
 			// 保存更新后的数据
 			await this.saveData(existingData);
 			
-			console.log(`已保存表格数据: ${tableData.id}`);
+			console.log(`已保存表格数据到data.json: ${tableData.id}`);
+			
+			// 如果设置了自动导出到文件，则尝试将数据导出到当前文件
+			if (this.settings.autoExportToFile && this.tableDataExtractor) {
+				const activeFile = this.app.workspace.getActiveFile();
+				if (activeFile) {
+					await this.tableDataExtractor.exportTableDataToFile(activeFile, tableData.id, tableData);
+					console.log(`已自动将表格数据导出到文件: ${activeFile.path}`);
+				}
+			}
 		} catch (error) {
 			console.error('保存表格数据时出错:', error);
 		}

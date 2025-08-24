@@ -34,6 +34,7 @@ export interface TableStructure {
     rowCount: number;     // 行数
     colCount: number;     // 列数
     hasHeaders: boolean;  // 是否有表头
+    useTableWrapper?: boolean; // 是否使用表格包装器
 }
 
 /**
@@ -54,4 +55,4 @@ export interface TableData {
     structure: TableStructure;    // 表格结构
     styling: TableStyling;        // 表格样式
     feature?: TableFeature;       // 表格特征
-} 
+}

@@ -8,6 +8,11 @@
   "autoCenterMergedCells": true,
   "toolbarEnabled": true,
   "enableEditModeOperations": true,
+  "useTableWrapperComments": false,
+  "featureSimilarityThreshold": 0.7,
+  "preferFeatureMatching": true,
+  "preferFileStorage": true,
+  "autoExportToFile": false,
   "tableMetadata": {
     "tbl-17515241-2cff464": {
       "rowHeights": [
@@ -841,6 +846,117 @@
             "verticalAlign": "bottom"
           }
         ]
+      }
+    },
+    "tbl-20250824-temzyxho": {
+      "id": "tbl-20250824-temzyxho",
+      "locations": [
+        {
+          "path": "test-table.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 5,
+        "colCount": 5,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "80px",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": []
+      }
+    },
+    "tbl-20250824-gakxru20": {
+      "id": "tbl-20250824-gakxru20",
+      "locations": [
+        {
+          "path": "test-table.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 5,
+        "colCount": 5,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "55px",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": []
+      }
+    },
+    "tbl-20250824-9xel3vux": {
+      "id": "tbl-20250824-9xel3vux",
+      "locations": [
+        {
+          "path": "table-data-in-md-example.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 4,
+        "colCount": 4,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "429px",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": []
       }
     }
   }

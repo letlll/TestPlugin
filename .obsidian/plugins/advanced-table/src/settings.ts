@@ -204,5 +204,33 @@ export class SheetSettingsTab extends PluginSettingTab
 						await this.plugin.saveSettings();
 					})
 			);
+			
+		containerEl.createEl('h3', { text: '数据存储设置' });
+		
+		new Setting(containerEl)
+			.setName('优先使用文件存储')
+			.setDesc('启用后，表格数据将优先存储在Markdown文件中，而不是data.json文件中')
+			.addToggle((toggle) =>
+				toggle
+					.setValue(this.plugin.settings.preferFileStorage || false)
+					.onChange(async value => 
+					{
+						this.plugin.settings.preferFileStorage = value;
+						await this.plugin.saveSettings();
+					})
+			);
+			
+		new Setting(containerEl)
+			.setName('自动导出到文件')
+			.setDesc('启用后，即使使用data.json存储数据，也会自动将数据导出到Markdown文件中')
+			.addToggle((toggle) =>
+				toggle
+					.setValue(this.plugin.settings.autoExportToFile || false)
+					.onChange(async value => 
+					{
+						this.plugin.settings.autoExportToFile = value;
+						await this.plugin.saveSettings();
+					})
+			);
 	}
 }

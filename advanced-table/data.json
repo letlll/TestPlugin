@@ -1,0 +1,279 @@
+{
+  "nativeProcessing": true,
+  "paragraphs": false,
+  "enableCellMerging": true,
+  "enableMultiLevelMerge": true,
+  "confirmMergeNonEmpty": true,
+  "enableTableIds": true,
+  "idPrefix": "table",
+  "autoCenterMergedCells": true,
+  "toolbarEnabled": false,
+  "enableEditModeOperations": true,
+  "enableTableResize": true,
+  "tables": {
+    "tbl-20250711-iy4kgk38": {
+      "id": "tbl-20250711-iy4kgk38",
+      "locations": [
+        {
+          "path": "test-table-edit.md",
+          "index": 0
+        }
+      ],
+      "lastUpdated": 1752245803642,
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 2,
+            "col": 0,
+            "textAlign": "center"
+          },
+          {
+            "row": 1,
+            "col": 0,
+            "textAlign": "right"
+          }
+        ]
+      }
+    },
+    "tbl-20250711-ps90xsol": {
+      "id": "tbl-20250711-ps90xsol",
+      "locations": [
+        {
+          "path": "test-table.md",
+          "startLine": 23,
+          "endLine": 28
+        }
+      ],
+      "lastUpdated": 1752246005366,
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": []
+      }
+    },
+    "tbl-20250711-i1s73r52": {
+      "id": "tbl-20250711-i1s73r52",
+      "locations": [
+        {
+          "path": "test-table.md",
+          "startLine": 35,
+          "endLine": 40
+        }
+      ],
+      "lastUpdated": 1752246008005,
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": []
+      }
+    },
+    "tbl-20250711-7ompjq0x": {
+      "id": "tbl-20250711-7ompjq0x",
+      "locations": [
+        {
+          "path": "test-table.md",
+          "startLine": 47,
+          "endLine": 53
+        }
+      ],
+      "lastUpdated": 1752246038763,
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 1,
+            "col": 2,
+            "textAlign": "right"
+          }
+        ]
+      }
+    }
+  },
+  "fileCache": {
+    "未命名 1.md": {
+      "content": "要在 Obsidian 中开发一个插件，将文件夹结构转化为可交互的思维导图，并支持点击跳转到相应的文件夹，您可以按照以下步骤进行：\n\n---\n\n## 🧰 开发环境准备\n\n1. **安装 Node.js 和 npm**确保您的系统已安装 Node.js 和 npm\n    \n2. **安装开发工具**推荐使用 Visual Studio Code（VS Code）作为开发环境\n    \n3. **获取插件模板**Obsidian 提供了一个官方的插件模板，您可以从 GitHub 上获取\n    \n    -GitHub 仓库：[obsidian-sample-plugin]([https://github.com/obsidianmd/obsidian-sample-plugin](https://github.com/obsidianmd/obsidian-sample-plugin%EE%88%84%EE%88%86)\n    \n    -官方文档：[Build a plugin]([https://docs.obsidian.md/Plugins/Getting+started/Build+a+plugin](https://docs.obsidian.md/Plugins/Getting+started/Build+a+plugin%EE%88%84%EE%88%86)\n    \n\n---\n\n## 🛠️ 插件开发步骤\n\n### 1. 创建插件骨架\n\n使用上述模板创建您的插件项。\n\n在 `manifest.json` 文件中，定义插件的基本信：\n\n\n\n```json\n  {\n    \"id\": \"folder-mindmap\",\n    \"name\": \"Folder Mind Map\",\n    \"author\": \"Your Name\",\n    \"version\": \"0.1.0\",\n    \"minAppVersion\": \"0.15.0\",\n    \"description\": \"将文件夹结构转化为可交互的思维导图，并支持点击跳转。\",\n    \"isDesktopOnly\": true\n  }\n```\n\n\n### 2. 实现思维导图功能\n在插件的主文件（如 `main.ts`）中，使用 Obsidian 的 API 获取文件夹结构，并生成思维导：\n\n 使用 `this.app.vault.getFiles()` 获取所有文。\n\n 使用 `this.app.workspace.getActiveViewOfType(MarkdownView)` 获取当前活动的 Markdown 视。\n\n 使用第三方库（如 [mermaid.js](https://mermaid-js.github.io/mermaid/)）生成思维导。\n\n### 3. 实现点击跳转功能\n为思维导图中的每个节点添加点击事件，跳转到相应的文件：\n\n 在生成的思维导图中，为每个节点添加 `click` 事件监听。\n\n 使用 Obsidian 的 API，如 `this.app.workspace.openLinkText()`，打开相应的文件。\n\n### 4. 提供设置选项\n为用户提供设置界面，允许他们自定义插件的行：\n\n 使用 `this.addSettingTab()` 添加设置标签。\n\n 在设置标签页中，使用 `new Setting()` 创建设置。\n\n---\n\n## 📦 打包和发布插件\n\n1. **打包插件*：使用打包工具（如 Rollup）将插件打包为单个 JavaScript 件。\n\n2. **发布插件*：将插件发布到 GitHub，并提交 Pull Request 到 Obsidian 的插件库，以供其他用户装。\n\n---\n\n## 📚 参考资源\n- Obsidian 官方插件开发文档：[Obsidian Plugin Developer Documentation](https://docs.obsidian.md/Plugins/Getting+started/Build+a+pluin)\n- Obsidian 插件 API 类型定义：[obsidian-api](https://github.com/obsidianmd/obsidian-pi)\n- 第三方思维导图库：[mermaid.js](https://mermaid-js.github.io/mermad/)\n\n---\n\n通过上述步骤，您可以开发一个插件，将文件夹结构转化为可交互的思维导图，并支持点击跳转到相应的件夹。\n\n如果您需要更详细的代码示例或遇到具体问题，欢迎继续提问！ \n\n\n\n|  年度  | Q1  | Q2  | 合计  |     |\n| :--: | :-: | :-: | :-: | --- |\n| 2024 | 10  | 12  |     |     |\n| 2025 | 14  | 15  |  <  |     |\n|      |     |  1  |     |     |\n|  ^   |  1  |     |     |     |\n\n\n\n```EmbedRelativeTo\ndownload://../video/Captures/parting - 微信开发者工具 Stable v1.06.2412050 2025-05-21 17-49-21.mp4\n```\n\n\n\n![[要求 - TEST插件 - Obsidian v1.8.10 2025-06-14 00-04-02.mp4|80]]\n\n<video src=\"要求 - TEST插件 - Obsidian v1.8.10 2025-06-14 00-04-02.mp4\" width=\"400\" height:=\"auto\"controls></video>\n",
+      "tables": [
+        {
+          "filePath": "未命名 1.md",
+          "tableIndex": 0,
+          "headerHash": "0",
+          "position": {
+            "startLine": 85,
+            "endLine": 90
+          }
+        }
+      ],
+      "lastUpdated": 1752245786549
+    },
+    "test-table.md": {
+      "content": "i# 表格工具栏测试\n\n点击下面的表格，应该会显示表格工具栏。工具栏包含对齐、合并和表格样式等功能。\n\n## 基本表格\n\n<!-- table-id: tbl-20250704-opgql2 -->\n| 产品   | 2024 Q1 | 2024 Q2 | 2024 Q3 | 2024 Q4 | 年度总计 |\n| ---- | ------- | ------- | ------- | ------- | ---- |\n| 产品A  | <       | 120     | 150     | 570      | <  |\n| 产品B  | <       | <<      | 110     | ^  | < |\n| 产品C  | 50      | 60      | ^       | ^^ | < |\n| 季度总计 | 230     | 270     | ^^      |  ^^^ | <  |\n|      |         |         |         |  ^^^^ | < |\n\n## 合并测试\n\n测试单元格合并功能。您可以：\n1. 选择多个单元格（使用Ctrl/Cmd+点击）\n2. 点击\"合并单元格\"按钮\n3. 或者使用\"向右合并\"/\"向下合并\"快捷按钮\n\n<!-- table-id: tbl-20250711-ps90xsol -->\n| 区域  | 第一季度 | 第二季度 | 第三季度 | 第四季度 |\n| --- | ---- | ---- | ---- | ---- |\n| 北区  | 200  | 220  | 240  | 260  |\n| 南区  | 180  | 190  | 200  | 210  |\n| 东区  | 150  | 160  | 170  | 180  |\n| 西区  | 120  | 130  | 140  | 150  |\n\n## 编辑模式合并语法测试\n\n以下表格使用了合并语法：\n\n<!-- table-id: tbl-20250711-i1s73r52 -->\n| 区域   | 上半年        | <           | 下半年       | <           |\n|-------|-------------|-------------|------------|-------------|\n| ^     | 第一季度      | 第二季度      | 第三季度     | 第四季度      |\n| 北区   | 200         | 220         | 240        | 260         |\n| 南区   | 180         | 190         | 200        | 210         |\n| 总计   | 380         | 410         | 440        | 470         |\n\n## 表格样式测试\n\n点击以下表格，然后使用工具栏中的\"表格样式\"按钮应用不同的样式：\n\n<!-- table-id: tbl-20250711-7ompjq0x -->\n| 姓名   | 年龄 | 职业     | 部门     |\n|-------|-----|---------|---------|\n| 张三   | 28  | 开发工程师 | 技术部   |\n| 李四   | 32  | 产品经理  | 产品部   |\n| 王五   | 45  | 总监     | 管理层   |\n| 赵六   | 26  | 设计师    | 设计部   |\n| 钱七   | 29  | 测试工程师 | 技术部   | ",
+      "tables": [
+        {
+          "filePath": "test-table.md",
+          "tableIndex": 0,
+          "headerHash": "-50541ffc",
+          "position": {
+            "startLine": 7,
+            "endLine": 9
+          }
+        },
+        {
+          "filePath": "test-table.md",
+          "tableIndex": 1,
+          "headerHash": "-4cb3c62f",
+          "position": {
+            "startLine": 23,
+            "endLine": 25
+          }
+        },
+        {
+          "filePath": "test-table.md",
+          "tableIndex": 2,
+          "headerHash": "b1b3284",
+          "position": {
+            "startLine": 35,
+            "endLine": 37
+          }
+        },
+        {
+          "filePath": "test-table.md",
+          "tableIndex": 3,
+          "headerHash": "-466bbbdc",
+          "position": {
+            "startLine": 47,
+            "endLine": 49
+          }
+        }
+      ],
+      "lastUpdated": 1752250021163
+    },
+    "进行分析.md": {
+      "content": "\n```mermaid\ngraph TD\n    %% 顶层结论\n    A[\"**结论：显式 UUID + data.json 映射 + 复制粘贴感知 → 表格自由移动且保持一致性**\"]\n\n    %% 三大分论点\n    A --> B[\"1️⃣ 唯一身份<br/>UUID 与路径映射\"]\n    A --> C[\"2️⃣ 冲突可控<br/>三级指纹 + 用户决策\"]\n    A --> D[\"3️⃣ 可迁移协作<br/>脚本 & Git/SYNC 工具链\"]\n\n    %% 论点 1 支撑要素\n    B --> B1[\"• 标准化生成<br/>crypto.randomUUID()\"]\n    B --> B2[\"• 双向映射<br/>data.json 记录 paths[], meta, rev\"]\n    B --> B3[\"• 合并单元格标记<br/>&lt; / ^ 解析逻辑\"]\n\n    %% 论点 2 支撑要素\n    C --> C1[\"• UUID → PathKey → 指纹<br/>三段式比对\"]\n    C --> C2[\"• 标题 + 结构哈希<br/>提高匹配准确度\"]\n    C --> C3[\"• 共享 vs 分叉<br/>弹窗引导用户选择\"]\n\n    %% 论点 3 支撑要素\n    D --> D1[\"• 迁移脚本<br/>批量插入 UUID\"]\n    D --> D2[\"• verify-table-id<br/>Git pre-commit 钩子\"]\n    D --> D3[\"• Obsidian-Sync 等<br/>多端冲突恢复\"]\n\n    %% 可选样式\n    classDef top fill:#f9e5b5,stroke:#c89500,stroke-width:2px,color:#000,font-weight:bold;\n    classDef mid fill:#d6eadf,stroke:#4e8b63,stroke-width:1.5px;\n    classDef leaf fill:#e5effa,stroke:#4880c8,stroke-width:1px;\n\n    class A top;\n    class B,C,D mid;\n    class B1,B2,B3,C1,C2,C3,D1,D2,D3 leaf;\n\n\n```\n\n### 方法：用“问题-目标-方案-验证”四步框架做结构化拆解\n\n| 步骤         | 关键问                               | 对应产出                                         |\n| ---------- | --------------------------------- | -------------------------------------------- |\n| **1 界定问题** | 表格跨文件移动会丢失身份、元数据、合并信息             | 明确四大痛点：ID 失效、路径追踪缺失、指纹冲突、多人协同难               |\n| **2 设定目标** | “自由移动 + 唯一身份 + 冲突可解”              | 制定五大能力指标：UUID 不变、路径多点、复制感知、元数据同步、Git/SYNC 友好 |\n| **3 设计方案** | 显式 UUID + data.json 双向映射 + 三级指纹比对 | 拆成 6 实现步骤（生成、存储、比对、冲突分流、加载流程、迁移脚本）           |\n| **4 验证闭环** | 单测 + E2E + Git 钩子 + 同步撞库          | 用路径鏡像、结构变更、多人同时编辑等场景回压测试                     |\n\n---\n\n### 具体内容要点\n\n1. **不可变 UUID**：用 `<!-- tbl-id: xxx -->` 注释写死 v4 UUID，编辑器透明。\n    \n2. **data.json 反向映射**：记录 paths[]、struct 指纹、meta 行高列宽、rev 版本。\n    \n3. **结构-内容双指纹**：行列结构哈希 + 标题指纹，失 ID 时兜底匹配。\n    \n4. **复制-粘贴感知**：UUID → PathKey → 模糊指纹三级比对，弹窗引导“共享/分叉”。\n    \n5. **冲突分流**：共享镜像仅追加路径；分叉派生新 UUID 并留 parentId 溯源。\n    \n6. **迁移脚本**：批量插入 UUID、生成初始 data.json；Git pre-commit 校验重复 UUID。\n    \n\n---\n\n### 结论\n\n> **显式 UUID + 多路径映射 + 三级指纹比对** 构成了一个既可自由复制又能保持唯一身份的表格管理体系。\n\n---\n\n### 理由与支撑\n\n|理由|支撑机制|说明|\n|---|---|---|\n|① UUID 不变 → 身份稳定|HTML 注释不随行列增删受损|排除了“编辑-ID 损毁”风险|\n|② paths[] 多路径绑定|同一表在多文件共享更新|解决“移动 ≠ 复制”识别|\n|③ 结构/标题指纹补位|ID 缺失或冲突时仍可匹配|降低误删带来的丢表概率|\n|④ 共享 vs 分叉交互|用户显式选择同步或独立|人为决策避免误合并或乱派生|\n|⑤ Git/SYNC 钩子守门|重复 UUID 阻断或自动分叉|多人协作场景下防止撞库|\n\n---\n\n**一言以蔽之**  \n→ _显式 UUID + 多路径映射 + 三级指纹，让表格自由复制、路径可溯、冲突可控。\n\n\n---\n\n## 四、实现步骤与迁移路径\n\n我建议按照以下步骤实施这个方案：\n\n1. 标准化UUID生成\n\n    - 实现使用crypto.randomUUID()或兼容方案\n\n2. 增强表格元数据结构\n\n\t- 修改TableMetadata接口添加paths数组等字段\n\n\t- 实现文件路径跟踪机制\n\n3. 改进指纹生成\n\n\t- 实现分离的结构哈希与内容指纹\n\n\t- 增强哈希算法的准确性与稳定性\n\n4. 实现合并单元格符号标记\n\n\t- 添加<和^符号到合并单元格\n\n\t- 实现符号解析逻辑\n\n5. 开发复制检测与冲突处理\n\n\t- 实现表格复制检测\n\n\t- 添加用户选择对话框\n\n6. 数据迁移工具\n\n\t- 为现有表格添加UUID\n\n\t- 构建初始data.json\n\n通过这套实现，您的高级表格插件将能够实现不可变UUID标识、多文件路径追踪、合并单元格符号标记以及复制-粘贴感知功能，让表格在不同MD文件之间自由移动而不丢ID、不乱指向。\n\n---\n\n\n\n在 **显式 UUID + `data.json` 反向映射** 这一套方案上，再加上一层“**复制-粘贴感知**”的去重逻辑，就可以让同一张表在不同 .md 文件之间“自由移动”而 **不丢 ID、也不乱指向**。下文先用一段概要说明思路，然后逐节展开实现细节。\n\n在首次遇到表格时写入一个不可变的 `tbl-id` （HTML 注释）即可彻底摆脱行列增删或合并/拆分导致的 ID 失效；随后把 **ID ⇄ 文件路径 ⇄ 结构指纹** 写入 `data.json`。加载或保存时通过「显式 UUID → PathKey → 模糊指纹」三级比对即可判定是**移动**、**复制**还是**分叉**。当检测到“同一 ID 出现在多个路径”时，脚本可提示用户选择“共享（同源拷贝）”还是“分叉（生成新 UUID）”，从而真正让表格在库内可复制又不冲突。([developer.mozilla.org](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID?utm_source=chatgpt.com \"Crypto: randomUUID() method - Web APIs | MDN\"), [pandoc.org](https://pandoc.org/MANUAL.html?utm_source=chatgpt.com \"Pandoc User's Guide\"))\n\n---\n\n## 1 生成与存储：不可变 UUID + 双向映射\n\n### 1.1 写入固定 UUID\n\n```markdown\n<!-- tbl-id: 5fcc6e2e-b34b-42af-8fbc-9981e63b1a2d -->\n| Year | Q1 | Q2 |\n|------|---:|---:|\n| 2024 | 42 | 57 |\n```\n\n- HTML 注释对 Markdown 渲染器完全透明，在 Obsidian、VS Code、GitHub 都不会显示 ([forum.obsidian.md](https://forum.obsidian.md/t/unintended-code-blocks-due-to-html-comments-disabling-markdown-lists/29876?utm_source=chatgpt.com \"Unintended Code Blocks due to HTML Comments Disabling ...\"))。\n    \n- 使用浏览器原生 `crypto.randomUUID()` 生成 v4 UUID，保证熵足够且无需第三方库。([developer.mozilla.org](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID?utm_source=chatgpt.com \"Crypto: randomUUID() method - Web APIs | MDN\"))\n    \n\n### 1.2 `data.json` 反向映射\n\n```jsonc\n{\n  \"5fcc6e2e-b34b-42af-8fbc-9981e63b1a2d\": {\n    \"paths\": [\"docs/report/finance.md\"],\n    \"struct\": \"r4-c3-h72a8d9e1\",\n    \"meta\": {\n      \"rowHeight\": 1.4,\n      \"colWidths\": [12, 6, 6]\n    },\n    \"rev\": 3                    // 版本号，可选\n  }\n}\n```\n\n- **paths** 允许是数组：一张表可存在于多个文件，表示“镜像/引用”关系。\n    \n- **rev** 在每次内容变动后自增，可为同步或冲突提示提供依据。\n    \n\n---\n\n## 2 复制-粘贴感知：三段式比对流程\n\n|优先级|比对键|判定逻辑|动作|\n|---|---|---|---|\n|① UUID|完全一致|同一逻辑表|更新 `paths[]`（追加新路径）|\n|② PathKey（`relPath + tblIndex`）|新文件但同位置|可能是移动|从旧路径数组移除 → 写新路径|\n|③ Structure-FP|行数列数 + 标题指纹 80%↑ 相似|可能是“误删 ID”或手动复制|弹窗提示“合并/分叉？”|\n\n- 标题指纹 = **首行文本经排序后 SHA-1 前 8 位**，对列顺序变化更稳健 ([stackoverflow.com](https://stackoverflow.com/questions/60266073/setting-unique-id-to-a-table-cell-created-in-javascript-from-a-json-file?utm_source=chatgpt.com \"Setting unique ID to a table cell created in JavaScript from a JSON file\"))。\n    \n- 结构指纹兜底时仅在显式 ID 缺失或冲突才触发，以避免误匹配。([stackoverflow.com](https://stackoverflow.com/questions/46621765/can-i-merge-table-rows-in-markdown?utm_source=chatgpt.com \"Can I merge table rows in markdown - github - Stack Overflow\"))\n    \n\n---\n\n## 3 冲突分流策略\n\n### 3.1 **共享拷贝（镜像）**\n\n场景：同一报表希望插入到多份周报里，只想同步更新。  \n操作：\n\n1. 用户点选 “共享此表”。\n    \n2. 系统仅把新路径 append 到 `paths[]`，不生成新 UUID。\n    \n3. 任何文件修改该表都会写回同一条记录；如果多端编辑则用 `rev` 三方合并。([forum.obsidian.md](https://forum.obsidian.md/t/reconcile-a-duplicate-vault-copy-inside-vault/82228?utm_source=chatgpt.com \"Reconcile a duplicate vault copy inside vault - Help - Obsidian Forum\"))\n    \n\n### 3.2 **分叉（派生副本）**\n\n场景：复制后打算做独立修改。  \n操作：\n\n1. 系统复制元数据，生成新 UUID。\n    \n2. `data.json` 新增一条记录；原表与派生表从此互不影响。\n    \n3. 复制时可记录 `parentId` 方便溯源。\n    \n\n---\n\n## 4 加载流程（伪码）\n\n```ts\nloadTable(el, path) {\n  const id = readUuidFromComment(el);              // null if none\n  if (id && db[id]) { attachMeta(el, db[id]); return; }\n\n  // UUID 丢失或重复\n  const fp  = structureFingerprint(el);\n  const hit = fuzzyMatch(fp);                      // 返回候选记录\n  if (hit)  { askUserMergeOrFork(hit, el); }\n  else      { ensureTableId(el); saveNew(el, path); }\n}\n```\n\n- `attachMeta` 应用行高、列宽等；随后调用合并标记解析 `<` / `^`。\n    \n- `fuzzyMatch` 需设阈值，例如行数 ±1 且标题指纹 Jaccard > 0.8。\n    \n- 所有决策写入操作应记录在 version history 里，方便回滚。([stackoverflow.com](https://stackoverflow.com/questions/23571724/github-markdown-colspan?utm_source=chatgpt.com \"GitHub Markdown colspan - Stack Overflow\"))\n    \n\n---\n\n## 5 合并/拆分对结构指纹的影响\n\n合并单元格只改 `rowspan`/`colspan`，行数列数通常不变；若因拆分导致列增减：\n\n1. 生成 **新指纹** 并覆盖 `struct` 字段。\n    \n2. 自增 `rev`，在其他镜像文件加载时触发“结构变化”提示。\n    \n3. 用户确认后其他文件同步“拆分/合并”操作（即重写 `<`/`^` 标记 + 更新内容）。\n    \n    - 可利用 MultiMarkdown 的 `<` `^` 语义，跨渲染器兼容。([github.com](https://github.com/quarto-dev/quarto-cli/discussions/8427?utm_source=chatgpt.com \"How to merge table cells (horizontally and vertically)? #8427 - GitHub\"))\n        \n\n---\n\n## 6 实现要点与坑位\n\n### 6.1 保证 UUID 不会因批量替换而丢失\n\n- 在编辑器侧监听剪贴事件：若仅复制表格内容但未带上注释，粘贴后自动补插 `<!-- tbl-id:… -->`；若检测到已存在相同 UUID 且路径不同则触发冲突对话框。([reddit.com](https://www.reddit.com/r/ObsidianMD/comments/xqalbr/duplicate_and_keep_text_updated_from_another_note/?utm_source=chatgpt.com \"Duplicate and keep text updated from another note? : r/ObsidianMD\"))\n    \n\n### 6.2 插件间协同\n\n- 若同时使用 **Style Settings** 动态调整行高/列宽，把这些值保存到 `meta` 中并在 paths 镜像间同步。([forum.obsidian.md](https://forum.obsidian.md/t/reconcile-a-duplicate-vault-copy-inside-vault/82228?utm_source=chatgpt.com \"Reconcile a duplicate vault copy inside vault - Help - Obsidian Forum\"))\n    \n- 对 Pandoc、Quarto 等导出工具无影响：HTML 注释与 `<` `^` 标记都能被安全忽略或转译。([pandoc.org](https://pandoc.org/MANUAL.html?utm_source=chatgpt.com \"Pandoc User's Guide\"))\n    \n\n### 6.3 多人协作（Git / Sync）\n\n- 在 Git pre-commit 钩子里运行 `verify-table-id`：扫描重复 UUID → 自动分叉或者阻止提交。\n    \n- Obsidian-Sync 的「删除保护」开启后，即便误删 `tbl-id`，也能在另一端通过指纹恢复。([stackoverflow.com](https://stackoverflow.com/questions/78245635/how-do-you-check-if-self-crypto-randomuuid-is-available-in-javascript?utm_source=chatgpt.com \"How do you check if self.crypto.randomUUID() is available in ...\"))\n    \n\n---\n\n## 7 落地流程 Checklist\n\n|阶段|任务|\n|---|---|\n|**迁移**|脚本批量插入 UUID → 生成初始 `data.json`|\n|**编辑器扩展**|实现 `ensureTableId`、`loadTable`、冲突对话框|\n|**同步脚本**|Git 钩子 / Sync watcher，检测重复 UUID|\n|**测试**|单元：复制-粘贴、剪切-粘贴、合并/拆分、多路径镜像；端到端：两台电脑同时编辑同一镜像表|\n|**文档**|贡献指南：拷贝表格时请连同注释一起复制，或使用插件命令“复制带 ID 的表”|\n\n---\n\n## 参考资料\n\n1. Stack Overflow：Markdown 不支持原生 rowspan/colspan，需用 `<` `^` 语义或 HTML ([stackoverflow.com](https://stackoverflow.com/questions/46621765/can-i-merge-table-rows-in-markdown?utm_source=chatgpt.com \"Can I merge table rows in markdown - github - Stack Overflow\"))\n    \n2. MultiMarkdown 6 合并单元格标记 `<`/`^` 示例 ([github.com](https://github.com/quarto-dev/quarto-cli/discussions/8427?utm_source=chatgpt.com \"How to merge table cells (horizontally and vertically)? #8427 - GitHub\"))\n    \n3. MDN — `crypto.randomUUID()` 文档 ([developer.mozilla.org](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID?utm_source=chatgpt.com \"Crypto: randomUUID() method - Web APIs | MDN\"))\n    \n4. Obsidian 论坛：HTML 注释在插件元数据中的常见用法 ([forum.obsidian.md](https://forum.obsidian.md/t/unintended-code-blocks-due-to-html-comments-disabling-markdown-lists/29876?utm_source=chatgpt.com \"Unintended Code Blocks due to HTML Comments Disabling ...\"))\n    \n5. Pandoc 手册：为表格添加显式 ID 的推荐语法 ([pandoc.org](https://pandoc.org/MANUAL.html?utm_source=chatgpt.com \"Pandoc User's Guide\"))\n    \n6. Stack Overflow：为 JSON 动态生成唯一 ID 的模式 ([stackoverflow.com](https://stackoverflow.com/questions/60266073/setting-unique-id-to-a-table-cell-created-in-javascript-from-a-json-file?utm_source=chatgpt.com \"Setting unique ID to a table cell created in JavaScript from a JSON file\"))\n    \n7. Obsidian Forum 讨论：块 ID 与跨文件复制冲突 ([forum.obsidian.md](https://forum.obsidian.md/t/reconcile-a-duplicate-vault-copy-inside-vault/82228?utm_source=chatgpt.com \"Reconcile a duplicate vault copy inside vault - Help - Obsidian Forum\"))\n    \n8. GitHub / Python-Markdown issue：属性列表无法解决 rowspan 矛盾 ([github.com](https://github.com/Python-Markdown/markdown/issues/587?utm_source=chatgpt.com \"Problems with using Attribute Lists for colspan and rowspan in tables\"))\n    \n9. Stack Overflow：检测 `crypto.randomUUID()` 浏览器兼容性 ([stackoverflow.com](https://stackoverflow.com/questions/78245635/how-do-you-check-if-self-crypto-randomuuid-is-available-in-javascript?utm_source=chatgpt.com \"How do you check if self.crypto.randomUUID() is available in ...\"))\n    \n10. Hugo 论坛：Pandoc Markdown 中为表格设置 #ID ([discourse.gohugo.io](https://discourse.gohugo.io/t/set-id-for-table-in-pandoc-markdown/23168?utm_source=chatgpt.com \"Set #id for table in Pandoc Markdown - support - HUGO\"))\n    \n11. Reddit 讨论：批量复制 Block ID 并保持同步 ([reddit.com](https://www.reddit.com/r/ObsidianMD/comments/xqalbr/duplicate_and_keep_text_updated_from_another_note/?utm_source=chatgpt.com \"Duplicate and keep text updated from another note? : r/ObsidianMD\"))\n    \n12. Reddit rant：Markdown 做大表局限，须靠元数据或工具补救 ([reddit.com](https://www.reddit.com/r/ObsidianMD/comments/1kc2emc/does_obsidian_have_to_stick_with_markdown/?utm_source=chatgpt.com \"Does Obsidian HAVE to stick with Markdown standards? (Tables rant)\"))\n    \n13. Kusto 文档：JSON 映射双向绑定的设计理念 ([learn.microsoft.com](https://learn.microsoft.com/en-us/kusto/management/json-mapping?view=microsoft-fabric&utm_source=chatgpt.com \"JSON Mapping - Kusto | Microsoft Learn\"))\n    \n\n---\n\n### 结论\n\n> **显式 UUID + 多路径映射 + 三级指纹比对** 可以完美解决“复制-粘贴后表格还能保持唯一身份”的难题；再辅以简单的用户交互（共享 vs 分叉）与 Git/Synchronization 钩子，既能保证 **流动性**（随处复制）、也能守住 **一致性**（无冲突去重）。这样无论是在 Obsidian 本地记笔记，还是把文档导出到 Pandoc/Quarto，或与同事走 Git 协作，都能让同一张表始终指向同一个真实数据源，行高列宽与合并信息也能随之同步。",
+      "tables": [
+        {
+          "filePath": "进行分析.md",
+          "tableIndex": 0,
+          "headerHash": "0",
+          "position": {
+            "startLine": 39,
+            "endLine": 42
+          }
+        },
+        {
+          "filePath": "进行分析.md",
+          "tableIndex": 1,
+          "headerHash": "0",
+          "position": {
+            "startLine": 73,
+            "endLine": 76
+          }
+        },
+        {
+          "filePath": "进行分析.md",
+          "tableIndex": 2,
+          "headerHash": "-2d3e6d62",
+          "position": {
+            "startLine": 146,
+            "endLine": 148
+          }
+        },
+        {
+          "filePath": "进行分析.md",
+          "tableIndex": 3,
+          "headerHash": "0",
+          "position": {
+            "startLine": 180,
+            "endLine": 183
+          }
+        },
+        {
+          "filePath": "进行分析.md",
+          "tableIndex": 4,
+          "headerHash": "0",
+          "position": {
+            "startLine": 285,
+            "endLine": 288
+          }
+        }
+      ],
+      "lastUpdated": 1752250050790
+    },
+    "test-table-edit.md": {
+      "content": "# 测试表格编辑\n\n下面是一个简单的表格，用于测试编辑模式下的表格操作：\n\n| 列1  | 列2  | 列3  |\n| --- | --- | --- |\n| A1  | B1  | C1  |\n| A2  | B2  | C2  |\n| A3  | B3  | C3  |\n\n## 使用方法\n\n1. 将光标放在表格内的某个单元格中\n2. 使用编辑模式下的表格操作命令（或工具栏）\n3. 尝试以下操作：\n   - 向右合并单元格\n   - 向下合并单元格\n   - 为表格添加ID\n   - 拆分已合并的单元格 ",
+      "tables": [
+        {
+          "filePath": "test-table-edit.md",
+          "tableIndex": 0,
+          "headerHash": "0",
+          "position": {
+            "startLine": 3,
+            "endLine": 6
+          }
+        }
+      ],
+      "lastUpdated": 1756023599868
+    }
+  }
+}

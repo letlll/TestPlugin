@@ -1,12 +1,17 @@
 import { ObsidianSpreadsheet } from './main';
-import { App, Editor, MarkdownView, Notice } from 'obsidian';
+import { App, Editor, MarkdownView, Notice, Plugin } from 'obsidian';
 
 /**
  * Markdown源码编辑器 - 负责在编辑模式下直接修改Markdown源码
  */
 export class MarkdownSourceEditor {
     private plugin: ObsidianSpreadsheet;
-
+    
+    // 辅助方法，获取app对象
+    private getApp(): App {
+        return (this.plugin as unknown as Plugin).app;
+    }
+    
     constructor(plugin: ObsidianSpreadsheet) {
         this.plugin = plugin;
         console.log('MarkdownSourceEditor initialized');
@@ -17,7 +22,7 @@ export class MarkdownSourceEditor {
      * @returns 编辑器实例或null
      */
     getActiveEditor(): Editor | null {
-        const activeView = this.plugin.app.workspace.getActiveViewOfType(MarkdownView);
+        const activeView = this.getApp().workspace.getActiveViewOfType(MarkdownView);
         if (activeView && activeView.editor) {
             return activeView.editor;
         }
@@ -252,7 +257,7 @@ export class MarkdownSourceEditor {
     private saveTableInfo(tableId: string, tableInfo: { startLine: number, endLine: number, content: string }): void {
         try {
             // 获取当前文件路径
-            const activeView = this.plugin.app.workspace.getActiveViewOfType(MarkdownView);
+            const activeView = this.getApp().workspace.getActiveViewOfType(MarkdownView);
             if (!activeView || !activeView.file) return;
             
             const filePath = activeView.file.path;
@@ -1241,4 +1246,4 @@ export class MarkdownSourceEditor {
             return null;
         }
     }
-} 
+}

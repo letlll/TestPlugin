@@ -13,31 +13,59 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "好吃的/未命名.md",
+                "file": "test-table.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "未命名 的大纲"
+              "title": "test-table 的大纲"
             }
           },
           {
-            "id": "b6c9e844032e9729",
+            "id": "b5dcffd52e49856f",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "test-table-edit.md",
+                "file": "test-table.md",
                 "mode": "preview",
+                "source": true
+              },
+              "icon": "lucide-file",
+              "title": "test-table"
+            }
+          },
+          {
+            "id": "1bfe167b1e2f34c3",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "阶段性修复.md",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "test-table-edit"
+              "title": "阶段性修复"
+            }
+          },
+          {
+            "id": "7a57706baaa77e3c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "table-data-in-md-example.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "table-data-in-md-example"
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -69,7 +97,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "id",
+                "query": "ignore",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -186,19 +214,31 @@
       "openerimage:Sample Plugin": false,
       "media-extended:Open media": false,
       "obsidian-excalidraw-plugin:新建绘图文件": false,
-      "obsidan-advanced-table-xt-master:表格工具栏": false,
-      "obsidan-advanced-table-xt-master:编辑模式表格操作": false
+      "advanced-table:表格工具栏": false,
+      "advanced-table:编辑模式表格操作": false
     }
   },
-  "active": "b6c9e844032e9729",
+  "active": "7a57706baaa77e3c",
   "lastOpenFiles": [
+    "追踪.md",
+    "table-data-in-md-example.md",
+    "阶段性修复.md",
+    "test-table-data.md",
+    "table-data-in-md-README.md",
+    "table-data-in-md-plugin-example.ts",
+    "test-table.md",
+    "test-table-edit.md",
+    "advanced-table/manifest.json",
+    "advanced-table/data.json",
+    "advanced-table/main.js",
+    "readme.md",
+    "要求 - TEST插件 - Obsidian v1.8.10 2025-06-14 00-04-02.mp4",
+    "git/git.md",
     "未命名/id 5.0.md",
     "好吃的/未命名.md",
     "未命名/错误id.md",
     "未命名.md",
     "未命名/id错误.md",
-    "test-table.md",
-    "test-table-edit.md",
     "未命名/合并5.0.md",
     "未命名.canvas",
     "好吃的/问题.md",
@@ -213,17 +253,9 @@
     "进行分析.md",
     "Excalidraw/Drawing 2025-07-04 16.50.41.excalidraw.md",
     "Excalidraw",
-    "好吃的/002.md",
-    "未命名/好.md",
-    "未命名/错误分析.md",
-    "未命名/单元格合并.md",
-    "未命名/未命名.md",
-    "要求 - TEST插件 - Obsidian v1.8.10 2025-06-14 00-04-02.mp4",
-    "test-nbsp.md",
     "Pasted image 20250629170309.png",
     "{11C1CAE6-D022-4096-A65C-68381D46DAC5}.png",
     "{AD1D7ECD-231A-4235-BF0B-BC0858830A24}.png",
-    "未命名 1.md",
     "未命名/未命名.canvas",
     "未命名",
     "屏幕截图 2025-06-29 173841.png",
@@ -231,10 +263,6 @@
     "Max/论文/assets",
     "Max/论文",
     "Max/文件转换",
-    "Max/侍心",
-    "Max/ReplaceFile",
-    "Max/MDwriteTools",
-    "Max/latex",
     "Max/assets/pic.png",
     "Max/assets/Pasted image 20241010194643.png",
     "Max/assets/Pasted image 20241010194629.png",

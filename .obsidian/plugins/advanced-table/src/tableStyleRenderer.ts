@@ -1,4 +1,4 @@
-import { MarkdownRenderChild, MarkdownView } from 'obsidian';
+import { App, MarkdownRenderChild, MarkdownView, Plugin } from 'obsidian';
 import { ObsidianSpreadsheet } from './main';
 
 /**
@@ -9,6 +9,13 @@ export class TableStyleRenderer extends MarkdownRenderChild {
     private tableId: string;
     private styling: any;
     private plugin: ObsidianSpreadsheet;
+    
+    /**
+     * 辅助方法，获取app对象
+     */
+    private getApp(): App {
+        return (this.plugin as unknown as Plugin).app;
+    }
 
     /**
      * 构造函数
@@ -321,7 +328,7 @@ export class TableStyleRenderer extends MarkdownRenderChild {
                 
                 if (!tableId) {
                     // 如果表格没有ID，尝试从其他方式获取
-                    const activeFile = this.plugin.app.workspace.getActiveFile();
+                    const activeFile = this.getApp().workspace.getActiveFile();
                     if (activeFile) {
                         // 尝试从文件内容和表格索引获取ID
                         tableId = await this.plugin.readTableIdFromMarkdown(tableElement);
@@ -346,11 +353,15 @@ export class TableStyleRenderer extends MarkdownRenderChild {
  * @param plugin 插件实例
  */
 export async function renderTablesWithStoredStyles(plugin: ObsidianSpreadsheet): Promise<void> {
+    // 辅助函数，获取app对象
+    function getApp(): App {
+        return (plugin as unknown as Plugin).app;
+    }
     try {
         console.log('开始渲染表格样式');
         
         // 获取当前活动视图
-        const activeView = plugin.app.workspace.getActiveViewOfType(MarkdownView);
+        const activeView = getApp().workspace.getActiveViewOfType(MarkdownView);
         if (!activeView) {
             console.log('未找到活动视图，无法渲染表格样式');
             return;
@@ -367,14 +378,26 @@ export async function renderTablesWithStoredStyles(plugin: ObsidianSpreadsheet):
         const filePath = activeFile.path;
         console.log(`当前文件路径: ${filePath}`);
         
-        // 获取存储的表格数据
-        const pluginData = await plugin.loadData() || {};
-        const tables = pluginData.tables || {};
+        // 首先尝试从Markdown文件中提取表格数据
+        let tables: Record<string, any> = {};
         
-        // 检查是否有存储的表格数据
-        if (!tables || Object.keys(tables).length === 0) {
-            console.log('没有存储的表格数据');
-            return;
+        // 如果已初始化表格数据提取器，则使用它从文件中提取数据
+        if (plugin.tableDataExtractor) {
+            tables = await plugin.tableDataExtractor.extractTableDataFromFile(activeFile);
+            console.log(`从Markdown文件中提取到 ${Object.keys(tables).length} 个表格数据`);
+        }
+        
+        // 如果从Markdown文件中没有提取到数据，则尝试从data.json中获取
+        if (Object.keys(tables).length === 0) {
+            console.log('从Markdown文件中未提取到表格数据，尝试从data.json获取');
+            const pluginData = await plugin.loadData() || {};
+            tables = pluginData.tables || {};
+            
+            // 检查是否有存储的表格数据
+            if (!tables || Object.keys(tables).length === 0) {
+                console.log('没有存储的表格数据');
+                return;
+            }
         }
         
         // 获取当前文件中的所有表格
@@ -720,4 +743,4 @@ function applyStylesDirectly(table: HTMLElement, styling: any): void {
     if (tableId) {
         table.classList.add(`table-${tableId}`);
     }
-} 
+}

@@ -51,7 +51,12 @@ class ConfirmModal extends Modal {
  */
 export class MarkdownTableDetector {
     private plugin: ObsidianSpreadsheet;
-
+    
+    // 辅助方法，获取app对象
+    private getApp(): App {
+        return (this.plugin as unknown as Plugin).app;
+    }
+    
     constructor(plugin: ObsidianSpreadsheet) {
         this.plugin = plugin;
         console.log('MarkdownTableDetector initialized');
@@ -64,7 +69,7 @@ export class MarkdownTableDetector {
      */
     async showConfirmDialog(message: string): Promise<boolean> {
         return new Promise((resolve) => {
-            const modal = new ConfirmModal(this.plugin.app, message, (result) => {
+            const modal = new ConfirmModal(this.getApp(), message, (result) => {
                 resolve(result);
             });
             modal.open();
@@ -766,4 +771,4 @@ export class MarkdownTableDetector {
             console.error('应用区域合并标记时出错:', error);
         }
     }
-} 
+}

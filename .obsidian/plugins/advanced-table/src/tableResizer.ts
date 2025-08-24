@@ -1,3 +1,4 @@
+import { App, Plugin } from 'obsidian';
 import { ObsidianSpreadsheet } from './main';
 
 /**
@@ -14,6 +15,13 @@ export class TableResizer {
     private startY: number = 0;
     private startWidth: number = 0;
     private startHeight: number = 0;
+    private columnIndex: number = -1;
+    private tableWidth: number = 0;
+    
+    // 辅助方法，获取app对象
+    private getApp(): App {
+        return (this.plugin as unknown as Plugin).app;
+    }
     private targetIndex: number = -1;
     private resizeType: 'column' | 'row' = 'column';
     private resizeGuide: HTMLElement | null = null;
@@ -419,7 +427,7 @@ export class TableResizer {
             }
             
             // 获取当前活动文件
-            const activeFile = this.plugin.app.workspace.getActiveFile();
+            const activeFile = this.getApp().workspace.getActiveFile();
             if (!activeFile) {
                 console.warn('TableResizer: 无法获取当前文件路径');
                 return;
@@ -490,6 +498,12 @@ export class TableResizer {
             
             // 保存数据
             await this.plugin.saveData(allData);
+            
+            // 将表格数据导出到Markdown文件
+            if (this.plugin.settings.preferFileStorage) {
+                await this.plugin.tableDataExtractor.exportTableDataToFile(activeFile, tableId, allData.tables[tableId]);
+                console.log(`TableResizer: 已将表格数据导出到Markdown文件 - ID=${tableId}`);
+            }
             console.log('TableResizer: 表格尺寸数据保存成功');
             
             // 立即应用样式到表格，确保视觉反馈
@@ -566,4 +580,4 @@ export class TableResizer {
         this.isResizing = false;
         this.currentHandle = null;
     }
-} 
+}

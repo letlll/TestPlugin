@@ -18,6 +18,11 @@ export class TableIdManager {
         this.plugin = plugin;
         console.log('TableIdManager initialized');
     }
+    
+    // 辅助方法，获取app对象
+    private getApp(): App {
+        return (this.plugin as unknown as Plugin).app;
+    }
 
     /**
      * 获取表格标识符
@@ -175,7 +180,7 @@ export class TableIdManager {
             // 这是一个更可靠的方法，因为它不依赖于DOM结构
             try {
                 // 获取当前活动文件
-                const activeFile = this.plugin.app.workspace.getActiveFile();
+                const activeFile = this.getApp().workspace.getActiveFile();
                 if (activeFile) {
                     console.log(`尝试从文件内容中查找表格ID: ${activeFile.path}`);
                     
@@ -185,7 +190,7 @@ export class TableIdManager {
                         console.log(`表格位置: 第${tablePosition.index}个表格`);
                         
                         // 读取文件内容并处理
-                        this.plugin.app.vault.read(activeFile).then(content => {
+                        this.getApp().vault.read(activeFile).then(content => {
                             // 分析文件内容，查找表格和对应的ID
                             const tableInfos = this.extractTableIdsFromMarkdown(content);
                             console.log(`从Markdown内容中提取的表格ID:`, tableInfos);
@@ -492,7 +497,7 @@ export class TableIdManager {
             let fileInfo = undefined;
             
             // 获取当前活动文件信息
-            const activeFile = this.plugin.app.workspace.getActiveFile();
+            const activeFile = this.getApp().workspace.getActiveFile();
             if (activeFile) {
                 fileInfo = {
                     path: activeFile.path,
@@ -900,7 +905,7 @@ export class TableIdManager {
             const day = String(date.getDate()).padStart(2, '0');
             
             // 使用文件信息作为ID的一部分
-            const activeFile = this.plugin.app.workspace.getActiveFile();
+            const activeFile = this.getApp().workspace.getActiveFile();
             let fileCode = 'doc';
             if (activeFile) {
                 // 使用文件名的前两个字符（如果可用）
@@ -1005,7 +1010,7 @@ export class TableIdManager {
                             };
                             
                             // 添加文件信息
-                            const activeFile = this.plugin.app.workspace.getActiveFile();
+                            const activeFile = this.getApp().workspace.getActiveFile();
                             if (activeFile) {
                                 feature.fileInfo = {
                                     path: activeFile.path,
@@ -1110,4 +1115,4 @@ export class TableIdManager {
             return [];
         }
     }
-} 
+}

@@ -1,5 +1,5 @@
 import { ObsidianSpreadsheet } from './main';
-import { setIcon, Menu, Notice } from 'obsidian';
+import { setIcon, Menu, Notice, App, Plugin } from 'obsidian';
 import { MarkdownView } from 'obsidian';
 import { Editor } from 'obsidian';
 
@@ -18,6 +18,11 @@ export class TableToolbar {
     private dragHandle: HTMLElement;
     private initialPosition: { left: string, top: string } = { left: '50%', top: '10px' };
     private editModeTableInfo: { startLine: number, endLine: number, content: string } | null = null;
+    
+    // 辅助方法，获取app对象
+    private getApp(): App {
+        return (this.plugin as unknown as Plugin).app;
+    }
 
     private applyToEntireTable: boolean = false;
 
@@ -509,7 +514,7 @@ export class TableToolbar {
                 // 保存表格样式到数据文件
                 if (this.activeTable) { // 确保activeTable仍然存在
                     const activeTable = this.activeTable; // 创建一个引用，确保在异步操作中不会为null
-                    const activeFile = this.plugin.app.workspace.getActiveFile();
+                    const activeFile = this.getApp().workspace.getActiveFile();
                     
                     if (!activeFile) {
                         console.warn('无法获取当前文件路径');
@@ -521,7 +526,7 @@ export class TableToolbar {
                     console.log('选中单元格位置:', selectedCellPositions);
                     
                     // 加载现有数据
-                    this.plugin.loadData().then(existingData => {
+                    this.plugin.loadData().then((existingData: any) => {
                         // 确保存在表格数据对象
                         if (!existingData.tables) {
                             existingData.tables = {};
@@ -676,7 +681,7 @@ export class TableToolbar {
                         
                         // 显示成功通知
                         new Notice(`已将${horizontalAlign || ''}${horizontalAlign && verticalAlign ? '和' : ''}${verticalAlign || ''}对齐应用到${this.selectedCells.length > 0 ? '选中单元格' : '整个表格'}并保存到数据文件`);
-                    }).catch(err => {
+                    }).catch((err: any) => {
                         console.error('保存表格数据时出错:', err);
                         new Notice(`保存表格数据失败: ${err.message || '未知错误'}`);
                     });
@@ -768,7 +773,7 @@ export class TableToolbar {
             console.log('尝试合并选中的单元格');
             
             // 获取当前视图
-            const activeView = this.plugin.app.workspace.getActiveViewOfType(MarkdownView);
+            const activeView = this.getApp().workspace.getActiveViewOfType(MarkdownView);
             if (!activeView) {
                 new Notice('无法获取当前视图');
                 return;
@@ -914,7 +919,7 @@ export class TableToolbar {
             console.log('尝试向右合并单元格');
             
             // 获取当前视图
-            const activeView = this.plugin.app.workspace.getActiveViewOfType(MarkdownView);
+            const activeView = this.getApp().workspace.getActiveViewOfType(MarkdownView);
             if (!activeView) {
                 new Notice('无法获取当前视图');
                 return;
@@ -1069,7 +1074,7 @@ export class TableToolbar {
             console.log('尝试向下合并单元格');
             
             // 获取当前视图
-            const activeView = this.plugin.app.workspace.getActiveViewOfType(MarkdownView);
+            const activeView = this.getApp().workspace.getActiveViewOfType(MarkdownView);
             if (!activeView) {
                 new Notice('无法获取当前视图');
                 return;
@@ -1333,7 +1338,7 @@ export class TableToolbar {
     private generateTableId(): void {
         try {
             // 获取当前视图
-            const activeView = this.plugin.app.workspace.getActiveViewOfType(MarkdownView);
+            const activeView = this.getApp().workspace.getActiveViewOfType(MarkdownView);
             if (!activeView) {
                 new Notice('无法获取当前视图');
                 return;
@@ -1398,7 +1403,7 @@ export class TableToolbar {
                     
                     if (tableId) {
                         // 刷新预览以显示新添加的ID注释
-                        const activeView = this.plugin.app.workspace.getActiveViewOfType(MarkdownView);
+                        const activeView = this.getApp().workspace.getActiveViewOfType(MarkdownView);
                         if (activeView) {
                             activeView.previewMode.rerender(true);
                         }
@@ -1625,14 +1630,14 @@ export class TableToolbar {
             const menu = new Menu();
             
             // 添加菜单项
-            menu.addItem(item => 
+            menu.addItem((item: any) => 
                 item
                     .setTitle('在上方添加行')
                     .setIcon('arrow-up')
                     .onClick(() => this.addRow('above'))
             );
             
-            menu.addItem(item => 
+            menu.addItem((item: any) => 
                 item
                     .setTitle('在下方添加行')
                     .setIcon('arrow-down')
@@ -1734,7 +1739,7 @@ export class TableToolbar {
     private showStyleMenu(): void {
         const menu = new Menu();
         
-        menu.addItem(item => 
+        menu.addItem((item: any) => 
             item.setTitle('设置表格样式')
                 .setIcon('brush')
                 .onClick(() => {
@@ -1743,13 +1748,13 @@ export class TableToolbar {
                 })
         );
         
-        menu.addItem(item => 
+        menu.addItem((item: any) => 
             item.setTitle('设置条纹样式')
                 .setIcon('lines')
                 .onClick(() => this.applyStripedStyle())
         );
         
-        menu.addItem(item => 
+        menu.addItem((item: any) => 
             item.setTitle('设置边框样式')
                 .setIcon('box')
                 .onClick(() => this.applyBorderedStyle())
@@ -1893,7 +1898,7 @@ export class TableToolbar {
      * @returns 是否在编辑模式下
      */
     isInEditMode(): boolean {
-        const activeView = this.plugin.app.workspace.getActiveViewOfType(MarkdownView);
+        const activeView = this.getApp().workspace.getActiveViewOfType(MarkdownView);
         return activeView ? activeView.getMode() === 'source' : false;
     }
     
