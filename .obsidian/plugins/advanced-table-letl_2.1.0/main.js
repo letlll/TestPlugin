@@ -3272,17 +3272,8 @@ var TableToolbar = class {
       { id: "align-all", tooltip: "\u5168\u90E8\u5C45\u4E2D", icon: "align-all" }
     ]);
     this.createSeparator();
-    this.createButtonGroup("\u5408\u5E76", [
-      { id: "merge-cells", tooltip: "\u5408\u5E76\u9009\u4E2D\u5355\u5143\u683C", icon: "merge-cells" },
-      { id: "merge-right", tooltip: "\u5411\u53F3\u5408\u5E76", icon: "merge-right" },
-      { id: "merge-down", tooltip: "\u5411\u4E0B\u5408\u5E76", icon: "merge-down" },
-      { id: "split", tooltip: "\u62C6\u5206\u5355\u5143\u683C", icon: "split" }
-    ]);
-    this.createSeparator();
     this.createButtonGroup("\u8868\u683C", [
-      { id: "table-id", tooltip: "\u751F\u6210\u8868\u683CID", icon: "table-id" },
-      { id: "table-row-add", tooltip: "\u6DFB\u52A0\u884C", icon: "table-row-add" },
-      { id: "table-style", tooltip: "\u8868\u683C\u6837\u5F0F", icon: "table-style" }
+      { id: "table-id", tooltip: "\u751F\u6210\u8868\u683CID", icon: "table-id" }
     ]);
     this.collapseButton = this.toolbar.createEl("button", {
       cls: "advanced-table-toolbar-collapse-button",

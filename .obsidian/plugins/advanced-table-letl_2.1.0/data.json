@@ -974,7 +974,7 @@
           {
             "row": 1,
             "col": 1,
-            "textAlign": "center",
+            "textAlign": "left",
             "verticalAlign": "middle"
           },
           {
@@ -994,7 +994,7 @@
         }
       ],
       "structure": {
-        "rowCount": 5,
+        "rowCount": 4,
         "colCount": 4,
         "hasHeaders": true
       },
@@ -1003,11 +1003,10 @@
           "103px",
           "34px",
           "20px",
-          "55px",
-          "auto"
+          "55px"
         ],
         "colWidths": [
-          "158px",
+          "197px",
           "178px",
           "auto",
           "auto"
