@@ -657,39 +657,48 @@ export class ObsidianSpreadsheet extends Plugin {
 			// 这里我们无法直接验证ID来源，但可以通过日志提醒
 			console.log(`准备保存表格数据: ${tableData.id}`);
 			
+			// 获取当前活动文件
+			const activeFile = this.app.workspace.getActiveFile();
+			
 			// 如果优先使用文件存储，则尝试将数据保存到当前文件
-			if (this.settings.preferFileStorage) {
-				const activeFile = this.app.workspace.getActiveFile();
-				if (activeFile && this.tableDataExtractor) {
+			let savedToFile = false;
+			if (this.settings.preferFileStorage && activeFile && this.tableDataExtractor) {
+				try {
 					await this.tableDataExtractor.exportTableDataToFile(activeFile, tableData.id, tableData);
 					console.log(`已将表格数据保存到文件: ${activeFile.path}`);
-					return; // 已保存到文件，不再保存到data.json
+					savedToFile = true;
+				} catch (fileError) {
+					console.error('保存到文件失败，将回退到data.json:', fileError);
+					savedToFile = false;
 				}
 			}
 			
-			// 如果不优先使用文件存储或无法保存到文件，则保存到data.json
-			// 获取当前存储的表格数据
-			const existingData = await this.loadData() || {};
-			
-			// 确保存在表格数据对象
-			if (!existingData.tables) {
-				existingData.tables = {};
-			}
-			
-			// 更新特定表格的数据
-			existingData.tables[tableData.id] = tableData;
-			
-			// 保存更新后的数据
-			await this.saveData(existingData);
-			
-			console.log(`已保存表格数据到data.json: ${tableData.id}`);
-			
-			// 如果设置了自动导出到文件，则尝试将数据导出到当前文件
-			if (this.settings.autoExportToFile && this.tableDataExtractor) {
-				const activeFile = this.app.workspace.getActiveFile();
-				if (activeFile) {
-					await this.tableDataExtractor.exportTableDataToFile(activeFile, tableData.id, tableData);
-					console.log(`已自动将表格数据导出到文件: ${activeFile.path}`);
+			// 如果未保存到文件，则保存到data.json
+			if (!savedToFile) {
+				// 获取当前存储的表格数据
+				const existingData = await this.loadData() || {};
+				
+				// 确保存在表格数据对象
+				if (!existingData.tables) {
+					existingData.tables = {};
+				}
+				
+				// 更新特定表格的数据
+				existingData.tables[tableData.id] = tableData;
+				
+				// 保存更新后的数据
+				await this.saveData(existingData);
+				
+				console.log(`已保存表格数据到data.json: ${tableData.id}`);
+				
+				// 如果设置了自动导出到文件但之前未保存到文件，则尝试将数据导出到当前文件
+				if (!savedToFile && this.settings.autoExportToFile && this.tableDataExtractor && activeFile) {
+					try {
+						await this.tableDataExtractor.exportTableDataToFile(activeFile, tableData.id, tableData);
+						console.log(`已自动将表格数据导出到文件: ${activeFile.path}`);
+					} catch (exportError) {
+						console.error('自动导出到文件失败:', exportError);
+					}
 				}
 			}
 		} catch (error) {

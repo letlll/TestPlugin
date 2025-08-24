@@ -345,40 +345,69 @@ export class TableDataExtractor {
             // 读取文件内容
             let fileContent = await this.getApp().vault.read(file);
             
-            // 准备要导出的数据
-            const dataToExport = JSON.stringify(tableData, null, 2);
+            // 提取文件中所有表格ID
+            const tableIds = new Set<string>();
+            const commentRegex = /<!-- table-id: ([\w-]+) -->/g;
+            let match;
             
-            // 检查文件中是否已存在该表格的数据代码块
-            const jsonBlockRegex = new RegExp('```json:table-data\s*\n([\s\S]*?)\n```', 'g');
-            let found = false;
-            
-            // 替换现有的数据代码块
-            fileContent = fileContent.replace(jsonBlockRegex, (match, content) => {
-                try {
-                    const jsonData = JSON.parse(content);
-                    
-                    // 检查是否为目标表格的数据
-                    if ((Array.isArray(jsonData) && jsonData.some((item: any) => item.id === tableId)) ||
-                        (jsonData.id === tableId)) {
-                        found = true;
-                        return '```json:table-data\n' + dataToExport + '\n```';
-                    }
-                } catch {}
-                
-                // 如果不是目标表格的数据，保持不变
-                return match;
-            });
-            
-            // 如果没有找到现有的数据代码块，添加新的代码块
-            if (!found) {
-                // 在文件末尾添加数据代码块
-                fileContent += '\n\n```json:table-data\n' + dataToExport + '\n```';
+            while ((match = commentRegex.exec(fileContent)) !== null) {
+                tableIds.add(match[1]);
             }
+            
+            // 确保当前表格ID也包含在内
+            tableIds.add(tableId);
+            
+            // 从文件中提取现有的表格数据
+            const existingTableData = await this.extractTableDataFromFile(file);
+            
+            // 更新或添加当前表格数据
+            existingTableData[tableId] = tableData;
+            
+            // 创建表格数据数组
+            const tableDataArray = Array.from(tableIds)
+                .filter(id => existingTableData[id]) // 只包含有数据的表格
+                .map(id => existingTableData[id]);
+            
+            // 准备要导出的数据
+            const dataToExport = JSON.stringify(tableDataArray, null, 2);
+            
+            // 查找文件中所有的表格数据代码块
+            const jsonBlockRegex = /```json:table-data\s*\n([\s\S]*?)\n```/g;
+            const codeBlocks: {start: number, end: number}[] = [];
+            
+            while ((match = jsonBlockRegex.exec(fileContent)) !== null) {
+                codeBlocks.push({
+                    start: match.index,
+                    end: match.index + match[0].length
+                });
+            }
+            
+            // 如果找到了代码块，删除所有现有的表格数据代码块
+            if (codeBlocks.length > 0) {
+                // 从后向前删除，避免位置变化
+                for (let i = codeBlocks.length - 1; i >= 0; i--) {
+                    const block = codeBlocks[i];
+                    fileContent = fileContent.substring(0, block.start) + fileContent.substring(block.end);
+                }
+            }
+            
+            // 在文件末尾添加新的数据代码块
+            // 确保文件末尾有足够的空行
+            if (!fileContent.endsWith('\n\n')) {
+                if (fileContent.endsWith('\n')) {
+                    fileContent += '\n';
+                } else {
+                    fileContent += '\n\n';
+                }
+            }
+            
+            // 添加表格数据代码块
+            fileContent += '```json:table-data\n' + dataToExport + '\n```';
             
             // 保存修改后的文件内容
             await this.getApp().vault.modify(file, fileContent);
             
-            console.log(`已将表格数据导出到文件: ${file.path}, 表格ID: ${tableId}`);
+            console.log(`已将所有表格数据导出到文件末尾: ${file.path}, 表格数量: ${tableDataArray.length}`);
         } catch (error) {
             console.error('导出表格数据到文件时出错:', error);
         }
