@@ -8,27 +8,6 @@
 | 数据4 | 数据5 | 数据6 |
 
 <!-- table-id: test-table -->
-
-```json:table-data
-{
-  "id": "test-table",
-  "location": {
-    "line": 5,
-    "column": 0
-  },
-  "structure": {
-    "rows": 3,
-    "columns": 3,
-    "hasHeader": true
-  },
-  "styling": {
-    "rowHeights": [30, 30, 30],
-    "colWidths": [100, 100, 100],
-    "alignment": ["left", "center", "right"]
-  }
-}
-```
-
 ## 第二个表格
 
 | A | B | C |
@@ -65,4 +44,10 @@ header: true
 rowHeights: 25, 25
 colWidths: 70, 70, 70
 alignment: center, center, center
+```
+
+```table-data
+test-table|rows:3|cols:3|headers:true|width:auto,auto,auto|height:auto,auto,auto|align:left,left,left|cellStyles:[{"row":0,"col":1,"textAlign":"center","verticalAlign":"middle"}]|loc:Table X example-file/test-table-data.md:true
+test-table-2|rows:4|cols:3|headers:true|wrapper:false|width:138px,auto,auto|height:51px,30px,auto,auto|align:left,left,left|cellStyles:[{"row":0,"col":1,"textAlign":"left","verticalAlign":"top"},{"row":0,"col":2,"textAlign":"left","verticalAlign":"top"},{"row":0,"col":0,"textAlign":"left","verticalAlign":"top"}]|merges:[]|loc:Table X example-file/test-table-data.md:true
+test-table-3|headers:false|wrapper:false|cellStyles:[]|merges:[]
 ```

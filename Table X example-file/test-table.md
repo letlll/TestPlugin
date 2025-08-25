@@ -1,4 +1,4 @@
-i# 表格工具栏测试
+# 表格工具栏测试
 
 点击下面的表格，应该会显示表格工具栏。工具栏包含对齐、合并和表格样式等功能。
 
@@ -57,9 +57,9 @@ i# 表格工具栏测试
 | 赵六   | 26  | 设计师    | 设计部   |
 | 钱七   | 29  | 测试工程师 | 技术部   | 
 
+
 ```table-data
-tbl-20250704-opgql2|rows:6|cols:6|headers:true|wrapper:false|width:36px,39px,137px,20px,auto,auto|height:94px,34px,auto,auto,auto,auto|align:left,left,left,left,left,left|cellStyles:[{"row":1,"col":3,"textAlign":"center"},{"row":2,"col":4,"textAlign":"center"},{"row":1,"col":4,"textAlign":"center"},{"row":2,"col":3,"textAlign":"center"},{"row":3,"col":3,"textAlign":"center"},{"row":4,"col":3,"textAlign":"center"},{"row":5,"col":3,"textAlign":"center"},{"row":1,"col":2,"textAlign":"left","verticalAlign":"top"}]|merges:[]|loc:test-table.md:true
+tbl-20250704-opgql2|rows:6|cols:6|headers:true|width:auto,auto,115px,auto,auto,auto|height:auto,auto,auto,auto,auto,auto|align:left,left,left,left,left,left|cellStyles:[{"row":1,"col":3,"textAlign":"center"},{"row":2,"col":4,"textAlign":"center"},{"row":1,"col":4,"textAlign":"center"},{"row":2,"col":3,"textAlign":"center"},{"row":3,"col":3,"textAlign":"center"},{"row":4,"col":3,"textAlign":"center"},{"row":5,"col":3,"textAlign":"center"},{"row":1,"col":2,"textAlign":"left","verticalAlign":"top"},{"row":2,"col":0,"textAlign":"center","verticalAlign":"middle"},{"row":5,"col":2,"textAlign":"left","verticalAlign":"top"}]|loc:test-table.md:true,Table X example-file/test-table.md:true
 tbl-20250824-gakxru20|rows:5|cols:5|headers:true|wrapper:false|width:157px,auto,auto,auto,auto|height:auto,auto,auto,auto,auto|align:left,left,left,left,left|cellStyles:[]|merges:[]|loc:test-table.md:true
 tbl-20250825-dp5lnxhn|rows:5|cols:5|headers:true|wrapper:false|width:115px,auto,auto,auto,auto|height:auto,auto,auto,auto,auto|align:left,left,left,left,left|cellStyles:[]|merges:[]|loc:test-table.md:true
-tbl-20250825-teplvakt|rows:6|cols:4|headers:true|width:auto,auto,auto,auto|height:auto,auto,auto,auto,auto,auto|align:left,left,left,left|cellStyles:[]|loc:test-table.md:true
 ```

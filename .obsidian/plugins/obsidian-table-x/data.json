@@ -2038,6 +2038,432 @@
           }
         ]
       }
+    },
+    "test-table": {
+      "id": "test-table",
+      "locations": [
+        {
+          "path": "Table X example-file/test-table-data.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 3,
+        "colCount": 3,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 0,
+            "col": 1,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          }
+        ]
+      }
+    },
+    "tbl-20250825-tavusjrw": {
+      "id": "tbl-20250825-tavusjrw",
+      "locations": [
+        {
+          "path": "Table X example-file/table.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 4,
+        "colCount": 5,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "54px",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "97px",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 1,
+            "col": 4,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          },
+          {
+            "row": 2,
+            "col": 2,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          }
+        ]
+      }
+    },
+    "tbl-20250825-tawklmcn": {
+      "id": "tbl-20250825-tawklmcn",
+      "locations": [
+        {
+          "path": "Table X example-file/table.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 4,
+        "colCount": 5,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 2,
+            "col": 2,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          }
+        ]
+      }
+    },
+    "tbl-20250825-tatahgdy": {
+      "id": "tbl-20250825-tatahgdy",
+      "locations": [
+        {
+          "path": "Table X example-file/table.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 4,
+        "colCount": 5,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 3,
+            "col": 3,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          },
+          {
+            "row": 2,
+            "col": 2,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          },
+          {
+            "row": 1,
+            "col": 2,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          }
+        ]
+      }
+    },
+    "tbl-20250825-taztyiop": {
+      "id": "tbl-20250825-taztyiop",
+      "locations": [
+        {
+          "path": "Table X example-file/table.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 4,
+        "colCount": 5,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 0,
+            "col": 4,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          },
+          {
+            "row": 1,
+            "col": 3,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          }
+        ]
+      }
+    },
+    "tbl-20250825-tawzwxvv": {
+      "id": "tbl-20250825-tawzwxvv",
+      "locations": [
+        {
+          "path": "Table X example-file/table.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 4,
+        "colCount": 5,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "104px",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 3,
+            "col": 0,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          }
+        ]
+      }
+    },
+    "tbl-20250825-taotakwb": {
+      "id": "tbl-20250825-taotakwb",
+      "locations": [
+        {
+          "path": "Table X example-file/table.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 4,
+        "colCount": 5,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 1,
+            "col": 1,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          },
+          {
+            "row": 2,
+            "col": 1,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          }
+        ]
+      }
+    },
+    "tbl-20250825-4i0psma8": {
+      "id": "tbl-20250825-4i0psma8",
+      "locations": [
+        {
+          "path": "Table X example-file/table.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 4,
+        "colCount": 5,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "30px",
+          "30px",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 2,
+            "col": 2,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          },
+          {
+            "row": 3,
+            "col": 0,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          }
+        ]
+      }
+    },
+    "tbl-20250825-ljodbe4p": {
+      "id": "tbl-20250825-ljodbe4p",
+      "locations": [
+        {
+          "path": "Table X example-file/table.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 3,
+        "colCount": 5,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "77px",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 1,
+            "col": 2,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          }
+        ]
+      }
     }
   }
 }

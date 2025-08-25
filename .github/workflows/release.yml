@@ -1,0 +1,53 @@
+name: Release Obsidian Plugin
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build plugin
+        run: npm run build
+
+      - name: Get version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Create release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: false
+          prerelease: false
+          name: ${{ steps.get_version.outputs.VERSION }}
+          tag_name: ${{ steps.get_version.outputs.VERSION }}
+          files: |
+            .obsidian/plugins/obsidian-table-x/main.js
+            .obsidian/plugins/obsidian-table-x/manifest.json
+            .obsidian/plugins/obsidian-table-x/styles.css
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update version in manifest.json
+        run: |
+          VERSION=${{ steps.get_version.outputs.VERSION }}
+          # 移除版本号前的'v'（如果存在）
+          VERSION=${VERSION#v}
+          # 更新manifest.json中的版本号
+          jq '.version = "'"$VERSION"'"' .obsidian/plugins/obsidian-table-x/manifest.json > temp.json && mv temp.json .obsidian/plugins/obsidian-table-x/manifest.json
