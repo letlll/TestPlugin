@@ -13,6 +13,7 @@
   "preferFeatureMatching": true,
   "preferFileStorage": true,
   "autoExportToFile": false,
+  "useCompactFormat": true,
   "tableMetadata": {
     "tbl-17515241-2cff464": {
       "rowHeights": [

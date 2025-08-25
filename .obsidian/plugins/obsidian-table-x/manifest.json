@@ -1,6 +1,6 @@
 {
-	"id": "advanced-table",
-	"name": "Advanced Table",
+	"id": "obsidian-table-x",
+	"name": "Table X",
 	"version": "1.8.0",
 	"minAppVersion": "2.4.0",
 	"description": "Enhanced tables with cell merging, table IDs, and a visual toolbar for Obsidian tables",

@@ -17,8 +17,8 @@
 
 ### 方法一：从 GitHub 仓库安装
 
-1. 下载本插件源码，解压后将文件夹重命名为 `obsidian-table-x`
-2. 将整个文件夹放置于你的 Obsidian 仓库的 `.obsidian/plugins/` 目录下
+1. 下载`.obsidian/plugins/obsidian-table-x/`的插件源码。
+2. 将`obsidian-table-x`文件夹放置于你的 Obsidian 仓库的 `.obsidian/plugins/` 目录下
 3. 重启 Obsidian 并在设置 → 第三方插件中启用 Table X 插件
 4. （可选）在插件设置中自定义合并、对齐、尺寸等功能选项
 
@@ -29,7 +29,7 @@
 1. 克隆本仓库到本地
 2. 运行 `npm install` 安装依赖
 3. 运行 `npm run build` 构建插件
-4. 将 `main.js`、`manifest.json` 和 `styles.css` 复制到 `.obsidian/plugins/obsidian-table-x/` 目录
+4. 将 `main.js`、`manifest.json` 和 `styles.css`  (可选) 复制到 `.obsidian/plugins/obsidian-table-x/` 目录
 5. 重启 Obsidian 并启用插件
 
 > 📝 **开发者提示**：您也可以参考 `.obsidian/plugins/advanced-table` 目录下的文件进行二次开发
@@ -39,10 +39,7 @@
 
 ![表格编辑界面](assets/Pasted%20image%2020250825124111.png)
 ![表格样式设置](assets/Pasted%20image%2020250825124205.png)
-
-### 功能演示视频
-
-> 💡 查看[完整功能演示视频](https://youtu.be/your-demo-video)，快速了解 Table X 的强大功能
+![[Pasted image 20250825133611.png]]
 ## 主要功能
 
 ### 表格编辑增强
@@ -74,8 +71,7 @@
 
 - [ ] **渲染的PDF导出**：支持使用官方的PDF导出工具，导出Table X渲染后的表格样式
 - [ ] **表格搜索与过滤**：添加表格内容搜索和动态过滤功能
-- [ ] **性能优化**：提升大型表格的渲染和编辑性能
-- [ ] **移动端兼容性**：优化移动设备上的操作体验
+- [ ] **性能优化**：提升大型表格的渲染和编辑性能，隐藏数据代码块在渲染视图中的显示，保证文档美观
 
 ### 中期计划 (v1.5.0)
 
@@ -193,16 +189,6 @@
 - **数据存储切换**：
   - 使用命令面板中的"导出表格数据到当前文件"将数据从项目级存储迁移到文件级存储
   - 使用"从文件导入表格数据"将文件级数据导入到项目级存储
-
-### 快捷键
-
-| 功能 | Windows/Linux | macOS |
-| --- | --- | --- |
-| 插入表格 | Ctrl+Shift+T | Cmd+Shift+T |
-| 格式化表格 | Alt+Shift+F | Option+Shift+F |
-| 显示/隐藏工具栏 | Ctrl+Alt+T | Cmd+Option+T |
-| 向右添加列 | Ctrl+Right | Cmd+Right |
-| 向下添加行 | Ctrl+Down | Cmd+Down |
 
 ---
 
@@ -344,11 +330,6 @@
 - [Advanced Tables](https://github.com/tgrosinger/advanced-tables-obsidian) - 另一个优秀的表格插件，提供互补功能
 - [Obsidian Excel](https://github.com/ljcoder2015/obsidian-excel) - 提供类似电子表格的功能
 
-### 教程与示例
-
-- [Table X 使用教程](https://github.com/yourusername/obsidian-table-x/wiki) - 详细的使用指南和示例
-- [表格样式模板集合](https://github.com/yourusername/obsidian-table-x/templates) - 预设表格样式模板
-
 ---
 
 ## 贡献与反馈
@@ -357,16 +338,16 @@
 
 ### 如何贡献
 
-- **提交问题**：如果您发现 bug 或有功能建议，请[提交 Issue](https://github.com/yourusername/obsidian-table-x/issues)
+- **提交问题**：如果您发现 bug 或有功能建议，请[提交 Issue](https://github.com/letlll/TestPlugin/issues)
 - **贡献代码**：欢迎提交 Pull Request，请确保遵循项目的代码规范
 - **改进文档**：帮助我们完善文档、教程或示例
 - **分享使用案例**：在社区分享您使用 Table X 的创意方式
 
 ### 联系方式
 
-- **GitHub**：[项目仓库](https://github.com/yourusername/obsidian-table-x)
-- **Discord**：加入我们的 [Discord 频道](https://discord.gg/yourdiscord)
-- **邮箱**：your.email@example.com
+- **QQ** ：1427623704
+- **WeChat** ：letlching
+- **邮箱** ：letlching@gmail.com
 
 ### 支持项目
 
@@ -374,6 +355,5 @@
 
 - 在 GitHub 上给项目点星
 - 向朋友推荐这个插件
-- [赞助开发](https://www.buymeacoffee.com/yourusername)
 
 ---
