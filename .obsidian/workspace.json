@@ -28,12 +28,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "需求优化/list.md",
-                "mode": "source",
-                "source": false
+                "file": "Readme.md",
+                "mode": "preview",
+                "source": true
               },
               "icon": "lucide-file",
-              "title": "list"
+              "title": "Readme"
             }
           }
         ],
@@ -188,10 +188,14 @@
   },
   "active": "6139cef40b9efd74",
   "lastOpenFiles": [
+    "assets/Pasted image 20250825133611.png",
+    "Readme.md",
+    "assets/Pasted image 20250825124205.png",
+    "assets/Pasted image 20250825124111.png",
+    "需求优化/list.md",
     "日志/进行分析.md",
     "github-actions-guide.md",
     "Table X example-file/table.md",
-    "需求优化/list.md",
     "需求优化",
     "Table X example-file/table-data-cellstyles-test.md",
     "Table X example-file/进行分析2.md",
@@ -203,16 +207,12 @@
     "Table X example-file/table-data-custom-format-example.md",
     "日志/项目级data.canvas",
     "日志/追踪.md",
-    "Readme.md",
     "日志/GitHub Actions.md",
     "version-bump.mjs",
     "esbuild.config.mjs",
     "package.json",
-    "assets/Pasted image 20250825133611.png",
     "日志/日志·阶段性修复.md",
     "日志",
-    "assets/Pasted image 20250825124205.png",
-    "assets/Pasted image 20250825124111.png",
     "assets",
     "Table X example-file/manifest.json",
     "Table X example-file/main.js",
@@ -227,7 +227,6 @@
     "未命名/错误分析.md",
     "未命名/单元格合并.md",
     "未命名/未命名.md",
-    "未命名/错误.md",
     "未命名.canvas",
     "屏幕截图 2025-06-29 173841.png",
     "{AD1D7ECD-231A-4235-BF0B-BC0858830A24}.png",
