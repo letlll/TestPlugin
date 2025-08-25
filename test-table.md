@@ -34,9 +34,13 @@ i# 表格工具栏测试
 
 以下表格使用了合并语法：
 
+
+
+<!-- table-id: tbl-20250825-dp5lnxhn -->
+
 | 区域   | 上半年        | <           | 下半年       | <           |
 |-------|-------------|-------------|------------|-------------|
-| ^     | 第一季度      | 第二季度      | 第三季度     | 第四季度      |
+|      | 第一季度      | 第二季度      | 第三季度     | 第四季度      |
 | 北区   | 200         | 220         | 240        | 260         |
 | 南区   | 180         | 190         | 200        | 210         |
 | 总计   | 380         | 410         | 440        | 470         |
@@ -52,3 +56,10 @@ i# 表格工具栏测试
 | 王五   | 45  | 总监     | 管理层   |
 | 赵六   | 26  | 设计师    | 设计部   |
 | 钱七   | 29  | 测试工程师 | 技术部   | 
+
+```table-data
+tbl-20250704-opgql2|rows:6|cols:6|headers:true|wrapper:false|width:36px,39px,137px,20px,auto,auto|height:94px,34px,auto,auto,auto,auto|align:left,left,left,left,left,left|cellStyles:[{"row":1,"col":3,"textAlign":"center"},{"row":2,"col":4,"textAlign":"center"},{"row":1,"col":4,"textAlign":"center"},{"row":2,"col":3,"textAlign":"center"},{"row":3,"col":3,"textAlign":"center"},{"row":4,"col":3,"textAlign":"center"},{"row":5,"col":3,"textAlign":"center"},{"row":1,"col":2,"textAlign":"left","verticalAlign":"top"}]|merges:[]|loc:test-table.md:true
+tbl-20250824-gakxru20|rows:5|cols:5|headers:true|wrapper:false|width:157px,auto,auto,auto,auto|height:auto,auto,auto,auto,auto|align:left,left,left,left,left|cellStyles:[]|merges:[]|loc:test-table.md:true
+tbl-20250825-dp5lnxhn|rows:5|cols:5|headers:true|wrapper:false|width:115px,auto,auto,auto,auto|height:auto,auto,auto,auto,auto|align:left,left,left,left,left|cellStyles:[]|merges:[]|loc:test-table.md:true
+tbl-20250825-teplvakt|rows:6|cols:4|headers:true|width:auto,auto,auto,auto|height:auto,auto,auto,auto,auto,auto|align:left,left,left,left|cellStyles:[]|loc:test-table.md:true
+```

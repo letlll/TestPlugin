@@ -27,29 +27,16 @@
 
 在 Markdown 文件中使用特殊的代码块来存储表格数据：
 
-```markdown
-<!-- table-id: tbl-example-123 -->
-| 年度 | Q1 | Q2 | 合计 |
-| ---- | -- | -- | ---- |
-| 2024 | 10 | 12 | 22   |
-| 2025 | 14 | 15 | 29   |
 
-```json:table-data
-{
-  "id": "tbl-example-123",
-  "structure": {
-    "rowCount": 3,
-    "colCount": 4,
-    "hasHeaders": true
-  },
-  "styling": {
-    "rowHeights": ["auto", "auto", "auto"],
-    "colWidths": ["100px", "50px", "50px", "70px"],
-    "alignment": ["left", "right", "right", "right"]
-  }
-}
-```
-```
+<!-- table-id: tbl-example-123 -->
+
+| 年度   | Q1  | Q2  | 合计  |
+| ---- | --- | --- | --- |
+| 2024 | 10  | 12  | 22  |
+| 2025 | 14  | 15  | 29  |
+
+
+
 
 ### 2. 数据读取流程
 
@@ -89,3 +76,7 @@
 ## 结论
 
 将表格数据存储在 Markdown 文件中的代码块中，可以实现文件级渲染而非项目级渲染，提高表格数据的可移植性和兼容性。同时，通过保持对 data.json 的支持，可以确保向后兼容性。
+
+```table-data
+tbl-example-123|rows:3|cols:4|headers:true|width:61px,auto,109px,auto|height:34px,77px,auto|align:left,left,left,left|cellStyles:[{"row":0,"col":1,"textAlign":"left","verticalAlign":"top"},{"row":1,"col":1,"textAlign":"center","verticalAlign":"middle"},{"row":1,"col":2,"textAlign":"left","verticalAlign":"top"},{"row":1,"col":3,"textAlign":"left","verticalAlign":"top"},{"row":2,"col":2,"textAlign":"right","verticalAlign":"top"},{"row":2,"col":3,"textAlign":"left","verticalAlign":"top"}]|loc:table-data-in-md-README.md:true
+```

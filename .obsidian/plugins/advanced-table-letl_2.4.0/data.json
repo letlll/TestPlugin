@@ -375,7 +375,8 @@
           {
             "row": 1,
             "col": 2,
-            "textAlign": "center"
+            "textAlign": "left",
+            "verticalAlign": "top"
           }
         ]
       }
@@ -908,9 +909,9 @@
           "auto"
         ],
         "colWidths": [
+          "157px",
           "auto",
           "auto",
-          "55px",
           "auto",
           "auto"
         ],
@@ -981,6 +982,12 @@
             "row": 1,
             "col": 2,
             "textAlign": "right"
+          },
+          {
+            "row": 2,
+            "col": 1,
+            "textAlign": "left",
+            "verticalAlign": "top"
           }
         ]
       }
@@ -1006,10 +1013,10 @@
           "55px"
         ],
         "colWidths": [
-          "197px",
+          "155px",
           "178px",
           "auto",
-          "auto"
+          "190px"
         ],
         "alignment": [
           "left",
@@ -1046,7 +1053,7 @@
             "row": 1,
             "col": 1,
             "verticalAlign": "middle",
-            "textAlign": "right"
+            "textAlign": "center"
           },
           {
             "row": 2,
@@ -1101,6 +1108,932 @@
             "col": 1,
             "textAlign": "left",
             "verticalAlign": "top"
+          }
+        ]
+      }
+    },
+    "tbl-test-styles": {
+      "id": "tbl-test-styles",
+      "locations": [
+        {
+          "path": "table-data-test.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 4,
+        "colCount": 4,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "71px",
+          "123px",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": []
+      }
+    },
+    "tbl-20250824-tawxyngu": {
+      "id": "tbl-20250824-tawxyngu",
+      "locations": [
+        {
+          "path": "table-data-test.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 4,
+        "colCount": 4,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "34px",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "71px",
+          "123px",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 2,
+            "col": 2,
+            "textAlign": "right",
+            "verticalAlign": "top"
+          },
+          {
+            "row": 3,
+            "col": 2,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          }
+        ]
+      }
+    },
+    "tbl-20250824-mkgpb49j": {
+      "id": "tbl-20250824-mkgpb49j",
+      "locations": [
+        {
+          "path": "table-data-test.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 4,
+        "colCount": 4,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "93px",
+          "34px",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "224px",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 2,
+            "col": 2,
+            "textAlign": "right",
+            "verticalAlign": "top"
+          },
+          {
+            "row": 1,
+            "col": 2,
+            "textAlign": "right",
+            "verticalAlign": "top"
+          },
+          {
+            "row": 3,
+            "col": 1,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          },
+          {
+            "row": 3,
+            "col": 2,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          },
+          {
+            "row": 3,
+            "col": 0,
+            "textAlign": "left",
+            "verticalAlign": "middle"
+          },
+          {
+            "row": 1,
+            "col": 1,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          }
+        ]
+      }
+    },
+    "tbl-example-123": {
+      "id": "tbl-example-123",
+      "locations": [
+        {
+          "path": "table-data-in-md-README.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 3,
+        "colCount": 4,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "34px",
+          "77px",
+          "auto"
+        ],
+        "colWidths": [
+          "61px",
+          "auto",
+          "109px",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 0,
+            "col": 1,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          },
+          {
+            "row": 1,
+            "col": 1,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          },
+          {
+            "row": 1,
+            "col": 2,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          },
+          {
+            "row": 1,
+            "col": 3,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          },
+          {
+            "row": 2,
+            "col": 2,
+            "textAlign": "right",
+            "verticalAlign": "top"
+          },
+          {
+            "row": 2,
+            "col": 3,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          }
+        ]
+      }
+    },
+    "tbl-20250825-dp5lnxhn": {
+      "id": "tbl-20250825-dp5lnxhn",
+      "locations": [
+        {
+          "path": "test-table.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 5,
+        "colCount": 5,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "115px",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": []
+      }
+    },
+    "tbl-20250825-teplvakt": {
+      "id": "tbl-20250825-teplvakt",
+      "locations": [
+        {
+          "path": "test-table.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 6,
+        "colCount": 4,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": []
+      }
+    },
+    "tbl-20250825-tafezejk": {
+      "id": "tbl-20250825-tafezejk",
+      "locations": [
+        {
+          "path": "table.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 3,
+        "colCount": 5,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 1,
+            "col": 2,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          },
+          {
+            "row": 1,
+            "col": 3,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          }
+        ]
+      }
+    },
+    "tbl-20250825-taqeklsj": {
+      "id": "tbl-20250825-taqeklsj",
+      "locations": [
+        {
+          "path": "table.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 4,
+        "colCount": 5,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "69px",
+          "74px",
+          "116px",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 2,
+            "col": 2,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          },
+          {
+            "row": 1,
+            "col": 1,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          },
+          {
+            "row": 1,
+            "col": 2,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          },
+          {
+            "row": 0,
+            "col": 2,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          }
+        ]
+      }
+    },
+    "tbl-20250825-taihypyy": {
+      "id": "tbl-20250825-taihypyy",
+      "locations": [
+        {
+          "path": "table.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 4,
+        "colCount": 5,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "125px",
+          "auto",
+          "30px",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 2,
+            "col": 4,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          }
+        ]
+      }
+    },
+    "tbl-20250825-agx8fz1p": {
+      "id": "tbl-20250825-agx8fz1p",
+      "locations": [
+        {
+          "path": "table.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 3,
+        "colCount": 5,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "30px",
+          "75px",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "83px",
+          "auto",
+          "171px",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 0,
+            "col": 2,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          },
+          {
+            "row": 0,
+            "col": 4,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          }
+        ]
+      }
+    },
+    "tbl-20250825-taziggct": {
+      "id": "tbl-20250825-taziggct",
+      "locations": [
+        {
+          "path": "table.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 4,
+        "colCount": 5,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "186px",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 0,
+            "col": 2,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          }
+        ]
+      }
+    },
+    "tbl-20250825-taitocdj": {
+      "id": "tbl-20250825-taitocdj",
+      "locations": [
+        {
+          "path": "table.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 4,
+        "colCount": 5,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "131px",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": []
+      }
+    },
+    "tbl-20250825-tawlenwy": {
+      "id": "tbl-20250825-tawlenwy",
+      "locations": [
+        {
+          "path": "table.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 4,
+        "colCount": 5,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "30px",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 2,
+            "col": 2,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          },
+          {
+            "row": 1,
+            "col": 2,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          },
+          {
+            "row": 1,
+            "col": 4,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          },
+          {
+            "row": 0,
+            "col": 2,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          }
+        ]
+      }
+    },
+    "tbl-20250825-进行utslms": {
+      "id": "tbl-20250825-进行utslms",
+      "locations": [
+        {
+          "path": "进行分析.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 5,
+        "colCount": 3,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 1,
+            "col": 0,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          },
+          {
+            "row": 2,
+            "col": 0,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          },
+          {
+            "row": 3,
+            "col": 0,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          },
+          {
+            "row": 4,
+            "col": 0,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          },
+          {
+            "row": 1,
+            "col": 1,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          },
+          {
+            "row": 2,
+            "col": 1,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          }
+        ]
+      }
+    },
+    "tbl-20250825-进行kesayr": {
+      "id": "tbl-20250825-进行kesayr",
+      "locations": [
+        {
+          "path": "进行分析.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 5,
+        "colCount": 3,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "157px",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 1,
+            "col": 1,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          }
+        ]
+      }
+    },
+    "tbl-20250825-进行seqyyr": {
+      "id": "tbl-20250825-进行seqyyr",
+      "locations": [
+        {
+          "path": "进行分析.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 5,
+        "colCount": 3,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "auto",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 1,
+            "col": 0,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          },
+          {
+            "row": 2,
+            "col": 0,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          },
+          {
+            "row": 3,
+            "col": 0,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          },
+          {
+            "row": 4,
+            "col": 0,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          }
+        ]
+      }
+    },
+    "tbl-20250825-seqyyr": {
+      "id": "tbl-20250825-seqyyr",
+      "locations": [
+        {
+          "path": "进行分析2.md",
+          "isActive": true
+        }
+      ],
+      "structure": {
+        "rowCount": 5,
+        "colCount": 3,
+        "hasHeaders": true
+      },
+      "styling": {
+        "rowHeights": [
+          "auto",
+          "auto",
+          "161px",
+          "101px",
+          "auto"
+        ],
+        "colWidths": [
+          "auto",
+          "280px",
+          "auto"
+        ],
+        "alignment": [
+          "left",
+          "left",
+          "left"
+        ],
+        "cellStyles": [
+          {
+            "row": 2,
+            "col": 2,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          },
+          {
+            "row": 2,
+            "col": 1,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          },
+          {
+            "row": 3,
+            "col": 1,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          },
+          {
+            "row": 4,
+            "col": 1,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          },
+          {
+            "row": 3,
+            "col": 2,
+            "textAlign": "left",
+            "verticalAlign": "top"
+          },
+          {
+            "row": 4,
+            "col": 2,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          },
+          {
+            "row": 1,
+            "col": 2,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          },
+          {
+            "row": 1,
+            "col": 1,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          },
+          {
+            "row": 1,
+            "col": 0,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          },
+          {
+            "row": 2,
+            "col": 0,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          },
+          {
+            "row": 3,
+            "col": 0,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          },
+          {
+            "row": 4,
+            "col": 0,
+            "textAlign": "center",
+            "verticalAlign": "middle"
           }
         ]
       }

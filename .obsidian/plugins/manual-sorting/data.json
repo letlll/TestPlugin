@@ -1,6 +1,8 @@
 {
   "customFileOrder": {
     "/": [
+      "进行分析2.md",
+      "table.md",
       "table-data-cellstyles-test.md",
       "table-data-test.md",
       "table-data-custom-format-example.md",
