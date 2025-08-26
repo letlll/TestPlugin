@@ -305,6 +305,10 @@
         {
           "path": "test-table.md",
           "isActive": true
+        },
+        {
+          "path": "Table X example-file/test-table.md",
+          "isActive": true
         }
       ],
       "structure": {
@@ -314,18 +318,18 @@
       },
       "styling": {
         "rowHeights": [
-          "94px",
-          "34px",
+          "auto",
+          "46px",
           "auto",
           "auto",
           "auto",
           "auto"
         ],
         "colWidths": [
-          "36px",
-          "39px",
-          "137px",
-          "20px",
+          "auto",
+          "auto",
+          "101px",
+          "auto",
           "auto",
           "auto"
         ],
@@ -378,6 +382,12 @@
             "col": 2,
             "textAlign": "left",
             "verticalAlign": "top"
+          },
+          {
+            "row": 2,
+            "col": 0,
+            "textAlign": "right",
+            "verticalAlign": "middle"
           }
         ]
       }
@@ -893,6 +903,10 @@
       "locations": [
         {
           "path": "test-table.md",
+          "isActive": true
+        },
+        {
+          "path": "Table X example-file/test-table.md",
           "isActive": true
         }
       ],
@@ -2437,13 +2451,13 @@
       },
       "styling": {
         "rowHeights": [
-          "auto",
-          "auto",
+          "30px",
+          "100px",
           "auto"
         ],
         "colWidths": [
-          "77px",
-          "auto",
+          "102px",
+          "168px",
           "auto",
           "auto",
           "auto"

@@ -36,30 +36,32 @@
 
 
 
-<!-- table-id: tbl-20250825-dp5lnxhn -->
 
-| 区域   | 上半年        | <           | 下半年       | <           |
-|-------|-------------|-------------|------------|-------------|
-|      | 第一季度      | 第二季度      | 第三季度     | 第四季度      |
-| 北区   | 200         | 220         | 240        | 260         |
-| 南区   | 180         | 190         | 200        | 210         |
-| 总计   | 380         | 410         | 440        | 470         |
+
+<!-- table-id: tbl-20250826-836c9kol -->
+
+| 区域  | 上半年  | <    | 下半年  | <    |
+| --- | ---- | ---- | ---- | ---- |
+|     | 第一季度 | 第二季度 | 第三季度 | 第四季度 |
+| 北区  | 200  | 220  | 240  | 260  |
+| 南区  | 180  | 190  | 200  | 210  |
+| 总计  | 380  | 410  | 440  | 470  |
 
 ## 表格样式测试
 
 点击以下表格，然后使用工具栏中的"表格样式"按钮应用不同的样式：
 
-| 姓名   | 年龄 | 职业     | 部门     |
-|-------|-----|---------|---------|
-| 张三   | 28  | 开发工程师 | 技术部   |
-| 李四   | 32  | 产品经理  | 产品部   |
-| 王五   | 45  | 总监     | 管理层   |
-| 赵六   | 26  | 设计师    | 设计部   |
-| 钱七   | 29  | 测试工程师 | 技术部   | 
+| 姓名  | 年龄  | 职业    | 部门  |     |
+| --- | --- | ----- | --- | --- |
+| 张三  | 28  | 开发工程师 | 技术部 |     |
+| 李四  | 32  | 产品经理  | 产品部 |     |
+| 王五  | 45  | 总监    | 管理层 |     |
+| 赵六  | 26  | 设计师   | 设计部 |     |
+| 钱七  | 29  | 测试工程师 | 技术部 |     |
 
 
 ```table-data
-tbl-20250704-opgql2|rows:6|cols:6|headers:true|width:auto,auto,115px,auto,auto,auto|height:auto,auto,auto,auto,auto,auto|align:left,left,left,left,left,left|cellStyles:[{"row":1,"col":3,"textAlign":"center"},{"row":2,"col":4,"textAlign":"center"},{"row":1,"col":4,"textAlign":"center"},{"row":2,"col":3,"textAlign":"center"},{"row":3,"col":3,"textAlign":"center"},{"row":4,"col":3,"textAlign":"center"},{"row":5,"col":3,"textAlign":"center"},{"row":1,"col":2,"textAlign":"left","verticalAlign":"top"},{"row":2,"col":0,"textAlign":"center","verticalAlign":"middle"},{"row":5,"col":2,"textAlign":"left","verticalAlign":"top"}]|loc:test-table.md:true,Table X example-file/test-table.md:true
-tbl-20250824-gakxru20|rows:5|cols:5|headers:true|wrapper:false|width:157px,auto,auto,auto,auto|height:auto,auto,auto,auto,auto|align:left,left,left,left,left|cellStyles:[]|merges:[]|loc:test-table.md:true
-tbl-20250825-dp5lnxhn|rows:5|cols:5|headers:true|wrapper:false|width:115px,auto,auto,auto,auto|height:auto,auto,auto,auto,auto|align:left,left,left,left,left|cellStyles:[]|merges:[]|loc:test-table.md:true
+tbl-20250704-opgql2|rows:6|cols:6|headers:true|wrapper:false|width:auto,auto,101px,auto,auto,auto|height:auto,46px,auto,auto,auto,auto|align:left,left,left,left,left,left|cellStyles:[{"row":1,"col":3,"textAlign":"center"},{"row":2,"col":4,"textAlign":"center"},{"row":1,"col":4,"textAlign":"center"},{"row":2,"col":3,"textAlign":"center"},{"row":3,"col":3,"textAlign":"center"},{"row":4,"col":3,"textAlign":"center"},{"row":5,"col":3,"textAlign":"center"},{"row":1,"col":2,"textAlign":"left","verticalAlign":"top"},{"row":2,"col":0,"textAlign":"right","verticalAlign":"middle"}]|merges:[]|loc:test-table.md:true,Table X example-file/test-table.md:true
+tbl-20250824-gakxru20|rows:5|cols:5|headers:true|width:157px,auto,auto,auto,auto|height:auto,auto,auto,auto,auto|align:left,left,left,left,left|cellStyles:[]|loc:test-table.md:true,Table X example-file/test-table.md:true
+tbl-20250826-836c9kol|headers:false|wrapper:false|cellStyles:[]|merges:[]
 ```
